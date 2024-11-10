@@ -1,8 +1,8 @@
 # Course Recommender using MOOCCubeX dataset
 
-Leader: Nguyen Huu Nam 
+Leader: Nguyen Huhu Nam
 Teammate:
-- ?
+- Vo Dinh Khanh
 - ?
 - ?
 - ?
