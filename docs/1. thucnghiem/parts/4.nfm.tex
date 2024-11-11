@@ -1,7 +1,21 @@
-\section{Content-based Filtering}
+\section{Neural Factilization Machine (NFM)}
 \subsection{Feature Engineering}
-\textbf{Feature 1:}\\
-- Sử dụng trường xxx\\
+Trong phần này, nhóm sẽ tìm các bảng và thuộc tính có thể sử dụng để tạo ra các feature cho mô hình Neural Factilization Machine (NFM).\\
+Các bảng được chọn bao gồm:
+\textbf{'user.json':}\\
+- Sử dụng trường id, name, gender, school, course_order\\
 - Vectorize các trường\\
 \subsection{Training}
+Sử dụng các feature đã được tạo ra từ bước feature engineering, chúng em tiến hành chạy lại thuật toán Neural Factorization Machine để theo dõi kết quả.\\
+Bảng kết quả:
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+    \begin{tabular}{ccclllll}
+    \hline
+    \multirow{2}{*}{Models} & \multirow{2}{*}{Feature Enginering} & \multicolumn{6}{c}{Score}                                                            \\ \cline{3-8} 
+                            &                                     & \multicolumn{2}{c}{Precision} & \multicolumn{2}{c}{Recal} & \multicolumn{2}{c}{NDCG} \\ \hline
+    \multicolumn{1}{l}{}    & \multicolumn{1}{l}{}                & \multicolumn{1}{l}{}    &     &             &             &             &           
+    \end{tabular}
+    \end{table}
 \subsection{Evaluation}
