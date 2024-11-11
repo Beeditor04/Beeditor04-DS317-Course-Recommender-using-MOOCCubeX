@@ -8,14 +8,25 @@ Các bảng được chọn bao gồm:
 \subsection{Training}
 Sử dụng các feature đã được tạo ra từ bước feature engineering, chúng em tiến hành chạy lại thuật toán Neural Factorization Machine để theo dõi kết quả.\\
 Bảng kết quả:
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
 \begin{table}[]
     \begin{tabular}{ccclllll}
     \hline
-    \multirow{2}{*}{Models} & \multirow{2}{*}{Feature Enginering} & \multicolumn{6}{c}{Score}                                                            \\ \cline{3-8} 
-                            &                                     & \multicolumn{2}{c}{Precision} & \multicolumn{2}{c}{Recal} & \multicolumn{2}{c}{NDCG} \\ \hline
-    \multicolumn{1}{l}{}    & \multicolumn{1}{l}{}                & \multicolumn{1}{l}{}    &     &             &             &             &           
-    \end{tabular}
-    \end{table}
+    \multirow{2}{*}{\textbf{Models}} &
+      \multirow{2}{*}{\textbf{Feature Enginering}} &
+      \multicolumn{6}{c}{\textbf{Score}} \\ \cline{3-8} 
+     &
+       &
+      \multicolumn{2}{c}{\textbf{Precision}} &
+      \multicolumn{2}{c}{\textbf{Recal}} &
+      \multicolumn{2}{c}{\textbf{NDCG}} \\ \hline
+    NFM &
+      \multicolumn{1}{l}{last year feature + simple} &
+      \multicolumn{1}{l}{} &
+       &
+       &
+       &
+       &
+      
+\end{tabular}
+\end{table}
 \subsection{Evaluation}
