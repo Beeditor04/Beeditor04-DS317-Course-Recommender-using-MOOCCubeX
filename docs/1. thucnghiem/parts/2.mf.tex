@@ -1,7 +1,24 @@
-\section{Content-based Filtering}
+\section{Bayesian Personalized Ranking with Matrix Factorization}
 \subsection{Feature Engineering}
-Sử dụng trường course\_id và user\_id
+Sử dụng các cặp user\_id và course\_id để tạo ra 1 bảng chứa các tương tác giữa
+người dùng và khóa học như sau:
+
+\begin{center}
+\begin{tabular}{cc}
+    user\_id & course\_id \\
+    \toprule
+    U\_24 & C\_55110 \\
+    U\_24 & C\_55231 \\
+    \ldots & \ldots
+\end{tabular}
+\end{center}
+
 \subsection{Training}
-dãy các cặp (user\_id, course\_id) + negative sample course\_id
+Đối với mỗi người dùng, loại bỏ khóa học cuối cùng mà người đó đã học, sau đó
+với mỗi khóa học chúng ta cặp theo một khóa chưa học hay còn gọi là negative
+sampling
+
 \subsection{Evaluation}
-leave-one-out NDCG
+Với các khóa học được để lại ở bước trước, cặp chúng vưới 99 khóa học khác mà
+người dùng đó chưa học, sau đó dùng mô hình đánh giá các khóa học trên rồi tính
+độ đo Recall@10 và NDCG@10
