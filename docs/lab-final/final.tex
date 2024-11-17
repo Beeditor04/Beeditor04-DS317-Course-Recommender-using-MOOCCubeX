@@ -1,0 +1,167 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Packages
+\documentclass[12pt, a4]{article}
+\usepackage[top=3cm, bottom=4cm, left=3.5cm, right=3.5cm]{geometry}
+\usepackage{tabularx}
+\usepackage[utf8]{vietnam}
+\usepackage[vietnamese]{babel}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{sectsty}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{color}
+\usepackage{diagbox} 
+
+\titlelabel{\thetitle.\quad}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\graphicspath{ {figures/} }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Page setup
+\pagestyle{fancy}
+\headheight 35pt
+\lhead{DS317.P11} % <-- class name
+\rhead{\includegraphics[width=0.9cm]{figures/UIT_Logo.png}} % <-- school logo(please upload the file first, then change the name here)
+\lfoot{}
+\pagenumbering{arabic}
+\cfoot{\small\thepage}
+\rfoot{}
+\headsep 1.2em
+
+\renewcommand{\baselinestretch}{1.25}       
+\mdfdefinestyle{theoremstyle}{%
+linecolor=black,linewidth=1pt,%
+frametitlerule=true,%
+frametitlebackgroundcolor=gray!20,
+innertopmargin=\topskip,
+}
+
+%Code block setup
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% Redefine \texttt to use blue color
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\textcolor{blue}{\oldtexttt{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Begin now!
+
+
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \begin{centering}
+            \textsc{\LARGE Đại học quốc gia TP.HCM}
+        
+            
+% \newline
+\textsc{\LARGE Trường đại học công nghệ thông tin}\\[1cm] 
+        
+        \includegraphics[scale=0.25]{figures/UIT_Logo.png}\\[1.0cm]
+        
+
+% Môn học
+\textsc{\large \textbf{Môn học}: Khai phá dữ liệu trong doanh nghiệp}\\[0.5cm] 
+\textsc{\large Lớp: DS317.P11}\\[1cm] 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+% \hrule \\[0.4cm]
+{\huge \bfseries BÀI THỰC HÀNH}\\[0.3cm]
+{\large \textbf{GVHD}: ThS. Nguyễn Thị Anh Thư}\\[1cm] 
+
+ 
+%----------------------------------------------------------------------------------------
+%	TÁC GIẢ 
+%----------------------------------------------------------------------------------------
+\emph{\centering Nhóm sinh viên thực hiện:}\\[0.5cm]
+\begin{minipage}{0.35\textwidth}
+\begin{flushleft} \large
+Nguyễn Hữu Nam		\\
+Nguyễn Khánh 			\\
+Võ Đình Khánh			\\
+Nguyễn Minh Sơn		\\
+Bùi Hồng Sơn			\\
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.3\textwidth}
+\begin{flushright} \large
+    MSSV: 22520917 \\
+    MSSV: 22520641\\
+    MSSV: 22520659\\
+    MSSV: 22521254\\
+    MSSV: 22521246\\
+\end{flushright}
+\end{minipage}
+    \end{centering}
+    \end{center}
+\end{titlepage}
+
+% ----------------------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+% 1.----------------------------------------------------------------------------------------
+
+\input{parts/1.bao_cao_phan_tich_du_lieu.tex}
+\newpage
+\input{parts/2.thuyet_minh_de_tai.tex}
+\newpage
+\input{parts/3.bo_du_lieu_sau_tien_xu_li.tex}
+\newpage
+
+
+
+% ----------------------------------------------------------------------------------------
+\end{document}
