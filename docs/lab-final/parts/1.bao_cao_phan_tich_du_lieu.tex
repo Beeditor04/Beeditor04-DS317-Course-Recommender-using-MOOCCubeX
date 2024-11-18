@@ -1,14 +1,51 @@
 \section{Báo cáo phân tích bộ dữ liệu}
-\subsection{Feature Engineering}
-\textbf{Feature 1:}\\
-- Sử dụng trường name, about, field\\
-- Vectorize các trường\\
-- Tính độ tương đồng giữa các khóa học bằng cosine\\
-\textbf{Feature 2:}\\
-- Sử dụng thêm trường school, concept được nối từ các relations\\
-- Vectorize các trường\\
-- Tính độ tương đồng giữa các khóa họ bằng cosine
-\subsection{Training}
-\textbf{in progress...}
-\subsection{Evaluation}
-\textbf{in progress...}\\
+\subsection{Tìm hiểu dữ liệu}
+MOOCCubeX là một trong những bộ dữ liệu lớn nhất và chi tiết nhất về MOOCs (Massive Open Online Courses), hỗ trợ các nghiên cứu về hành vi học tập trực tuyến và cá nhân hóa học tập. Bộ dữ liệu được xây dựng bởi Nhóm Kỹ thuật Tri thức (Knowledge Engineering Group) tại Đại học Thanh Hoa (Tsinghua University), Trung Quốc, với sự hợp tác của XuetangX, một nền tảng MOOC lớn tại Trung Quốc. Đây là bộ dữ liệu đa dạng, phục vụ cho nghiên cứu trong các lĩnh vực như học máy, hệ thống học tập thích ứng, phân tích giáo dục, và trí tuệ nhân tạo.\\
+\\
+MOOCCubeX bao gồm nhiều loại dữ liệu khác nhau, tập trung vào các khóa học và hành vi học tập của học viên. Các thành phần chính của bộ dữ liệu bao gồm\\
+\begin{quote}
+\subsubsection{Courses}
+-Số lượng khóa học 4,216\\
+-Nội dung: Mỗi khóa học bao gồm các video giảng dạy, bài tập, và bài kiểm tra. Thông tin về mỗi khóa học bao gồm tiêu đề, mô tả, người hướng dẫn, ngày bắt đầu và ngày kết thúc, ngôn ngữ giảng dạy và lĩnh vực học tập\\
+\subsubsection{Video}
+-Số lượng: 230,263\\
+-Thông tin: Các video giảng dạy được thu thập từ các khóa học trên nền tảng MOOC. Mỗi vidfeo có các thuộc tính như tiêu đề, thời lượng, nội dung được giảng dạy, và số lần xem của học viên\\
+\subsubsection{Exercise }
+-Số lượng: 258,265\\
+-Thông tin: bao gồm các bài tập tự luyện và kiểm tra đánh giá. Các bài tập này được thiết kế để giúp học viên ôn luyện kiến thức và kiểm tra khả năng tiếp thu sau mỗi phần học\\
+\subsubsection{Problem}
+-Số lượng: 2,454,397 vấn đề\\
+-Thông tin: Thường là các vấn đề hoặc câu hỏi phức tạp yêu cầu học viên giải quyết bằng cách áp dụng kiến thức học được từ khóa học\\
+\subsubsection{Student Profile}
+-Số lượng: 3,330,294 hồ sơ\\
+-Thông tin: Hồ sơ học viên lưu trữ các thông tin về hành vi học tập, tiến trình học tập và các hoạt động của họ trên nền tảng\\
+\subsubsection{Video watching behavior}
+-Số lượng: 154,332,174 dữ liệu\\
+-Thông tin: Dữ liệu hành vi xem video cung cấp thông tin chi tiết về cách học viên tương tác với video giảng dạy. Dữ liệu này giúp nghiên cứu thói quen học tập của học viên\\
+\subsubsection{Comment and Reply}
+-Số lượng: 8,422,134 bản ghi phản hồi bình luận\\
+-Thông tin: Bình luận và phản hồi là phần quan trọng trong việc đánh giá mức độ tương tác của học viên với khóa học. Là cơ sở để phân tích cảm xúc của học viên, đánh giá mức độ hài lòng và tìm kiếm những khó khăn mà học viên gặp phải trong quá tình học\\
+\end{quote}
+Bộ dữ liệu MOOCCubeX được cung cấp dưới dạng các tệp tin JSON và CSV, cho phép người dùng dễ dàng tải xuống và sử dụng. Đây là một bộ dữ liệu quý giá cho nghiên cứu về giáo dục trực tuyến và học tập thích ứng. Với khối lượng dữ liệu lớn và đa dạng, bộ dữ liệu này mở ra nhiều cơ hội cho các nhà nghiên cứu trong việc hiểu sâu hơn về hành vi học tập và xây dựng các hệ thống học tập tiên tiến, giúp cải thiện hiệu quả giáo dục trên các nền tảng trực tuyến.\\
+\subsection{Chuẩn bị dữ liệu}
+\subsubsection{Dịch bảng}
+Trong quá trình chuyển ngữ từ Trung sang Việt, chúng em đã tận dụng thư viện "googletrans" - một công cụ Python không mất phí và không giới hạn số lần dịch. Thư viện này vận hành thông qua API Google Translate Ajax để thực hiện các tác vụ như nhận diện ngôn ngữ và dịch thuật.\\
+\\
+Do khối lượng dữ liệu lớn, quá trình dịch gặp phải một số thách thức về thời gian và kết nối. Để khắc phục, chúng em đã triển khai các giải pháp sau:
+\begin{quote}
+\begin{itemize}
+    \item Lưu lại tiến trình dịch để tránh mất dữ liệu
+    \item Thiết lập cơ chế tự động gửi lại yêu cầu khi mất kết nối
+    \item Ứng dụng thư viện "asyncio" cho phép gửi đồng thời nhiều API, giúp tối ưu tốc độ xử lý
+\end{itemize}
+\end{quote}
+Đây là một phần code mẫu đã sử dụng phương pháp đã nêu trên:\\
+\textbf{to be continue...}\\
+\subsubsection{Khám phá dữ liệu}
+\textbf{to be continue...}\\
+\subsubsection{Làm sạch dữ liệu}
+\textbf{to be continue...}\\
+\subsubsection{Chuyển đổi dữ liệu}
+\textbf{to be continue...}\\
+\subsection{Phân tích vấn đề}
+\textbf{to be continue...}\\
