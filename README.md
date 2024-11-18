@@ -5,6 +5,6 @@
 \\
 Teammate:
 - Vo Dinh Khanh
-- ?
+- Nguyen Khanh
 - ?
 - ?
