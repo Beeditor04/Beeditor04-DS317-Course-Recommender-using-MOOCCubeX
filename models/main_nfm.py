@@ -154,6 +154,7 @@ def train(args):
 
     Ks = eval(args.Ks)
     k_min = min(Ks)
+    k_medium = Ks[len(Ks) // 2]
     k_max = max(Ks)
 
     epoch_list = []
@@ -200,8 +201,10 @@ def train(args):
 
             time3 = time()
             _, metrics_dict = evaluate_func(model, data, Ks, num_processes, device)
-            logging.info('CF Evaluation: Epoch {:04d} | Total Time {:.1f}s | Precision [{:.4f}, {:.4f}], Recall [{:.4f}, {:.4f}], NDCG [{:.4f}, {:.4f}]'.format(
-                epoch, time() - time3, metrics_dict[k_min]['precision'], metrics_dict[k_max]['precision'], metrics_dict[k_min]['recall'], metrics_dict[k_max]['recall'], metrics_dict[k_min]['ndcg'], metrics_dict[k_max]['ndcg']))
+            logging.info('CF Evaluation: Epoch {:04d} | Total Time {:.1f}s | Precision [{:.4f}, {:.4f}, {:.4f}], Recall [{:.4f}, {:.4f}, {:.4f}], NDCG [{:.4f}, {:.4f}, {:.4f}]'.format(
+                epoch, time() - time3, metrics_dict[k_min]['precision'],metrics_dict[k_medium]['precision'], metrics_dict[k_max]['precision'], \
+                    metrics_dict[k_min]['recall'], metrics_dict[k_medium]['recall'], metrics_dict[k_max]['recall'], \
+                    metrics_dict[k_min]['ndcg'], metrics_dict[k_medium]['ndcg'], metrics_dict[k_max]['ndcg']))
 
             epoch_list.append(epoch)
             for k in Ks:
