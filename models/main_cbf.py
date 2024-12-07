@@ -15,7 +15,7 @@ from sklearn.pipeline import Pipeline
 import torch
 from sklearn.metrics import roc_auc_score, log_loss, mean_squared_error
 
-class Recommender
+class Recommender:
     def __init__(self):
         self.course_feats = None
         self.train_user_dict = None
