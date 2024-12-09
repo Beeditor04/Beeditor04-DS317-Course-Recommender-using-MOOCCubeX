@@ -507,7 +507,7 @@ Do khối lượng dữ liệu lớn, quá trình dịch gặp phải một số
 Đây là một phần code mẫu đã sử dụng phương pháp đã nêu trên:\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/1.png}
+    \includegraphics[width=0.75\linewidth]{figures/1.png}
 \end{figure}
 \newpage
 Ngoài ra, chúng em nhận thấy không cần thiết phải dịch toàn bộ các trường dữ liệu lớn để huấn luyện mô hình vì một số trường dữ liệu không hỗ trợ cho việc huấn luyện mô hình. Thay vào đó, chúng em chỉ tập trung dịch 1 số trường sau đây:
@@ -515,30 +515,30 @@ Ngoài ra, chúng em nhận thấy không cần thiết phải dịch toàn bộ
 -\textbf{course.json:} dịch cột “name”, “field”, “prerequisites” và “about”\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/2.png}
+    \includegraphics[width=1\linewidth]{figures/2.png}
 \end{figure}\\
 \\
 \\
 -\textbf{user.json:} dịch cột “school”\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{image/3.png}
+    \includegraphics[width=0.8\linewidth]{figures/3.png}
 \end{figure}
 \newpage
 -\textbf{teacher.json:} Tiến hành dịch tất cả (trừ “id” và “name”)\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/4.png}
+    \includegraphics[width=1\linewidth]{figures/4.png}
 \end{figure}\\
 -\textbf{concept.json:} Dịch tất cả các cột của bảng này vì toàn bộ đều ở dạng chuỗi\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/5.png}
+    \includegraphics[width=1\linewidth]{figures/5.png}
 \end{figure}\\
 -\textbf{course-field.json:} Tiến hành dịch cột course\_name và field mang các thông tin dưới dạng chuỗi của bảng.\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/6.png}
+    \includegraphics[width=1\linewidth]{figures/6.png}
 \end{figure}
 \end{quote}
 \subsubsection{Khám phá dữ liệu}
@@ -546,12 +546,12 @@ Ngoài ra, chúng em nhận thấy không cần thiết phải dịch toàn bộ
 Ta xem qua bảng course.json:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/7.png}
+    \includegraphics[width=1\linewidth]{figures/7.png}
 \end{figure}\\
 Ta xét độ dài của 3 cột “about”, “name\_trans” và “resource”:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.485\linewidth]{image/8.png}
+    \includegraphics[width=0.485\linewidth]{figures/8.png}
 \end{figure}
 \newpage
 Ta có thể thấy được 1 số thông tin từ dữ liệu trên:
@@ -559,7 +559,7 @@ Ta có thể thấy được 1 số thông tin từ dữ liệu trên:
     \item Có những dòng dữ liệu không tồn tại cột “about”, tồn tại giá trị ngoại tệ ở cột “about” vì mean là 393 mà max lên đến 2293. Ta thể hiện trên boxplot độ dài của cột “about”:
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.75\linewidth]{image/9.png}
+        \includegraphics[width=0.75\linewidth]{figures/9.png}
     \end{figure}
     \item Có thể thấy thật sự nhiều giá trị ngoại tệ cần được xử lí.
     \item Có những dòng dữ liệu không có resource\_length, mean cũng rất ngắn (71) chứng tỏ ít thông tin về khoá học.
@@ -567,7 +567,7 @@ Ta có thể thấy được 1 số thông tin từ dữ liệu trên:
 Ta phân tích sâu cột “resource”:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/10.png}
+    \includegraphics[width=0.75\linewidth]{figures/10.png}
 \end{figure}\\
 Mỗi resource trong bảng 2 là 1 tập hợp các video hay một tập các exercise. Mỗi resource sẽ có thêm 1 resource\_id là id của resource, chapter là chương chứa resource trong khóa học, titles gồm các tiêu đề như tiêu đề chương, video chương.\\
 \\
@@ -576,24 +576,24 @@ Thông tin của resource có thể tìm thấy trong file course.json. Một re
 Ta sẽ kiểm tra xem có bao nhiêu ID video không hợp lệ để phục vụ cho quá trình xử lý dữ liệu sau này:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/11.png}
+    \includegraphics[width=0.75\linewidth]{figures/11.png}
 \end{figure}\\
 Có 2397 video ID không tồn tại, ta sẽ lọc đi hỗ trợ cho hiển thi thông tin trong tương lai.\\
 \\
 Ta bắt đầu tiến hành đếm số khoá học trong cột “name\_trans”, chia bởi lĩnh vực (cột “field”):\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.35\linewidth]{image/12.png}
+    \includegraphics[width=0.35\linewidth]{figures/12.png}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{image/13.png}
+    \includegraphics[width=0.7\linewidth]{figures/13.png}
 \end{figure}
 Ta thấy có tổng 3781 khoá học và 81 lĩnh vực, với “computer science and technology” đứng đầu với 63 khoá học, chiếm 6.8\% trên tổng khoá học. Ta cũng kiểm tra với mỗi khoá học được xếp bao nhiêu lĩnh vực (cột “field”):
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\linewidth]{image/14.png}
+    \includegraphics[width=0.9\linewidth]{figures/14.png}
 \end{figure}\\
 \newpage
 Ta có thể thấy có rất nhiều khoá học không thuộc lĩnh vực nào, có rất nhiều khóa học không có field nào, có thể cột “field” sẽ không đóng góp nhiều trong xây dựng thuật toán hoặc cần xử lí.\\
@@ -601,61 +601,61 @@ Ta có thể thấy có rất nhiều khoá học không thuộc lĩnh vực nà
 Đầu tiên, ta đọc dữ liệu và quan sát dữ liệu thông qua dạng bảng (DataFrame):
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/15.png}
+    \includegraphics[width=1\linewidth]{figures/15.png}
 \end{figure}
 \newpage
 Ta tiến hành thống kê đặc điểm từng cột có trong bảng:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/16.png}
+    \includegraphics[width=1\linewidth]{figures/16.png}
     \caption{Số lượng users}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/17.png}
+    \includegraphics[width=1\linewidth]{figures/17.png}
     \caption{Cột “gender”}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/18.png}
+    \includegraphics[width=1\linewidth]{figures/18.png}
     \caption{Phân bố các các giá trị trong cột “gender”:}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/19.png}
+    \includegraphics[width=1\linewidth]{figures/19.png}
     \caption{Thông tin cột “school”}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/20.png}
+    \includegraphics[width=1\linewidth]{figures/20.png}
     \caption{Số lượng trường học trong bảng}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/21.png}
+    \includegraphics[width=1\linewidth]{figures/21.png}
     \caption{Kiểm tra thông tin tổng quan sau cùng}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/22.png}
+    \includegraphics[width=1\linewidth]{figures/22.png}
     \caption{Số lượng sample (users) có trong bảng và số lượng users thuộc về mỗi trường học}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/23.png}
+    \includegraphics[width=1\linewidth]{figures/23.png}
     \caption{Tạo một cột “school\_length” để phân tích độ dài mỗi sample của cột}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.68\linewidth]{image/24.png}
+    \includegraphics[width=0.68\linewidth]{figures/24.png}
     \caption{Trực quan hóa độ dài của sample cột “school”}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.68\linewidth]{image/25.png}
+    \includegraphics[width=0.68\linewidth]{figures/25.png}
     \caption{Trực quan hóa phân bố các giá trị của cột “gender”}
 \end{figure}
 \newpage
@@ -663,97 +663,97 @@ Ta tiến hành thống kê đặc điểm từng cột có trong bảng:
 Sau đây là các thống số cơ bản của bảng
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\linewidth]{image/27.png}
+    \includegraphics[width=0.6\linewidth]{figures/27.png}
 \end{figure}\\
 Tham khảo phân phối của top 10 tên việc xuất hiện nhiều nhất trong bảng
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/28.png}
+    \includegraphics[width=0.75\linewidth]{figures/28.png}
 \end{figure}\\
 Tham khảo phân phối của top 10 tổ chức xuất hiện nhiều nhất trong bảng
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{image/29.png}
+    \includegraphics[width=0.75\linewidth]{figures/29.png}
 \end{figure}
 Ta thực hiện phân tích mối quan hệ giữa ba chức vụ (job titles) có số lượng giáo viên nhiều nhất và mười tổ chức (organizations) có số lượng giáo viên cao nhất
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\linewidth]{image/30.png}
+    \includegraphics[width=0.95\linewidth]{figures/30.png}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\linewidth]{image/31.png}
+    \includegraphics[width=0.65\linewidth]{figures/31.png}
 \end{figure}
 Sau khi lọc bỏ các liên kết có khóa học hoặc teacher không tồn tại dựa vào file course-teacher.txt, số hàng còn lại là 35593. Các thông tin được trực quan hóa như sau
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{image/32.png}
+    \includegraphics[width=0.8\linewidth]{figures/32.png}
     \caption{Histogram thể hiện số lượng khóa học của mỗi teacher và bảng thống kê mô tả tương ứng}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{image/33.png}
+    \includegraphics[width=0.8\linewidth]{figures/33.png}
     \caption{Histogram thể hiện số lượng teacher của mỗi khóa học và bảng thống kê mô tả tương ứng}
 \end{figure}
 \textbf{d) Bảng school.json}\\
 Ta đếm dữ liệu ở từng cột, đếm các giá trị đặc biệt, giá trị xuất hiện nhiều nhất với tần số của nó:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/34.png}
+    \includegraphics[width=0.75\linewidth]{figures/34.png}
 \end{figure}\\
 Kiểm tra kiểu dữ liệu của từng cột: 
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth]{image/35.png}
+    \includegraphics[width=0.6\linewidth]{figures/35.png}
 \end{figure}
 Ta tạo 2 cột mới là “about\_length” và “motto\_length” để lần lượt thể hiện độ dài của giá trị dữ liệu ở 2 cột “about” và “motto”:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.65\linewidth]{image/36.png}
+    \includegraphics[width=0.65\linewidth]{figures/36.png}
 \end{figure}
 \newpage
 Có 2 cột ta cần là “about\_length” và “motto\_length” để ta tìm phân bố độ dài của giá trị lên đồ thị:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{image/37.png}
+    \includegraphics[width=0.7\linewidth]{figures/37.png}
 \end{figure}\\
 Dựa vào biểu đồ ta có thể nhận xét rằng mô tả của các trường đều rất chi tiết, số lượng trường với số lượng từ phần mô tả > 2000  chiếm phần lớn. Tuy nhiên thông tin này có vẻ không hữu ích với hệ thống khuyến nghị.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{image/38.png}
+    \includegraphics[width=0.7\linewidth]{figures/38.png}
 \end{figure}\\
 Hầu hết các trường đại học đều có một khẩu hiệu ngắn gọn dưới 20 từ vì chủ yếu khẩu hiệu sẽ đơn giản nhất có thể để truyền đạt tầm nhìn và mục tiêu của trường một cách trực tiếp ngắn gọn, đọng lại trong trí nhớ người xem. Một phần nhỏ hơn các trường có khẩu hiệu tương đối dài với 40 đến 88 chữ. 
 \newpage
 \textbf{e) Bảng course-field.json}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/39.png}
+    \includegraphics[width=1\linewidth]{figures/39.png}
     \caption{Tổng số lượng khóa học và tổng số lượng các lĩnh vực khác nhau}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/40.png}
+    \includegraphics[width=1\linewidth]{figures/40.png}
     \caption{Phân bố số lượng khóa học theo từng lĩnh vực}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.85\linewidth]{image/41.png}
+    \includegraphics[width=0.85\linewidth]{figures/41.png}
     \caption{Phân bố độ dài tên khóa học}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\linewidth]{image/42.png}
+    \includegraphics[width=0.9\linewidth]{figures/42.png}
     \caption{Biểu đồ thanh thể hiện sự phân bố số lượng khóa học theo từng lĩnh vực}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{image/44.png}
+    \includegraphics[width=0.75\linewidth]{figures/44.png}
     \caption{Biểu đồ phân phối cho độ dài tên khóa học}
 \end{figure}
 \subsubsection{Làm sạch dữ liệu}
@@ -765,12 +765,12 @@ Ta kiểm tra dữ liệu thiếu, dữ liệu không nhất quán, dữ liệu 
 Ta kiểm tra kĩ hơn về các dòng có giá trị trong cột “name” bị trùng lặp:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{image/26.png}
+    \includegraphics[width=1\linewidth]{figures/26.png}
 \end{figure}
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/45.png}
+    \includegraphics[width=1\linewidth]{figures/45.png}
 \end{figure}
 Ta thấy được đa số dữ liệu trong này cột “field” đa số bị trống và trùng lặp, cũng như các cột khác không có ý nghĩa hoặc trùng với các cột khác, thực hiện chi square test, ta có được kết quả với P-value rất thấp, chứng tỏ các giá trị phụ thuộc với nhau chứ không hề có giá trị mới. Chứng tỏ ta có thể xoá được các dòng dữ liệu này, cũng như các khoá học không tồn tại trong “course-field.json”.\\
 \textbf{b) Bảng user.json}\\
@@ -786,7 +786,7 @@ Việc xử lý phù hợp giúp dữ liệu chính xác và đáng tin cậy h�
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/46.png}
+    \includegraphics[width=1\linewidth]{figures/46.png}
 \end{figure}
 Xử lý dữ liệu trùng lặp là bước quan trọng trong tiền xử lý dữ liệu nhằm loại bỏ các bản ghi trùng lặp để đảm bảo tính chính xác và hiệu quả của mô hình. Dữ liệu trùng lặp có thể gây sai lệch và làm chậm quá trình xử lý.\\
 Các phương pháp xử lý dữ liệu trùng lặp phổ biến bao gồm:\\
@@ -800,14 +800,14 @@ Loại bỏ dữ liệu với phương thức drop\_duplicates():
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/47.png}
+    \includegraphics[width=1\linewidth]{figures/47.png}
 \end{figure}
 \textbf{d) Bảng course-field.json}\\
 Sử dụng isnull().sum() để tính số lượng giá trị thiếu trong từng cột. Sau đó loại bỏ hàng chứa giá trị thiếu bằng cách sử dụng dropna()
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/48.png}
+    \includegraphics[width=1\linewidth]{figures/48.png}
 \end{figure}
 Dữ liệu văn bản thường chứa nhiều thông tin nhiễu chẳng hạn như các ký tự không mong muốn: Các ký tự đặc biệt, dấu câu, hoặc ký tự không phải chữ cái có thể làm giảm chất lượng phân tích. Ở đây chúng ta sẽ tiến hành loại bỏ các ký tự không cần thiết, các khoảng trắng dư thừa và thường hóa các ký tự viết hoa\\
 \\
@@ -815,7 +815,7 @@ Dữ liệu văn bản thường chứa nhiều thông tin nhiễu chẳng hạn
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{image/49.png}
+    \includegraphics[width=1\linewidth]{figures/49.png}
 \end{figure}
 \textbf{e) Bảng school.json}\\
 Ta xoá cột “name” đi vì trùng với ý nghĩa với cột “name\_en” (tên nhưng trong Tiếng Anh)\\
@@ -824,19 +824,19 @@ Ta thống nhất cột “sign” (kí hiệu đại diện cho trường) đ�
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{image/50.png}
+    \includegraphics[width=0.7\linewidth]{figures/50.png}
 \end{figure}
 Vì ở đây tên trường (“name\_en”) cũng như kí hiệu (“sign”) là chìa khoá chính, hay nói cách khác là giá trị duy nhất nên không thể có dòng trùng với nhau, ta tiến hành xoá các dòng trùng giá trị:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{image/51.png}
+    \includegraphics[width=0.7\linewidth]{figures/51.png}
 \end{figure}\\
 \textbf{g) Bảng teacher.json}\\
 Ở đây có cột name\_en bị thiếu nên điền vào cột đó bằng cách lấy phiên âm của cột name là được. Để làm việc này có thể sử dụng thư viện pypinyin để lấy phát âm dùng cho tên tiếng anh.
 \newpage
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{image/52.png}
+    \includegraphics[width=0.8\linewidth]{figures/52.png}
 \end{figure}
 \subsubsection{Chuyển đổi dữ liệu}
 \textbf{Feature Engineering:}
@@ -845,7 +845,7 @@ Nhóm sẽ chọn các bảng và thuộc tính có thể sử dụng để tạ
 Các bảng được chọn và thuộc tính sử dụng:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\linewidth]{image/53.png}
+    \includegraphics[width=0.6\linewidth]{figures/53.png}
 \end{figure}
 \newpage
 \begin{itemize}
@@ -858,7 +858,7 @@ Các bảng được chọn và thuộc tính sử dụng:
 Tạo knowledge graph:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.3\linewidth]{image/54.png}
+    \includegraphics[width=0.3\linewidth]{figures/54.png}
 \end{figure}\\
 Tạo interaction giữa người dùng với khóa học: sử dụng 5-core filtering, lọc người dùng với ít hơn 5 khóa học và những khóa học có số lượng đăng ký dưới 5.\\
 \\
