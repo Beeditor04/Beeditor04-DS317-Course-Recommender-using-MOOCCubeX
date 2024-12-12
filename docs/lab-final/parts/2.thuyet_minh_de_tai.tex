@@ -108,7 +108,7 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
 \end{itemize}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/55.png}
+    \includegraphics[width=0.75\linewidth]{image/55.png}
 \end{figure}
 \subsection{Nội dung bài toán triển khai}
 \subsubsection{Nội dung 1}
@@ -123,20 +123,19 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
     \item Chia tập dữ liệu (Splitting the Data)
 \end{itemize}
 \subsubsection{Nội dung 2}
-\textbf{Mục tiêu 2:} Xây dựng các mô hình học máy, học sâu với nhiệm vụ Khuyến nghị khóa học cho người dùng.\\
+\textbf{Mục tiêu 2:} Xây dựng các mô hình học sâu tốt nhất với nhiệm vụ Khuyến nghị khóa học cho người dùng.\\
 \textbf{Phương pháp 2:}
 \begin{itemize}
-    \item Collaborative Filtering (CF)
-    \item Matrix Factorization (BPR-MF)
-    \item Factorization Machines (FM)
-    \item KGAT
+    \item KNN (K-Nearest Neighbors)
+    \item BERT4Rec
     \item Neural Factorization Machines (NFM)
 \end{itemize}
 \textbf{Sản phẩm 2:} Mô hình học sâu tốt nhất được lựa chọn khi huấn luyện trên bộ dữ liệu MOOCCubeX với nhiệm vụ Khuyến nghị khóa học.\\
 \textbf{* Các metric phù hợp với hệ khuyến nghị:}
 \begin{itemize}
-    \item Recall@K
-    \item NDCG@K (Normalized Discounted Cumulative Gain)
+    \item Precision \& Recall
+    \item NDCG (Normalized Discounted Cumulative Gain)
+    \item AUC (Area Under Curve)
 \end{itemize}
 \subsubsection{Nội dung 3}
 \textbf{Mục tiêu 3:} Tìm hiểu và lựa chọn nền tảng đám mây phù hợp cho lưu trữ, xử lý dữ liệu lớn (Microsoft Azure) cũng như xây dựng và huấn luyện mô hình học máy (Microsoft Azure, Kaggle).\\
@@ -144,13 +143,11 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
 \begin{itemize}
     \item Tận dụng các dịch vụ mà Microsoft Azure cung cấp cho việc lưu trữ và xử lý dữ liệu lớn: Azure Blob Storage, Azure Data Factory, Azure Data Lake Storage, Azure Databricks cùng các dịch vụ từ MS Azure và Kaggle cho quá trình xây dựng và huấn luyện mô hình học máy: Azure Machine Learning.
     \item Xây dựng được quy trình Big Data Architecture, từ bước Ingest, Process, Store đến bước Enrich và Serve.
-    \item Các mô hình máy học được lưu trữ đầy đủ thông số sau quá trình
-    \item thực nghiệm, phục vụ cho việc phát triển thành các ứng dụng thực tế cho nhiệm
-    \item vụ khuyến nghị khóa học.
+    \item Các mô hình máy học được lưu trữ đầy đủ thông số sau quá trình thực nghiệm, phục vụ cho việc phát triển thành các ứng dụng thực tế cho nhiệm vụ khuyến nghị khóa học.
 \end{itemize}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/56.png}
+    \includegraphics[width=0.75\linewidth]{image/56.png}
     \caption{Kiến trúc mẫu về việc xây dựng hệ thống sử dụng Machine Learning với Azure}
 \end{figure}
 \textbf{Sản phẩm 3:} Xây dựng thành công Big Data Architecture, Các mô hình máy học được lưu trữ đầy đủ thông số sau quá trình thực nghiệm, phục vụ cho việc phát triển thành các ứng dụng thực tế cho nhiệm vụ khuyến nghị khóa học.
