@@ -124,18 +124,43 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
 \end{itemize}
 \subsubsection{Nội dung 2}
 \textbf{Mục tiêu 2:} Xây dựng các mô hình học sâu tốt nhất với nhiệm vụ Khuyến nghị khóa học cho người dùng.\\
-\textbf{Phương pháp 2:}
+\textbf{Phương pháp 2:}\\
+\textbf{1) KNN (K-Nearest Neighbors)}
+    \begin{itemize}
+        \item Đặc điểm: Dựa trên việc tìm kiếm các điểm lân cận gần nhất trong không gian đặc trưng để đưa ra dự đoán.
+        \item Ưu điểm: Đơn giản, dễ hiểu, không cần phải huấn luyện mô hình.
+        \item Nhược điểm: Hiệu suất kém với dữ liệu lớn và phân tán, khó mở rộng.
+    \end{itemize}\\
+\textbf{2) BERT4Rec}
 \begin{itemize}
-    \item KNN (K-Nearest Neighbors)
-    \item BERT4Rec
-    \item Neural Factorization Machines (NFM)
+    \item Đặc điểm: Mô hình BERT (Bidirectional Encoder Representations from Transformers) được điều chỉnh cho hệ khuyến nghị tuần tự.
+    \item Ưu điểm: Hiểu được ngữ cảnh tốt hơn nhờ việc mã hoá hai chiều, mạnh trong việc dự đoán dựa trên trình tự.
+    \item Nhược điểm: Yêu cầu tính toán lớn, khó mở rộng với dữ liệu rất lớn.
+\end{itemize}\\
+\textbf{3) Neural Factorization Machines (NFM)}
+\begin{itemize}
+    \item Đặc điểm: Kết hợp mô hình Factorization Machines với mạng nơ-ron để học các tương tác phi tuyến giữa các đối tượng.
+    \item Ưu điểm: Tốt hơn so với Factorization Machines trong việc nắm bắt các tương tác phức tạp.
+    \item Nhược điểm: Cần nhiều tài nguyên tính toán hơn.
 \end{itemize}
+
 \textbf{Sản phẩm 2:} Mô hình học sâu tốt nhất được lựa chọn khi huấn luyện trên bộ dữ liệu MOOCCubeX với nhiệm vụ Khuyến nghị khóa học.\\
-\textbf{* Các metric phù hợp với hệ khuyến nghị:}
+\textbf{* Các metric phù hợp với hệ khuyến nghị:}\\
+\textbf{Precision \& Recall}
 \begin{itemize}
-    \item Precision \& Recall
-    \item NDCG (Normalized Discounted Cumulative Gain)
-    \item AUC (Area Under Curve)
+    \item Precision đo lường phần trăm các gợi ý đúng trên tổng các gợi ý được đưa ra.
+    \item Recall đo lường phần trăm các gợi ý đúng so với tổng số gợi ý có thể đưa ra (trong số các mặt hàng mà người dùng quan tâm).
+    \item Giải thích: Precision và Recall giúp cân bằng giữa việc đưa ra đúng những gợi ý chất lượng (precision cao) và khả năng bao phủ đầy đủ các gợi ý mà người dùng có thể quan tâm (recall cao).
+\end{itemize}\\
+\textbf{NDCG (Normalized Discounted Cumulative Gain)}
+\begin{itemize}
+    \item Đặc điểm: Đánh giá mức độ phù hợp của các gợi ý, ưu tiên những gợi ý đúng nằm ở các vị trí đầu tiên trong danh sách.
+    \item Giải thích: Phù hợp cho hệ khuyến nghị khi thứ tự của các gợi ý là quan trọng, giúp tối ưu hoá trải nghiệm người dùng khi họ thường chú ý tới các mục đầu tiên.
+\end{itemize}\\
+\textbf{AUC (Area Under Curve)}
+\begin{itemize}
+    \item Đặc điểm: Đo lường mức độ phân biệt giữa các mặt hàng ưa thích và không ưa thích dựa trên xác suất dự đoán.
+    \item Giải thích: AUC phù hợp cho việc đánh giá khả năng của mô hình trong việc xếp hạng chính xác các mặt hàng mà người dùng quan tâm.
 \end{itemize}
 \subsubsection{Nội dung 3}
 \textbf{Mục tiêu 3:} Tìm hiểu và lựa chọn nền tảng đám mây phù hợp cho lưu trữ, xử lý dữ liệu lớn (Microsoft Azure) cũng như xây dựng và huấn luyện mô hình học máy (Microsoft Azure, Kaggle).\\
