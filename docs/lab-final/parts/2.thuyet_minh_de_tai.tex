@@ -63,11 +63,7 @@ Nhờ vào các ứng dụng trên, hệ thống khuyến nghị khóa học kh�
 \\
 \textbf{Content-Based Filtering:} Trích xuất feature của item sau đó gợi ý dựa trên các item trước đó (Content-based Recommender Systems: State of the Art and Trends).\\
 \\
-\textbf{Hybrid Recommender Systems:} Kết hợp giữa Collaborative Filtering và Content-Based Filtering. (Burke, R. (2002). Hybrid Recommender Systems: Survey and Experiments).\\
-\\
 \textbf{Graph-Based Recommender Systems:} Dựa trên đồ thị từ dữ liệu người dùng và khóa học, sử dụng các thuật toán như Random Walk hoặc PageRank để khám phá các kết nối giữa chúng. (Graph Based Recommendations: From Data Representation to Feature Extraction and Application).\\
-\\
-\textbf{Neural Collaborative Filtering:} Giải quyết vấn đề tuyến tính của phương pháp Matrix Factorization thông qua việc áp dụng cấu trúc Deep Learning (He, X., Liao, L., Zhang, H., Nie, L., \& Hu, X. (2017). Neural Collaborative Filtering).
 \subsection{Tổng quan}
 \subsubsection{Ý tưởng và kế hoạch triển khai}
 Hệ thống khuyến nghị khóa học được xây dựng nhằm gợi ý các khóa học phù hợp cho từng người dùng dựa trên dữ liệu hành vi và thông tin cá nhân của họ. Cụ thể, hệ thống sẽ sử dụng các kỹ thuật học máy như lọc cộng tác (Collaborative Filtering), lọc nội dung (Content-based Filtering) hoặc các mô hình học sâu (Deep Learning) để đưa ra khuyến nghị. Kế hoạch triển khai bao gồm các bước:
@@ -93,7 +89,7 @@ Mặc dù có nhiều hệ thống khuyến nghị đã được phát triển, 
 \subsection{Mục tiêu đề tài}
 \subsubsection{Mục tiêu về đồ án}
 \begin{itemize}
-    \item Xây dựng một hệ thống khuyến nghị khóa học với các chỉ số đánh giá chất lượng như độ chính xác, F1-score đạt yêu cầu (>80%).
+    \item Xây dựng một hệ thống khuyến nghị khóa học với các chỉ số đánh giá chất lượng như Recall đặt trên 80\%.
     \item Sử dụng bộ dữ liệu MOOCCubeX để huấn luyện và kiểm tra hệ thống, đảm bảo hệ thống hoạt động tốt với dữ liệu thực tế.
     \item Đưa ra báo cáo chi tiết về các thuật toán, mô hình đã sử dụng và kết quả đạt được. Ngoài ra, cần phân tích mức độ hiệu quả của các mô hình khác nhau để tìm ra phương pháp tối ưu nhất.
 \end{itemize}
@@ -108,7 +104,7 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
 \end{itemize}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{image/55.png}
+    \includegraphics[width=0.75\linewidth]{figures/55.png}
 \end{figure}
 \subsection{Nội dung bài toán triển khai}
 \subsubsection{Nội dung 1}
@@ -122,45 +118,26 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
     \item Tạo và chọn đặc trưng (Feature Engineering \& Feature Selection)
     \item Chia tập dữ liệu (Splitting the Data)
 \end{itemize}
+\textbf{Sản phẩm 1:} Bộ dữ liệu đã được tiền xử lý, chuẩn hóa dữ liệu, tạo và chọn đặc trưng phục vụ cho việc xây dựng mô hình học sâu.\\
 \subsubsection{Nội dung 2}
-\textbf{Mục tiêu 2:} Xây dựng các mô hình học sâu tốt nhất với nhiệm vụ Khuyến nghị khóa học cho người dùng.\\
-\textbf{Phương pháp 2:}\\
-\textbf{1) KNN (K-Nearest Neighbors)}
-    \begin{itemize}
-        \item Đặc điểm: Dựa trên việc tìm kiếm các điểm lân cận gần nhất trong không gian đặc trưng để đưa ra dự đoán.
-        \item Ưu điểm: Đơn giản, dễ hiểu, không cần phải huấn luyện mô hình.
-        \item Nhược điểm: Hiệu suất kém với dữ liệu lớn và phân tán, khó mở rộng.
-    \end{itemize}\\
-\textbf{2) BERT4Rec}
-\begin{itemize}
-    \item Đặc điểm: Mô hình BERT (Bidirectional Encoder Representations from Transformers) được điều chỉnh cho hệ khuyến nghị tuần tự.
-    \item Ưu điểm: Hiểu được ngữ cảnh tốt hơn nhờ việc mã hoá hai chiều, mạnh trong việc dự đoán dựa trên trình tự.
-    \item Nhược điểm: Yêu cầu tính toán lớn, khó mở rộng với dữ liệu rất lớn.
-\end{itemize}\\
-\textbf{3) Neural Factorization Machines (NFM)}
-\begin{itemize}
-    \item Đặc điểm: Kết hợp mô hình Factorization Machines với mạng nơ-ron để học các tương tác phi tuyến giữa các đối tượng.
-    \item Ưu điểm: Tốt hơn so với Factorization Machines trong việc nắm bắt các tương tác phức tạp.
-    \item Nhược điểm: Cần nhiều tài nguyên tính toán hơn.
-\end{itemize}
+\textbf{Mục tiêu 2:} Xây dựng mô hình học sâu tốt nhất với nhiệm vụ Khuyến nghị khóa học cho người dùng.\\
+\textbf{Phương pháp 2:} Thử nghiệm với nhiều mô hình học sâu khác nhau để dự đoán
+và khuyến nghị các khóa học có thể thu hút sự quan tâm của người dùng trên
+các nền tảng MOOCs. Điều này sẽ dựa trên lịch sử tương tác giữa người dùng
+và các khóa học (tức là, một người dùng đã tương tác với một khóa học nếu
+người dùng đã đăng ký khóa học đó) với thông tin người dùng, thông tin khoá học đó. 
+Kết quả trả về của mô hình sẽ là top-k khóa học được đề xuất cho người dùng.
 
-\textbf{Sản phẩm 2:} Mô hình học sâu tốt nhất được lựa chọn khi huấn luyện trên bộ dữ liệu MOOCCubeX với nhiệm vụ Khuyến nghị khóa học.\\
+\textbf{Sản phẩm 2:} Mô hình học sâu tốt nhất (KGAT) được lựa chọn khi huấn luyện trên bộ dữ liệu MOOCCubeX với nhiệm vụ Khuyến nghị khóa học.\\
 \textbf{* Các metric phù hợp với hệ khuyến nghị:}\\
-\textbf{Precision \& Recall}
+\textbf{NDCG@K \& Recall@K}
 \begin{itemize}
-    \item Precision đo lường phần trăm các gợi ý đúng trên tổng các gợi ý được đưa ra.
     \item Recall đo lường phần trăm các gợi ý đúng so với tổng số gợi ý có thể đưa ra (trong số các mặt hàng mà người dùng quan tâm).
-    \item Giải thích: Precision và Recall giúp cân bằng giữa việc đưa ra đúng những gợi ý chất lượng (precision cao) và khả năng bao phủ đầy đủ các gợi ý mà người dùng có thể quan tâm (recall cao).
-\end{itemize}\\
-\textbf{NDCG (Normalized Discounted Cumulative Gain)}
+    \item Giải thích: Recall giúp đánh giá khả năng bao phủ đầy đủ các gợi ý mà người dùng có thể quan tâm, đảm bảo rằng các gợi ý đúng không bị bỏ sót.
+\end{itemize}
 \begin{itemize}
-    \item Đặc điểm: Đánh giá mức độ phù hợp của các gợi ý, ưu tiên những gợi ý đúng nằm ở các vị trí đầu tiên trong danh sách.
-    \item Giải thích: Phù hợp cho hệ khuyến nghị khi thứ tự của các gợi ý là quan trọng, giúp tối ưu hoá trải nghiệm người dùng khi họ thường chú ý tới các mục đầu tiên.
-\end{itemize}\\
-\textbf{AUC (Area Under Curve)}
-\begin{itemize}
-    \item Đặc điểm: Đo lường mức độ phân biệt giữa các mặt hàng ưa thích và không ưa thích dựa trên xác suất dự đoán.
-    \item Giải thích: AUC phù hợp cho việc đánh giá khả năng của mô hình trong việc xếp hạng chính xác các mặt hàng mà người dùng quan tâm.
+    \item Đặc điểm: NDCG (Normalized Discounted Cumulative Gain) đánh giá mức độ phù hợp của các gợi ý, ưu tiên những gợi ý đúng nằm ở các vị trí đầu tiên trong danh sách.
+    \item Giải thích: NDCG phù hợp cho hệ khuyến nghị khi thứ tự của các gợi ý là quan trọng, giúp tối ưu hoá trải nghiệm người dùng khi họ thường chú ý tới các mục đầu tiên.
 \end{itemize}
 \subsubsection{Nội dung 3}
 \textbf{Mục tiêu 3:} Tìm hiểu và lựa chọn nền tảng đám mây phù hợp cho lưu trữ, xử lý dữ liệu lớn (Microsoft Azure) cũng như xây dựng và huấn luyện mô hình học máy (Microsoft Azure, Kaggle).\\
@@ -170,14 +147,15 @@ Phát triển một ứng dụng có giao diện thân thiện với người d�
     \item Xây dựng được quy trình Big Data Architecture, từ bước Ingest, Process, Store đến bước Enrich và Serve.
     \item Các mô hình máy học được lưu trữ đầy đủ thông số sau quá trình thực nghiệm, phục vụ cho việc phát triển thành các ứng dụng thực tế cho nhiệm vụ khuyến nghị khóa học.
 \end{itemize}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\linewidth]{image/56.png}
-    \caption{Kiến trúc mẫu về việc xây dựng hệ thống sử dụng Machine Learning với Azure}
-\end{figure}
+
 \textbf{Sản phẩm 3:} Xây dựng thành công Big Data Architecture, Các mô hình máy học được lưu trữ đầy đủ thông số sau quá trình thực nghiệm, phục vụ cho việc phát triển thành các ứng dụng thực tế cho nhiệm vụ khuyến nghị khóa học.
 \subsubsection{Nội dung 4}
 \textbf{Mục tiêu 4:} Xây dựng ứng dụng Website để phục vụ việc tương tác giữa người
 dùng và Hệ thống khuyến nghị.\\
 \textbf{Phương pháp 4:} Sau khi thu được pretrained của mô hình học sâu tốt nhất được huấn luyện trên bộ dữ liệu MOOCCubeX trên nhiệm vụ Khuyến nghị các khóa học cho học viên. Sau đó sử dụng PostgreSQL (backend), React (front-end) và SQL để triển khai website. Kết quả thu được một ứng dụng Website trực quan, dễ dàng sử dụng, cho phép người dùng nhập vào các khóa học đã học, trả về tập gồm top-k các khóa học được hệ thống khuyến nghị.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/56.png}
+    \caption{Kiến trúc mẫu về việc xây dựng hệ thống sử dụng Machine Learning với Azure}
+\end{figure}
 \textbf{Sản phẩm 4:} Website tương tác với người dùng có chức năng khuyến nghị khoá học khi tìm khoá học mới, trả về tập gồm top-k các khóa học được hệ thống khuyến nghị.
