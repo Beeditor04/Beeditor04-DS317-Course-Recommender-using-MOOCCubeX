@@ -1,0 +1,90 @@
+/* filepath: /mnt/c/Users/beeha/VSCode/College/DS317/web/client/src/App.css */
+:root {
+    --primary-color: #CB3CFF;
+    --primary-gradient-from: #CB3CFF;
+    --primary-gradient-to: #7F25FB;
+
+    --secondary-color: #0e1c45;
+    --secondary-dark: #8951FF;
+    --secondary-light: #21C3FC;
+    --secondary-4: #343B4F;
+    --secondary-5: #FDB52A;
+
+    --neutral-900: #081028;
+    --neutral-800: #0A1330;
+    --neutral-700: #0B1739;
+    --neutral-600: #0C1C4D;
+    --neutral-500: #7E89AC;
+    --neutral-400: #AEB9E1;
+    --neutral-300: #D1DBF9;
+    --neutral-200: #D9E1FA;
+    --neutral-100: whitesmoke;
+
+    font-family: "Mona Sans", serif;
+    /* color-scheme: light dark; */
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-color: var(--neutral-900);
+    color: var(--neutral-100);
+}
+
+
+.btn-primary {
+    border-radius: 0.5rem;
+    border: 0.6px solid var(--secondary-color);
+    background-color: var(--primary-color);
+    color: var(--neutral-100);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+}
+
+.btn-primary:active {
+    filter: brightness(0.9);
+    -webkit-transform: translate(0em, 0.1em);
+    transform: translate(0em, 0.1em);
+}
+
+.bth-primary:active::before {
+    box-shadow: 0 0 0 2px var(--secondary-dark), 0 0 var(--neutral-500);
+    -webkit-transform: translate(0em, 0em);
+    transform: translate(0em, 0em);
+}
+
+.btn-secondary {
+    border-radius: 0.5rem;
+    border: 0.6px solid var(--secondary-color);
+    background-color: var(--neutral-700);
+    color: var(--neutral-100);
+}
+
+.btn-secondary:hover {
+    filter: brightness(1.1);
+}
+
+.btn-secondary:active {
+    filter: brightness(0.9);
+    -webkit-transform: translate(0em, 0.1em);
+    transform: translate(0em, 0.1em);
+}
+
+.btn-secondary:active::before {
+    box-shadow: 0 0 0 2px var(--neutral-600), 0 0 var(--neutral-500);
+    -webkit-transform: translate(0em, 0em);
+    transform: translate(0em, 0em);
+}
+.bg-gradient-primary {
+    background: linear-gradient(to right, var(--primary-gradient-from), var(--primary-gradient-to));
+}
+
+.bg-box {
+    border-radius: 8px;
+    border: 0.6px solid var(--secondary-4);
+    background: var( --neutral-700);
+}
+
