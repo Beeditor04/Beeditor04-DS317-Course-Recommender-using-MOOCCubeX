@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
   <div className="cards sidenav">
     <Card className="w-full h-full">
-      Contents
+      User stuff
     </Card>
     </div>
   )

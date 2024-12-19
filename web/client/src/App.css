@@ -59,8 +59,8 @@
 .btn-secondary {
     border-radius: 0.5rem;
     border: 0.6px solid var(--secondary-color);
-    background-color: var(--neutral-700);
-    color: var(--neutral-100);
+    background-color: var(--neutral-100);
+    color: var(--neutral-900);
 }
 
 .btn-secondary:hover {
@@ -78,13 +78,14 @@
     -webkit-transform: translate(0em, 0em);
     transform: translate(0em, 0em);
 }
+
+.btn-text {
+    color: var(--primary-color);
+    cursor: pointer;
+}
 .bg-gradient-primary {
     background: linear-gradient(to right, var(--primary-gradient-from), var(--primary-gradient-to));
 }
 
-.bg-box {
-    border-radius: 8px;
-    border: 0.6px solid var(--secondary-4);
-    background: var( --neutral-700);
-}
+
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import "./Card.css";
 
-const Card = ({ children, className, ...props }) => {
+const Card = ({ children, className, key, radius }) => {
     useEffect(() => {
         const handleMouseMove = (e) => {
           const cards = document.getElementsByClassName("card");
@@ -16,19 +16,22 @@ const Card = ({ children, className, ...props }) => {
           }
         };
     
-        const cardsContainer = document.getElementsByClassName("cards")[0];
-        if (cardsContainer) {
-          cardsContainer.addEventListener("mousemove", handleMouseMove);
-        }
-    
+        const cardsContainer = document.getElementsByClassName("cards");
+        // console.log(cardsContainer);
+        if (!cardsContainer) return;
+        Array.from(cardsContainer).forEach(card => {
+          card.addEventListener("mousemove", handleMouseMove);
+        });
+
         return () => {
-          if (cardsContainer) {
-            cardsContainer.removeEventListener("mousemove", handleMouseMove);
-          }
+          Array.from(cardsContainer).forEach(card => {
+            card.removeEventListener("mousemove", handleMouseMove);
+          });
         };
       }, []);
+      
   return (
-        <div className={`card ${className}`} {...props}>
+        <div className={`card ${className}`} key={key || ""} style={{ '--radius': radius }}>
             <div className="card-content">
                 {children}
             </div>

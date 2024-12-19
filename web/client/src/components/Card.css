@@ -30,7 +30,7 @@
   
   .card::before {
     background: radial-gradient(
-      800px circle at var(--mouse-x) var(--mouse-y), 
+      var(--radius, 60rem) circle at var(--mouse-x) var(--mouse-y), 
       rgba(255, 255, 255, 0.05),
       transparent 30%
     );
@@ -39,7 +39,7 @@
   
   .card::after {  
     background: radial-gradient(
-      600px circle at var(--mouse-x) var(--mouse-y), 
+      var(--radius, 60rem) circle at var(--mouse-x) var(--mouse-y), 
       rgba(255, 255, 255, 0.1),
       transparent 40%
     );
