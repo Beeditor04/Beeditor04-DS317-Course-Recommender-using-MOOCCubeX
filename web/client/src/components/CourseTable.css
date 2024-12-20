@@ -1,0 +1,24 @@
+.courses-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .courses-table th, .courses-table td {
+    border-top: 2px solid var(--secondary-4);
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .courses-table th, .courses-table td {
+    width: 25%;
+  }
+.courses-table td a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+}
+
+.courses-table tbody tr:hover {
+  filter: brightness(1.5);
+}

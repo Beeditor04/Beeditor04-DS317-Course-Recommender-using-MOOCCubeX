@@ -32,7 +32,7 @@ const LogIn = () => {
     <>
       <div className="cards flex items-center justify-center h-screen">
         {/* <div className="container mx-auto card w-1/3 h-1/2"> */}
-        <Card className="mx-auto w-1/3 h-1/2">
+        <Card className="mx-auto w-[27rem] h-1/2">
           <h1 className="text-4xl text-center my-10 title-color">Log In</h1>
           <img
             src={UserIcon}

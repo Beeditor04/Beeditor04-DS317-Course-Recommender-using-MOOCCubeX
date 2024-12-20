@@ -1,8 +1,48 @@
 .sidenav {
-    overflow: hidden;
     background: var(--neutral-800);
-    width: 30%;
-    height: 100vh;
+    min-height: 100vh;
     justify-content: space-around;
     box-shadow: 0px 8px 28px 0px rgba(1, 5, 17, 0.30);
+
+    position: sticky;
+    top: 0;
+
+    transition: width 0.3s;
+    overflow-x: hidden;
   }
+
+
+.btn-collapse {
+    color: var(--neutral-900);
+    filter: invert(20%) sepia(20%) saturate(791%) hue-rotate(186deg) brightness(110%) contrast(88%);
+    width: 2rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-collapse:hover {
+    filter: invert(20%) sepia(20%) saturate(791%) hue-rotate(186deg) brightness(120%) contrast(88%);
+}
+.sidenav.collapsed .card-content {
+  padding: 0px;
+}
+.sidenav.collapsed .btn-collapse {
+    transition: position 0.3s;
+    position: fixed;
+    top: 1rem;
+    left: -1rem;
+    z-index: 100;
+}
+
+ul li:before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+
+  margin-top: 11px; 
+  margin-left: -13px;
+  width: 6px;
+  height: 6px;
+  background: var(--neutral-100);
+}

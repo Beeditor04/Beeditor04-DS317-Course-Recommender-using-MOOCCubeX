@@ -1,7 +1,7 @@
 .card {
     border-radius: 8px;
     border: 0.6px solid var(--secondary-4);
-    background: var( --neutral-700);
+    background-color: var( --neutral-700);
 }
 
 .card {
@@ -47,13 +47,13 @@
   }
 
   .card > .card-content {
-    background-color: var(--card-color);
+    height: auto;
     border-radius: inherit;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     inset: 1px;
     padding: 10px;
-    position: absolute;
+    /* position: absolute; */
     z-index: 0;
   }
