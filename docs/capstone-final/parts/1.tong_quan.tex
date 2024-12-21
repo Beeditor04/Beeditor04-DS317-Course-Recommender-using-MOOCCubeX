@@ -1,1 +1,49 @@
 \section{Tổng quan}
+
+Khai phá dữ liệu, đặc biệt là dữ liệu lớn, đã trở thành một lĩnh vực nghiên cứu quan trọng và thu hút sự quan tâm của các nhà khoa học trong những năm gần đây. Các ứng dụng của khai phá dữ liệu rất đa dạng, được triển khai trong nhiều lĩnh vực như kinh doanh, giáo dục, y tế, tài chính, và ngân hàng. Đặc biệt, khai phá dữ liệu trong giáo dục, cụ thể là khai phá dữ liệu lớn, đang là chủ đề thu hút nhiều nghiên cứu nhờ vào tính ứng dụng cao và tiềm năng cải thiện chất lượng giáo dục.
+
+Trong bối cảnh giáo dục trực tuyến hiện nay, người học cần phải tự chủ động và có tinh thần tự giác cao do số lượng môn học đa dạng thuộc nhiều lĩnh vực khác nhau. Họ cần phân bổ thời gian học tập hợp lý cho từng nhóm môn học nhằm bổ sung và nâng cao kiến thức chuyên ngành cần thiết. Tuy nhiên, các nền tảng học tập trực tuyến thường không có ràng buộc cụ thể về thời gian và điểm số, dẫn đến tình trạng nhiều khóa học không được hoàn thành đúng thời hạn, thậm chí bị bỏ dở do người học mất hứng thú.
+
+Vì vậy, công tác cố vấn học tập trên các nền tảng trực tuyến trở nên vô cùng quan trọng để giúp người học cải thiện hiệu suất học tập và gợi ý các khóa học phù hợp với nhu cầu cá nhân. Đây là một bài toán thuộc lĩnh vực khai phá dữ liệu, đặc biệt khi xử lý với số lượng lớn dữ liệu liên quan đến người học và hành vi học tập của họ. Việc nghiên cứu và xây dựng hệ thống khuyến nghị khóa học góp phần quan trọng vào việc cá nhân hóa trải nghiệm học tập, hỗ trợ người dùng lựa chọn các khóa học phù hợp với mục tiêu và nhu cầu học tập.
+
+\subsection{Định nghĩa và ngữ cảnh bài toán}
+
+Trong bối cảnh các nền tảng học tập trực tuyến, người học thường gặp khó khăn trong việc lựa chọn khóa học phù hợp. Điều này đặt ra nhu cầu xây dựng một hệ thống khuyến nghị giúp cá nhân hóa quá trình học tập của từng người. Bài toán được định nghĩa với đầu vào và đầu ra như sau:
+
+\begin{itemize}
+    \item \textbf{Input}: Dữ liệu lớn từ các nền tảng học tập trực tuyến, bao gồm thông tin về người học, thông tin khóa học, và dữ liệu về các hoạt động học tập của người dùng.
+    \item \textbf{Output}: Đề xuất top-$k$ khóa học phù hợp nhất với người dùng (trong đó $k \in \mathbb{N}^*$, ví dụ trong nghiên cứu này $k=10$).
+\end{itemize}
+
+\subsection{Ứng dụng}
+
+Bài toán khuyến nghị khóa học cho các nền tảng học tập trực tuyến có nhiều ứng dụng thực tiễn, bao gồm:
+\begin{itemize}
+    \item \textbf{Cá nhân hóa quá trình học tập}: Hệ thống giúp người học lựa chọn các khóa học phù hợp với nhu cầu và trình độ, từ đó cá nhân hóa lộ trình học tập.
+    \item \textbf{Tăng tỷ lệ hoàn thành khóa học}: Đề xuất khóa học phù hợp giúp người học duy trì động lực học tập, từ đó tăng tỷ lệ hoàn thành khóa học.
+    \item \textbf{Tối ưu hóa lộ trình học tập}: Gợi ý các khóa học tiếp theo dựa trên kỹ năng hiện tại và các khóa học đã hoàn thành.
+    \item \textbf{Ứng dụng trong đào tạo doanh nghiệp}: Hỗ trợ doanh nghiệp xây dựng chương trình đào tạo nhân viên hiệu quả, phù hợp với mục tiêu phát triển nghề nghiệp.
+    \item \textbf{Nâng cao hiệu quả sử dụng tài nguyên}: Giúp người học tiết kiệm thời gian và tập trung vào các khóa học có giá trị cao.
+\end{itemize}
+
+\subsection{Khó khăn và thách thức}
+
+Mặc dù có nhiều tiềm năng, bài toán khuyến nghị khóa học vẫn gặp phải các khó khăn và thách thức như:
+\begin{itemize}
+    \item \textbf{Chất lượng và sự đa dạng của dữ liệu}: Dữ liệu không đồng nhất hoặc không đầy đủ, gây khó khăn trong phân tích hành vi người học.
+    \item \textbf{Xử lý dữ liệu lớn}: Khối lượng dữ liệu lớn đòi hỏi khả năng tính toán mạnh mẽ và các thuật toán tối ưu.
+    \item \textbf{Lựa chọn đặc trưng quan trọng}: Việc chọn lọc các đặc trưng phù hợp từ bộ dữ liệu lớn đòi hỏi sự cân nhắc về tài nguyên và thời gian.
+    \item \textbf{Đánh giá mô hình}: Thiếu dữ liệu rõ ràng về mức độ hài lòng của người học, khiến việc đánh giá hệ thống trở nên khó khăn.
+\end{itemize}
+
+\subsection{Các nghiên cứu liên quan}
+
+Các phương pháp khuyến nghị chính bao gồm:
+\begin{itemize}
+    \item \textbf{Matrix Factorization}: Phân rã ma trận để tìm các yếu tố tiềm ẩn.
+    \item \textbf{Collaborative Filtering}: Sử dụng thông tin tương đồng giữa người dùng hoặc khóa học.
+    \item \textbf{Content-Based Filtering}: Gợi ý dựa trên nội dung và đặc trưng của khóa học.
+    \item \textbf{Hybrid Systems}: Kết hợp nhiều phương pháp để tăng hiệu quả.
+    \item \textbf{Graph-Based Methods}: Sử dụng đồ thị để biểu diễn mối quan hệ giữa người dùng và khóa học.
+    \item \textbf{Neural Collaborative Filtering}: Ứng dụng Deep Learning để học các tương tác phi tuyến.
+\end{itemize}
