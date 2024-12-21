@@ -4,4 +4,36 @@
 \subsubsection{Content-based Filtering}
 \subsubsection{Matrix Factorization - Bayesian Personalized Ranking}
 \subsubsection{Factorization Machine}
+Một trong những nhược điểm chính của mô hình BPRMF là không có khả năng mô hình hóa 
+những thông tin bổ trợ giữa người dùng và sản phẩm. Do đó, một phương pháp mở rộng FM đã ra đời. 
+Đây cũng là phương pháp nền móng cho các kĩ thuật DL được ra đời cho bài toán khuyến nghị.
+\newline
+\indent Thuật toán khuyến nghị FM có thể mở rộng ra với các thông tin bổ trợ của người dùng và sản phẩm. 
+Ví dụ như về khuyến nghị cho người dùng một bộ phim, ta có thể xét mức độ ảnh hưởng của 
+các thông tin bổ trợ như: giới tính, tuổi, nghề nghiệp, ... Những thành phần này sẽ được mã hóa 
+thành các vector one-hot hoặc multi-hot vector. Nếu có thêm các dữ liệu dạng số khác, 
+ta có thể thêm vào $\mathbf{x}$ các thành phần tương ứng. Với mỗi thành phần được thêm vào 
+$\mathbf{x}$, ta thêm một cột vector embedding vào $\mathbf{V}$ như hình bên dưới đây.
+Khi đó, độ quan tâm của người dùng có thể được dựng lên như sau:
+
+$$\hat{y}_{ij} = w_0 + \mathbf{xw} + \sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$$
+
+Trong đó:
+
+\begin{itemize}
+    \item $\mathbf{w_0}$ đóng vai trò như một hệ số bias trong mô hình hồi quy tuyến tính, 
+    nó có thể được xem như là một hệ số vô hướng cố định thêm vào kết quả dự đoán cuối cùng để điều chỉnh sự lệch trung bình.
+    \item $\mathbf{xw}$: đây là tích vô hướng vector đặc trưng đầu vào (input feature vector) 
+    và một vector trọng số $\mathbf{w}$ tương ứng với các đặc trưng của $\mathbf{x}$.
+    \item $\sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$: Đây là thành phần tương tác bậc hai giữa các đặc trưng.
+    \begin{itemize}
+        \item $x_i$, $x_j$ lần lượt là phần tử thứ $i$, thứ $j$ trong feature vector $\mathbf{x}$.
+        \item $\mathbf{v}_i^T\mathbf{v}_j$ là tích vô hướng giữa các vector embeddings tương ứng với từng đặc trưng đầu vào $x_i$ và $x_j$.
+        \item $\sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$ là biểu diễn tổng tất cả các cặp tương tác giữa các đặc trưng có trong tập dữ liệu.    
+    \end{itemize}
+\end{itemize}
+
+Đây chính là ý tưởng chính của FM. Đồng thời, nhờ vào việc $\mathbf{x}$ thường là một vector rất thưa (rất ít thành phần khác 0), 
+việc huấn luyện và dự đoán trở nên rất nhanh ngay cả khi số lượng người dùng và sản phẩm lớn.
+
 \subsubsection{Neutral Factorization Machine}
