@@ -7,9 +7,9 @@ Bài báo đề xuất một phương pháp để cải thiện độ chính xá
 KGAT là một trong những hệ thống đề xuất tập trung nhiều hơn về những thông tin ẩn về người dùng. Bằng cách kết hợp nhúng nhiều trường thông tin ẩn vào mô hình, nhóm tác giả đã tạo được một mô hình không chỉ hiểu về những thông tin rõ ràng đã có của người dùng mà còn các tương tác ẩn giữa người dùng với các đối tượng đó.
 
 \subsubsection{Các kiến thức cần nắm}
-Bài báo KGAT đề xuất một phương pháp xử lý dữ liệu tốt hơn bằng cách tận dụng trường thông tin bổ sung (Item side information) để tăng hiệu suất của mô hình. 
+Bài báo KGAT đề xuất một phương pháp xử lý dữ liệu tốt hơn bằng cách tận dụng trường thông tin bổ sung (Item side information) để tăng hiệu suất của mô hình.
 
-Giải quyết bài toán đề xuất với cách tiếp cận là tạo ra một mô hình có mối quan hệ bậc cao rõ ràng giữa các trường thông tin và toàn diện với cách xử lý của một mạng thần kinh đồ thị (Graph Neural Network [8] [9] – GNN). 
+Giải quyết bài toán đề xuất với cách tiếp cận là tạo ra một mô hình có mối quan hệ bậc cao rõ ràng giữa các trường thông tin và toàn diện với cách xử lý của một mạng thần kinh đồ thị (Graph Neural Network [8] [9] – GNN).
 
 Tiến hành mở rộng và so sánh với các phương pháp kinh điển trước đó để chứng minh được hiệu suất rõ ràng của mô hình.
 
@@ -31,7 +31,7 @@ Thường thì, các thành phần cấu tạo nên một KG sẽ bao gồm:
 Có thể thấy đây là một kiến trúc mạng linh hoạt có nhiều lớp thông tin có thể được bổ sung và tích hợp với nhau, điều này cho phép một mạng KG có thể hiểu được toàn diện về ngữ cảnh và môi trường của người dùng nếu được tổ chức tốt.
 
 \subsubsection{Tổng quan về KGAT}
-Mô hình KGAT sử dụng thông tin bổ sung để xây dựng một biểu đồ tri thức nhằm nắm bắt mối quan hệ giữa người dùng, các mục (items) và các tương tác người dùng (user interaction) với nhau. Mô hình KGAT sử dụng cơ chế học chú ý (Attention Mechanism) với đồ thị nhằm cho phép mô hình có thể hiểu được tầm quan trọng về sự khác nhau giữa các vật phẩm và những đặc trưng của chúng. Điểm khác biệt giữa mô hình KGAT so với các mô hình trước đây là nó được thiết kế với sự thay đổi nhằm làm phong phú thêm về sự hiểu biết của mô hình về hành vi và sở thích của người dùng. Điều này dẫn đến những dự đoán không chỉ dựa trên những thuộc tính của các mục (items) mà còn được định hình dự trên đặc điểm của từng người dùng, giúp cải thiện đáng kể độ phù hợp và liên quan giữa các mục được mô hình đề xuất. 
+Mô hình KGAT sử dụng thông tin bổ sung để xây dựng một biểu đồ tri thức nhằm nắm bắt mối quan hệ giữa người dùng, các mục (items) và các tương tác người dùng (user interaction) với nhau. Mô hình KGAT sử dụng cơ chế học chú ý (Attention Mechanism) với đồ thị nhằm cho phép mô hình có thể hiểu được tầm quan trọng về sự khác nhau giữa các vật phẩm và những đặc trưng của chúng. Điểm khác biệt giữa mô hình KGAT so với các mô hình trước đây là nó được thiết kế với sự thay đổi nhằm làm phong phú thêm về sự hiểu biết của mô hình về hành vi và sở thích của người dùng. Điều này dẫn đến những dự đoán không chỉ dựa trên những thuộc tính của các mục (items) mà còn được định hình dự trên đặc điểm của từng người dùng, giúp cải thiện đáng kể độ phù hợp và liên quan giữa các mục được mô hình đề xuất.
 
 \begin{figure}[h]
     \centering
@@ -93,16 +93,50 @@ Về cách thức tối ưu, KGAT sử dụng loss function chính xác đối v
 \subsection{Phương pháp khác}
 \subsubsection{Content-based Filtering}
 \subsubsection{Matrix Factorization - Bayesian Personalized Ranking}
+
+
+Bayesian Personalized Ranking (BPR) là một phương pháp học máy được thiết kế đặc
+biệt để cải thiện hệ thống gợi ý, đặc biệt là trong bối cảnh dữ liệu phản hồi
+ngầm (implicit feedback) như lượt xem, lượt mua, hay lượt thích.
+
+Khi kết hợp với Matrix Factorization (MF), BPR đã chứng minh hiệu quả vượt trội
+trong việc cá nhân hóa đề xuất sản phẩm cho người dùng.Trong bối cảnh BPR, dữ
+liệu thường là dạng phản hồi ngầm, tức là chỉ biết được các tương tác tích cực
+(ví dụ: người dùng đã mua hoặc xem sản phẩm nào đó) màk hông có thông tin về
+các tương tác tiêu cực. BPR giả định rằng những mục khôngđược tương tác là
+không được ưu tiên hoặc ít được ưu tiên hơn so với những mục đã được tương tác.
+
+Matrix Factorization là kỹ thuật phổ biến để phân rã ma trận người dùng mục
+thành các ma trận tiềm ẩn nhỏ hơn, đại diện cho đặc trưng của người dùng và mục
+.Trong ngữ cảnh BPR\:
+\begin{itemize}
+    \item Ma trận người dùng (U): Đại diện cho các đặc trưng tiềm ẩn của người dùng.
+    \item Ma trận mục (I): Đại diện cho các đặc trưng tiềm ẩn của mục.
+\end{itemize}
+
+BPR dựa trên giả định rằng, với mỗi người dùng $ u $, một mục tích cực $ i $ (đã được
+tương tác) nên được ưu tiên hơn một mục tiêu cực $ j $ (chưa được tương tác). Mục
+tiêu của BPR là tối ưu hóa hàm mục tiêu:
+
+\[
+    \sum_{ (u, i, j) \in D_s} \ln{\sigma (\hat x_{uij}) - \lambda_\theta {\| \theta \|}^2 }
+\]
+
+Với $ \hat x_{uij} $ là điểm khác biệt giữa điểm số dự đoán $ \hat x_{ui} $ và
+$ \hat x_{uj} $
+
+BPR thường sử dụng Stochastic Gradient Descent để tối ưu
+
 \subsubsection{Factorization Machine}
-Một trong những nhược điểm chính của mô hình BPRMF là không có khả năng mô hình hóa 
-những thông tin bổ trợ giữa người dùng và sản phẩm. Do đó, một phương pháp mở rộng FM đã ra đời. 
+Một trong những nhược điểm chính của mô hình BPRMF là không có khả năng mô hình hóa
+những thông tin bổ trợ giữa người dùng và sản phẩm. Do đó, một phương pháp mở rộng FM đã ra đời.
 Đây cũng là phương pháp nền móng cho các kĩ thuật DL được ra đời cho bài toán khuyến nghị.
 \newline
-\indent Thuật toán khuyến nghị FM có thể mở rộng ra với các thông tin bổ trợ của người dùng và sản phẩm. 
-Ví dụ như về khuyến nghị cho người dùng một bộ phim, ta có thể xét mức độ ảnh hưởng của 
-các thông tin bổ trợ như: giới tính, tuổi, nghề nghiệp, ... Những thành phần này sẽ được mã hóa 
-thành các vector one-hot hoặc multi-hot vector. Nếu có thêm các dữ liệu dạng số khác, 
-ta có thể thêm vào $\mathbf{x}$ các thành phần tương ứng. Với mỗi thành phần được thêm vào 
+\indent Thuật toán khuyến nghị FM có thể mở rộng ra với các thông tin bổ trợ của người dùng và sản phẩm.
+Ví dụ như về khuyến nghị cho người dùng một bộ phim, ta có thể xét mức độ ảnh hưởng của
+các thông tin bổ trợ như: giới tính, tuổi, nghề nghiệp, ... Những thành phần này sẽ được mã hóa
+thành các vector one-hot hoặc multi-hot vector. Nếu có thêm các dữ liệu dạng số khác,
+ta có thể thêm vào $\mathbf{x}$ các thành phần tương ứng. Với mỗi thành phần được thêm vào
 $\mathbf{x}$, ta thêm một cột vector embedding vào $\mathbf{V}$ như hình bên dưới đây.
 Khi đó, độ quan tâm của người dùng có thể được dựng lên như sau:
 
@@ -111,38 +145,38 @@ $$\hat{y}_{ij} = w_0 + \mathbf{xw} + \sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i
 Trong đó:
 
 \begin{itemize}
-    \item $\mathbf{w_0}$ đóng vai trò như một hệ số bias trong mô hình hồi quy tuyến tính, 
+    \item $\mathbf{w_0}$ đóng vai trò như một hệ số bias trong mô hình hồi quy tuyến tính,
     nó có thể được xem như là một hệ số vô hướng cố định thêm vào kết quả dự đoán cuối cùng để điều chỉnh sự lệch trung bình.
-    \item $\mathbf{xw}$: đây là tích vô hướng vector đặc trưng đầu vào (input feature vector) 
+    \item $\mathbf{xw}$: đây là tích vô hướng vector đặc trưng đầu vào (input feature vector)
     và một vector trọng số $\mathbf{w}$ tương ứng với các đặc trưng của $\mathbf{x}$.
     \item $\sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$: Đây là thành phần tương tác bậc hai giữa các đặc trưng.
     \begin{itemize}
         \item $x_i$, $x_j$ lần lượt là phần tử thứ $i$, thứ $j$ trong feature vector $\mathbf{x}$.
         \item $\mathbf{v}_i^T\mathbf{v}_j$ là tích vô hướng giữa các vector embeddings tương ứng với từng đặc trưng đầu vào $x_i$ và $x_j$.
-        \item $\sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$ là biểu diễn tổng tất cả các cặp tương tác giữa các đặc trưng có trong tập dữ liệu.    
+        \item $\sum_{i=1}^{d}\sum_{j=i+1}^{d} \mathbf{v}_i^T\mathbf{v}_jx_ix_j$ là biểu diễn tổng tất cả các cặp tương tác giữa các đặc trưng có trong tập dữ liệu.
     \end{itemize}
 \end{itemize}
 
-Đây chính là ý tưởng chính của FM. Đồng thời, nhờ vào việc $\mathbf{x}$ thường là một vector rất thưa (rất ít thành phần khác 0), 
+Đây chính là ý tưởng chính của FM. Đồng thời, nhờ vào việc $\mathbf{x}$ thường là một vector rất thưa (rất ít thành phần khác 0),
 việc huấn luyện và dự đoán trở nên rất nhanh ngay cả khi số lượng người dùng và sản phẩm lớn.
 
 \subsubsection{Neutral Factorization Machine}
-Mặc dù có khả năng mô hình hóa các thông tin bổ trợ của người dùng và sản phẩm, performance của FM vẫn bị hạn chế 
-bởi tính tuyến tính của nó cũng như việc chỉ mô hình các tương tác đặc trưng (ví dụ như bậc 2) theo cặp. 
-Với dữ liệu thực tế có cấu trúc cơ bản phức tạp và phi tuyến, FM sẽ không đủ khả năng biểu diễn. 
+Mặc dù có khả năng mô hình hóa các thông tin bổ trợ của người dùng và sản phẩm, performance của FM vẫn bị hạn chế
+bởi tính tuyến tính của nó cũng như việc chỉ mô hình các tương tác đặc trưng (ví dụ như bậc 2) theo cặp.
+Với dữ liệu thực tế có cấu trúc cơ bản phức tạp và phi tuyến, FM sẽ không đủ khả năng biểu diễn.
 Tuy FM bậc cao hơn đã được đề xuất, chúng vẫn thuộc họ mô hình tuyến tính và được cho là khó ước tính.
 
-\indent NFM ra đời nhằm cải tiến FM bằng cách mô hình hóa các tương tác đặc trưng cao và phi tuyến. 
-Bằng cách sử dụng một phép toán mới trong mô hình neural network - Bilinear Interaction (Bi-interaction) pooling, 
-NFM được xem như là sự kết hợp của FM với neural network framework. Thông qua việc xếp chồng các lớp phi tuyến trên Bi-interaction pooling layer, 
+\indent NFM ra đời nhằm cải tiến FM bằng cách mô hình hóa các tương tác đặc trưng cao và phi tuyến.
+Bằng cách sử dụng một phép toán mới trong mô hình neural network - Bilinear Interaction (Bi-interaction) pooling,
+NFM được xem như là sự kết hợp của FM với neural network framework. Thông qua việc xếp chồng các lớp phi tuyến trên Bi-interaction pooling layer,
 NFM đã làm sâu hơn mô hình FM tuyến tính nông, từ đó mô hình hóa các tương tác đặc trưng phi tuyến và bậc cao một cách hiệu quả, cải thiện performance của FM.
 
-\indent Với một feature vector thưa $\mathbf{x} \in \mathbb{R}^{n}$ làm đầu vào, trong đó $x_i = 0$ nghĩa là đặc trưng thứ $i$ không tồn tại trong đối tượng, 
+\indent Với một feature vector thưa $\mathbf{x} \in \mathbb{R}^{n}$ làm đầu vào, trong đó $x_i = 0$ nghĩa là đặc trưng thứ $i$ không tồn tại trong đối tượng,
 NFM dự đoán mục tiêu như sau:
 $$ \hat{y}(\mathbf{x}) = w_0 + \mathbf{xw} + f(\mathbf{x})$$
 
-Trong đó, term đầu tiên và thứ 2 là phần linear regression giống với FM, 
-thứ mô hình bias toàn cục và trọng số của các đặc trưng. Còn term thứ 3 $f(\mathbf{x})$ là thành phần cốt lõi trong NFM 
+Trong đó, term đầu tiên và thứ 2 là phần linear regression giống với FM,
+thứ mô hình bias toàn cục và trọng số của các đặc trưng. Còn term thứ 3 $f(\mathbf{x})$ là thành phần cốt lõi trong NFM
 để mô hình tương tác đặc trưng. $f(\mathbf{x})$ chính là một multi-layer feed-forward neural network như bên dưới:
 \begin{figure}[h]
     \centering
@@ -152,9 +186,9 @@ Do Embedding layer tương tự như FM nên ta sẽ tiếp tục tìm hiểu v�
 
 \textbf{Bi-interaction pooling:} chuyển đổi tất các embedding vectors $V_x$ thành 1 vector như sau:
 $$ f_{BI}(V_x) = \sum_{i=1}^{n} \sum_{j=i+1}^{n} x_i v_i \odot x_j v_j $$
-Trong đó, $\odot$ là ký hiệu của element-wise product của 2 vectors; $x_i$, $x_j$ lần lượt 
+Trong đó, $\odot$ là ký hiệu của element-wise product của 2 vectors; $x_i$, $x_j$ lần lượt
 là phần tử thứ $i$ và $j$ trong feature vector $\mathbf{x}$. $\mathbf{v}_i, \mathbf{v}_j$ lần lượt là embedding của feature thứ $i$ và $j$.
-\textbf{Hidden layer:} Trên Bi-interaction pooling là 1 chồng các lớp fully connected, thứ có khả năng mô hình các tương tác bậc cao giữa các đặc trưng. 
+\textbf{Hidden layer:} Trên Bi-interaction pooling là 1 chồng các lớp fully connected, thứ có khả năng mô hình các tương tác bậc cao giữa các đặc trưng.
 Mỗi hidden layer sẽ có một non-linear activation function như tanh, sigmoid, ReLU.
 \textbf{Prediction layer:} Cuối cùng, vector đầu ra của hidden layer cuối sẽ được chuyển đổi thành prediction score:
 $$f(\mathbf{x}) = \mathbf{h}^T \mathbf{z}_L$$
@@ -179,7 +213,7 @@ Trước hết,  \textbf{Content-based Filtering} và \textbf{Collaborative Filt
     \item \textbf{Collaborative Filtering:} Có hai hướng tiếp cận chính:
 \end{itemize}
 \begin{itemize}
-    \item 
+    \item
     \begin{itemize}
         \item User-based Collaborative Filtering: Đề xuất dựa trên những người dùng có sở thích tương tự. Ví dụ, nếu người dùng A và B có cùng sở thích trong một số khóa học, hệ thống có thể gợi ý cho A các khóa học mà B đã tham gia, và ngược lại.
         \item Item-based Collaborative Filtering: Đề xuất dựa trên các khóa học tương tự mà nhiều người dùng cùng yêu thích. Ví dụ, nếu nhiều người dùng học cả khóa X và Y, hệ thống sẽ đề xuất khóa Y cho những người dùng chỉ mới học khóa X.
