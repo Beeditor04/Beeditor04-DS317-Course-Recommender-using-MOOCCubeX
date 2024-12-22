@@ -6,6 +6,7 @@ Sau khi chạy thực nghiệm và đánh giá các phương pháp gợi ý trê
 \begin{figure}[h]
     \centering
     % Placeholder for Image 1
+    \includegraphics[width=0.8\textwidth]{figures/69.png}
     \caption{Hình minh họa quy trình thực nghiệm bài toán với cách tiếp cận sử dụng mô hình KGAT}
     \label{fig:image1}
 \end{figure}
@@ -19,49 +20,8 @@ Sau đó, giai đoạn hậu xử lý (Hình~\ref{fig:image2}) sẽ gán giá tr
 \begin{figure}[h]
     \centering
     % Placeholder for Image 2
+    \includegraphics[width=0.8\textwidth]{figures/70.png}
     \caption{Hình minh họa giai đoạn hậu xử lý để lọc ra được top-k khóa học được đề xuất}
     \label{fig:image2}
 \end{figure}
 
-\subsection{Kiến trúc dữ liệu lớn}
-Microsoft Azure là một nền tảng điện toán đám mây (Cloud Computing) của Microsoft. Azure cung cấp một loạt các dịch vụ đám mây, bao gồm việc lưu trữ dữ liệu, xử lý dữ liệu, phân tích dữ liệu, học máy, lưu trữ ảo hóa, triển khai ứng dụng cũng như các công cụ và dịch vụ để giúp người dùng quản lý và giám sát tài nguyên của mình. 
-
-Tuy nhiên, đây là một nền tảng tính phí: Đối với gói sinh viên, nhiều dịch vụ bị giới hạn (trong đó có dịch vụ về lưu trữ và xử lý dữ liệu lớn); đối với gói xác thực cơ bản với thẻ tín dụng thì người dùng chỉ được miễn phí 200USD trong vòng 1 tháng/áp dụng cho mọi dịch vụ mà người dùng lựa chọn sử dụng nhưng cũng bị giới hạn về nhiều chức năng trên các dịch vụ đó. Do đó, để phù hợp về kinh phí cũng như đáp ứng được nhu cầu của đề tài thì nhóm chỉ sử dụng Microsoft Azure cho quá trình lưu trữ và xử lý dữ liệu lớn; đối với quá trình xây dựng và huấn luyện mô hình, nhóm sẽ thực hiện trên nền tảng Kaggle (một nền tảng trực tuyến được thiết kế cho cộng đồng những người dùng chuyên về khoa học dữ liệu và machine learning).
-
-\begin{figure}[h]
-    \centering
-    % Placeholder for Image 3
-    \caption{Hình minh họa kiến trúc lưu trữ và xử lý dữ liệu lớn cho đề tài của nhóm}
-    \label{fig:image3}
-\end{figure}
-
-\subsubsection{Ingest}
-\textbf{Azure Blob Storage}: là giải pháp lưu trữ đối tượng trên Cloud. Blob Storage cho phép Microsoft Azure lưu trữ lượng dữ liệu phi cấu trúc lớn tùy ý và phục vụ chúng cho người dùng qua HTTP và HTTPS. Đây là nơi lưu trữ các tệp dữ liệu thô cần sử dụng cho đề tài từ nguồn MOOCCubeX.
-
-\textbf{Azure Data Lake Gen2}: cho phép lưu trữ dữ liệu ở bất kỳ quy mô nào, từ dữ liệu thô chưa cấu trúc đến dữ liệu đã qua xử lý, giúp dễ dàng phân tích và khai thác giá trị từ dữ liệu, được thiết kế chủ yếu để hoạt động với Hadoop và tất cả các framework sử dụng Hệ thống tệp phân tán Apache Hadoop (HDFS) làm lớp truy cập dữ liệu - Azure Databricks. Đây là nơi lưu trữ các tệp dữ liệu thô mang tính cập nhật theo thời gian, phục vụ cho quá trình khai thác và xây dựng, huấn luyện cũng như cải tiến mô hình học máy.
-
-\begin{figure}[h]
-    \centering
-    % Placeholder for Image 4
-    \caption{Hình minh họa dữ liệu cho việc xử lý, phân tích được lưu trữ trên Azure Data Lake Gen2}
-    \label{fig:image4}
-\end{figure}
-
-\textbf{Azure Data Factory}: cho phép người dùng tạo, quản lý, và giám sát các luồng công việc tích hợp dữ liệu (data integration workflows), hỗ trợ việc di chuyển và chuyển đổi dữ liệu từ nhiều nguồn khác nhau đến các đích khác nhau. Một pipeline được nhóm thiết kế từ dịch vụ này sẽ làm nhiệm vụ kiểm tra và cập nhật dữ liệu mới từ Azure Blob Storage vào Azure Data Lake Gen2 nhằm đảm bảo dữ liệu tại Data Lake luôn có tính cập nhật và sẵn sàng cho quá trình khai phá, xây dựng và cải tiến mô hình máy học.
-
-\begin{figure}[h]
-    \centering
-    % Placeholder for Image 5
-    \caption{Hình minh họa pipeline cho quá trình ingest dữ liệu cập nhật}
-    \label{fig:image5}
-\end{figure}
-
-\subsubsection{Process}
-\textbf{Azure Databricks}: là một dịch vụ phân tích dữ liệu lớn và học máy mạnh mẽ, linh hoạt và dễ sử dụng, được xây dựng trên nền tảng Apache Spark. Với khả năng tích hợp mạnh mẽ với các dịch vụ Azure khác, quản lý cụm tự động, và các tính năng bảo mật cao, Azure Databricks giúp các tổ chức dễ dàng xây dựng và triển khai các giải pháp phân tích và học máy quy mô lớn, từ đó khai thác tối đa giá trị từ dữ liệu của mình. Để giảm thiểu chi phí thử nghiệm trên Azure, nhóm sẽ thử nghiệm và xây dựng các mã nguồn Python trên Google Colab cho quá trình xử lý dữ liệu lớn (Data Translation, EDA and Data Preprocessing, Data Transform and Splitting); sau đó các mã nguồn này sẽ được refactor lại với các thư viện cần thiết khác (PySpark, AzureMLCore) để phù hợp với môi trường xử lý phân tán trên Azure Databricks.
-
-\begin{figure}[h]
-    \centering
-    % Placeholder for Image 6
-    \caption{Hình minh họa tạo Databricks Cluster trên Azure}
-    \label{fig:image6}
-\end{figure}
