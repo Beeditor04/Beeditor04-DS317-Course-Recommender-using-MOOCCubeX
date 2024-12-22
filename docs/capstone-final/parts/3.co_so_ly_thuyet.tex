@@ -1,5 +1,97 @@
 \section{Cơ sở lý thuyết}
 \subsection{Phương pháp áp dụng - KGAT}
+Phương pháp tiếp cận gần đây - KGAT: Knowledge Graph Attention Network for Recommendation
+
+Bài báo đề xuất một phương pháp để cải thiện độ chính xác, đa dạng và khả năng giải thích của hệ thống gợi ý, cần phải xem xét thêm thông tin bổ sung thay vì chỉ dựa vào tương tác người dùng-sản phẩm. Thường thì các phương pháp truyền thống như học máy không đủ để nắm bắt các mối quan hệ phức tạp giữa các mục, từ đó cho ra kết quả dự đoán kết quả không được cao. Trong nghiên cứu này, nhóm tác giả sử dụng đồ thị tri thức (Knowledge Graph) để liên kết các mục với thuộc tính của chúng, cho rằng các quan hệ bậc cao là chìa khóa cho việc gợi ý hiệu quả. Tổng quan phương pháp này được gọi là Knowledge Graph Attention Network for Recommendation (KGAT) [3], mô hình hóa rõ ràng các kết nối bậc cao và sử dụng cơ chế chú ý để đánh giá tầm quan trọng của các liên kết. Kết quả thực nghiệm cho thấy KGAT vượt trội hơn các phương pháp tiên tiến hiện có và cung cấp khả năng giải thích tốt hơn.
+
+KGAT là một trong những hệ thống đề xuất tập trung nhiều hơn về những thông tin ẩn về người dùng. Bằng cách kết hợp nhúng nhiều trường thông tin ẩn vào mô hình, nhóm tác giả đã tạo được một mô hình không chỉ hiểu về những thông tin rõ ràng đã có của người dùng mà còn các tương tác ẩn giữa người dùng với các đối tượng đó.
+
+\subsubsection{Các kiến thức cần nắm}
+Bài báo KGAT đề xuất một phương pháp xử lý dữ liệu tốt hơn bằng cách tận dụng trường thông tin bổ sung (Item side information) để tăng hiệu suất của mô hình. 
+
+Giải quyết bài toán đề xuất với cách tiếp cận là tạo ra một mô hình có mối quan hệ bậc cao rõ ràng giữa các trường thông tin và toàn diện với cách xử lý của một mạng thần kinh đồ thị (Graph Neural Network [8] [9] – GNN). 
+
+Tiến hành mở rộng và so sánh với các phương pháp kinh điển trước đó để chứng minh được hiệu suất rõ ràng của mô hình.
+
+Về tổng quát, có thể thấy KGAT tập trung phát triển và cải thiện các kĩ thuật xử lý dữ liệu dựa trên GNN. Vậy GNN là gì? Cốt lõi của GNN là gì? Đáp án của những câu hỏi trên nằm ở một câu trả lời duy nhất, đó là đồ thị tri thức (Knowledge Graph - KG). KG có thể được hiểu là một mạng phức tạp liên kết các thực thể - chẳng hạn như giữa người dùng (users), vật phẩm (items) và các đặc trưng (features) của chúng thông qua mối quan hệ phức tạp của chúng.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{}
+    \caption{Biểu đồ tri thức KG trong thực tế}
+    \label{fig:kg_example}
+\end{figure}
+
+Thường thì, các thành phần cấu tạo nên một KG sẽ bao gồm:
+\begin{itemize}
+    \item Nút: đại diện cho các thực thể (ví dụ: người dùng, sản phẩm, danh mục, …)
+    \item Cạnh: mô tả mối quan hệ của các nút (ví dụ: đã mua, đã xem, …. Và ngược lại)
+\end{itemize}
+
+Có thể thấy đây là một kiến trúc mạng linh hoạt có nhiều lớp thông tin có thể được bổ sung và tích hợp với nhau, điều này cho phép một mạng KG có thể hiểu được toàn diện về ngữ cảnh và môi trường của người dùng nếu được tổ chức tốt.
+
+\subsubsection{Tổng quan về KGAT}
+Mô hình KGAT sử dụng thông tin bổ sung để xây dựng một biểu đồ tri thức nhằm nắm bắt mối quan hệ giữa người dùng, các mục (items) và các tương tác người dùng (user interaction) với nhau. Mô hình KGAT sử dụng cơ chế học chú ý (Attention Mechanism) với đồ thị nhằm cho phép mô hình có thể hiểu được tầm quan trọng về sự khác nhau giữa các vật phẩm và những đặc trưng của chúng. Điểm khác biệt giữa mô hình KGAT so với các mô hình trước đây là nó được thiết kế với sự thay đổi nhằm làm phong phú thêm về sự hiểu biết của mô hình về hành vi và sở thích của người dùng. Điều này dẫn đến những dự đoán không chỉ dựa trên những thuộc tính của các mục (items) mà còn được định hình dự trên đặc điểm của từng người dùng, giúp cải thiện đáng kể độ phù hợp và liên quan giữa các mục được mô hình đề xuất. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{}
+    \caption{Kiến trúc tổng quan mô hình khuyến nghị học sâu KGAT}
+    \label{fig:kgat_model}
+\end{figure}
+
+\subsubsection{Các kĩ thuật sử dụng của KGAT}
+\paragraph{Embedding layer.}
+Về mặt lý thuyết, tác giả tạo một collaborative knowledge graph – CKG. CKG là sự kết hợp giữa một KG và một user-item bipartile graph. CKG có thể được hiểu là một dạng mở rộng của một KG, trong đó thông tin không chỉ đến từ thông tin của User và Item mà còn đến từ các thông tin bổ trợ khác (ở hình sau là các Entities). Mục tiêu của một CKG là sử dụng được thông tin phong phú từ nhiều nguồn để cải thiện độ chính xác và tăng khả năng dự đoán của mô hình.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{}
+    \caption{Một CKG biểu diễn liên kết cho các loại thực thể}
+    \label{fig:ckg_example}
+\end{figure}
+
+Điểm hay của KGAT là khai thác được các quan hệ bậc cao trong CKG, ví dụ như các kết nối dài hạn sau:
+\begin{itemize}
+    \item u1  r1→  i1  -r2→  e1  r2→  i2  -r1→  \{u2,  u3\}
+    \item u1  r1→  i1  -r2→  e1  r3→ \{i3,  i4\}
+\end{itemize}
+
+Về cách thức thực hiện, embedding layer tham số hóa các thực thể và quan hệ dưới dạng các vectors trong khi vẫn bảo toàn cấu trúc đồ thị. Trong bài báo, nhóm tác giả sử dụng TransR [10] để tham số hóa các thực thể và mối quan hệ trong CKG thành các biểu diễn vector, xem xét sự biểu diễn của chúng với kết nối trực tiếp của mỗi bộ ba phần tử (h, r, t):
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{}
+    \caption{Cơ chế embeddings (bên trái) và TranR (bên phải) trong KGAT}
+    \label{fig:embedding_process}
+\end{figure}
+
+\paragraph{Attentive Embedding propagation layers.}
+Về lý thuyết, đây được xem như giai đoạn biểu diễn mỗi nút dưới dạng một vector bằng cấu trúc bảo toàn cấu trúc của CKG, đệ quy lan truyền để truyền các lớp nhúng học được từ các nút lân cận để cập nhật biểu diễn cho nó, sử dụng cơ chế học có chú ý (Attention) để học chi tiết từng trọng số cho các nút lân cận trong quá trình lan truyền.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{}
+    \caption{Cơ chế Attention và cơ chế truyền thông tin giữa các lớp}
+    \label{fig:attention_process}
+\end{figure}
+
+Cách tiếp cận có hệ thống này biến mô hình KGAT thành một hệ thống kết hợp nắm bắt cả các thông tin items trực tiếp của người dùng và bối cảnh rộng hơn của các tùy chọn đó, tạo ra một hệ thống đề xuất rõ ràng hơn có khả năng mang được nhiều thông tin để dự đoán hơn.
+
+\paragraph{Model prediction.}
+Sau khi thực hiện lan truyền thông tin qua L lớp, ta thu được nhiều đại diện của người dùng node u, bao gồm: \{eu(1), …, euL\}; tương tự với sản phẩm node i, ta cũng thu được ei1,…,eiL. Tiếp đến, ta sẽ ghép nối embedding ban đầu với các embeddings mới thu được theo công thức sau:
+\[
+eu* = eu(0) || … || eu(L), \quad ei* = ei(0) || … || ei(L)
+\]
+Cuối cùng, điểm số phù hợp (matching score) giữa người dùng và sản phẩm sẽ được tính bằng inner product:
+\[
+yu,i = eu*T e i*
+\]
+
+Về cách thức tối ưu, KGAT sử dụng loss function chính xác đối với thói quen tương tác người dùng.
+
+\end{document}
+
 \subsection{Phương pháp khác}
 \subsubsection{Content-based Filtering}
 \subsubsection{Matrix Factorization - Bayesian Personalized Ranking}
