@@ -1,1 +1,94 @@
 \section{Kết luận và hướng phát triển}
+\subsection{Đánh giá các phương pháp}
+Mỗi phương pháp đều có ưu và khuyết điểm:\\
+\\
+\textbf{Content-based filtering:}
+\begin{itemize}
+    \item Ưu điểm:
+    \begin{itemize}
+        \item Không cần huấn luyện, suy luận nhanh.
+        \item Không cần dữ liệu từ người dùng khác. Khi xuất hiện một khóa học mới chưa được đăng ký, ta hoàn toàn có thể dựa vào nội dung, thông tin của nó để gợi ý.
+        \item Khả năng cá nhân hóa cao: Do phân tích sở thích cá nhân của người dùng, bộ lọc dựa trên nội dung có thể đưa ra những đề xuất phù hợp và chính xác hơn.
+    \end{itemize}
+    \item Nhược điểm:
+    \begin{itemize}
+        \item Performance thấp nếu hand-made feature không hiệu quả
+        \item Không cần dữ liệu từ người dùng khác cũng chính là khuyết điểm của phương pháp này, vì nó sẽ chỉ gợi ý những khóa học có nội dung tương tự với các khóa user đã đăng ký, thiếu đi tính đa dạng.
+    \end{itemize}
+\end{itemize}
+\textbf{Matrix factorization:}
+\begin{itemize}
+    \item Ưu điểm:
+    \begin{itemize}
+        \item Đầu tiên, nó có thể xử lý dữ liệu thưa thớt và không đầy đủ, điều này thường xảy ra đối với xếp hạng mục cũng như việc đăng ký khóa học của người dùng. MF có thể điền vào các giá trị còn thiếu và dự đoán xếp hạng cho các mục hoặc người dùng chưa nhìn thấy.
+        \item Thứ hai, nó có thể làm giảm chiều và độ phức tạp của dữ liệu, điều này có thể cải thiện hiệu quả và khả năng mở rộng của hệ thống gợi ý. MF có thể nén một ma trận lớn thành các ma trận nhỏ hơn để nắm bắt thông tin cần thiết và giảm nhiễu. 
+        \item Thứ ba, nó có thể khám phá các đặc trưng và mẫu tiềm ẩn không rõ ràng hoặc rõ ràng trong dữ liệu. MF có thể tiết lộ những điểm tương đồng và sở thích tiềm ẩn giữa người dùng và mặt hàng, điều này có thể nâng cao chất lượng và tính đa dạng của các đề xuất
+    \end{itemize}
+    \item Nhược điểm:
+    \begin{itemize}
+        \item Đầu tiên, nó có thể bị overfitting và underfitting, điều này có thể ảnh hưởng đến tính chính xác và tính khái quát của các đề xuất. Overfiting xảy ra khi các vectơ đặc trưng fit quá tốt với dữ liệu và thu được nhiễu hoặc các ngoại lệ, trong khi underfiting xảy ra khi các vectơ đặc trưng fit quá tệ với dữ liệu và bỏ lỡ thông tin quan trọng. Để tránh những vấn đề này, việc phân tích FM cần phải cân bằng sự đánh đổi giữa việc overfiting và việc regularize các vectơ đặc trưng.
+        \item Thứ hai, nó có thể nhạy cảm với việc lựa chọn các tham số, chẳng hạn như số lượng đặc trưng, tốc độ học và regularization term. Các tham số này có thể ảnh hưởng đến hiệu suất và độ hội tụ của thuật toán nhân tử hóa ma trận.
+        \item Thứ ba, nó có thể bị giới hạn bởi các giả định về tính tuyến tính và tính độc lập, những giả định này có thể không đúng đối với một số dữ liệu hoặc kịch bản. MF giả định rằng xếp hạng là sự kết hợp tuyến tính của các đặc điểm và các đặc điểm này độc lập với nhau. Tuy nhiên, trong một số trường hợp, xếp hạng có thể phụ thuộc vào các đặc điểm phi tuyến tính hoặc tương tác hoặc vào các yếu tố bên ngoài như bối cảnh, thời gian hoặc ảnh hưởng xã hội.
+        \item Thứ 4, không có khả năng mô hình hóa các thông tin bổ trợ về người dùng và sản phẩm.
+    \end{itemize}
+\end{itemize}
+\textbf{Factorization machine:}
+\begin{itemize}
+    \item Ưu điểm:
+    \begin{itemize}
+        \item FM là một phương pháp mở rộng của MF ở đó thông tin về sự tương tác giữa nhiều thành phần thông tin khác nhau được mô hình hóa dưới dạng một biểu thức bạc hai hoặc cao hơn. Thông thường, chỉ các tương tác bậc hai được sử dụng để giảm độ phức tạp tính toán.
+        \item Có khả năng mô hình hóa trên cả đặc trưng thưa thớt và dày đặc.
+        \item Có khả năng mô hình hóa các thông tin bổ trợ về người dùng và sản phẩm.
+        \item FM cũng giải quyết được vấn đề “khởi đầu lạnh” khi một người dùng hoặc sản phẩm chưa hề có tương tác nhưng đã có thông tin riêng về người dùng/sản phẩm đó.
+    \end{itemize}
+    \item Nhược điểm:
+    \begin{itemize}
+        \item Nó có thể bị overfitting nếu số lượng hệ số quá lớn hoặc dữ liệu quá .
+        \item Nó có thể không nắm bắt được các tương tắc đặc trưng phi tuyến hoặc phức tạp, thứ không thể xấp xỉ bởi inner products
+        \item Nó có thể nhạy cảm với việc lựa chọn các siêu tham số, chẳng hạn như regularization term, learning rate.
+    \end{itemize}
+\end{itemize}
+\textbf{Neural Factorization Machine:}
+\begin{itemize}
+    \item Ưu điểm:
+    \begin{itemize}
+        \item Neural network trong NFM có thể nắm bắt các mối quan hệ phi tuyến tính phức tạp giữa các đặc trưng, dẫn đến độ chính xác dự đoán tốt hơn so với FM, đặc biệt là đối với dữ liệu phức tạp.
+        \item Tương tự như FM, NFM vượt trội trong việc xử lý dữ liệu thưa thớt, điều này thường gặp trong các hệ thống đề xuất nơi người dùng chỉ có thể tương tác với một phần rất nhỏ các mục.
+        \item NFM có thể được mở rộng quy mô để xử lý các tập dữ liệu lớn một cách hiệu quả nhờ các kỹ thuật tham số hóa hiệu quả của nó.
+        \item NFM cho phép kết hợp nhiều loại đặc trưng, bao gồm dữ liệu phân loại và dữ liệu số mà không cần feature engineering thủ công cần thiết trong các mô hình truyền thống.
+    \end{itemize}
+    \item Nhược điểm:
+    \begin{itemize}
+        \item Neural network có độ phức tạp cao hơn khi so với FM. Điều này có thể khiến việc đào tạo và diễn giải kết quả của NFM trở nên khó khăn hơn.
+        \item Đào tạo NFM đòi hỏi nhiều tài nguyên tính toán hơn so với các mô hình đơn giản hơn như FM do kiến trúc mạng thần kinh phức tạp.
+        \item Giống như FM, NFM phụ thuộc rất nhiều vào chất lượng và số lượng dữ liệu để có hiệu suất tối ưu. Dữ liệu không đầy đủ có thể dẫn đến việc overfitting hoặc khái quát hóa kém.
+        \item Có thể không sử dụng hiệu quả các thông tin bổ trợ của người dùng và sản phẩm, dẫn đến cho kết quả thấp hơn so với MF
+    \end{itemize}
+\end{itemize}
+\textbf{Knowlede Graph Attention Network: }
+\begin{itemize}
+    \item Ưu điểm:
+    \begin{itemize}
+        \item Mô hình hóa các kết nối bậc cao trong đồ thị tri thức theo kiểu từ đầu đến cuối
+        \item Sử dụng embedding của các node lân cận để điều chỉnh embedding của 1 node và sử dụng kĩ thuật attention để phân biệt mức độ quan trọng của các lân cận. Điều này giúp tạo các embedding hiệu quả hơn, từ đó giúp hệ thống khuyến nghị có performance tốt hơn.
+    \end{itemize}
+    \item Nhược điểm: KGAT có độ phức tạp cao nhất trong các phương pháp được sử dụng. Điều này có thể khiến việc đào tạo và diễn giải kết quả của KGAT trở nên khó khăn hơn.  
+\end{itemize}
+\subsection{Hướng phát triển tiềm năng}
+\textbf{Dữ liệu:} 
+\begin{itemize}
+    \item Thu thập thêm các thông tin của người dùng, khóa học để có thể tạo thêm nhiều đặc trưng cho mô hình.
+\end{itemize}
+\textbf{Mô hình:}
+\begin{itemize}
+    \item Sử dụng thêm thông tin giới tính người dùng cho KGAT
+    \item Thực nghiệm trên các phương pháp khác như BERT4Rec, GRU4Rec, TrueLearn,...
+\end{itemize}
+\textbf{Ứng dụng web:} 
+\begin{itemize}
+    \item Bổ sung các tính năng cần thiết để tạo nên một ứng dụng học tập trực tuyến hoàn chỉnh: gợi ý tên khi nhập tên tìm kiếm người dùng, hỗ trợ phân quyền,...
+    \item Xây dựng web responsive với các thiết bị di động khác như điện thoại, iPad,...
+    \item Sử dụng các cơ sở dữ liệu, công cụ tìm kiếm hiệu quả hơn giúp tăng tốc độ truy vấn.
+    \item Đưa ứng dụng lên cloud computing, tự động hóa toàn bộ quá trình từ ingest data, store data, đến huấn luyện mô hình máy học, triển khai ứng dụng web.
+    \item Tích hợp tính năng gợi ý vào một ứng dụng học tập trực tuyến hiện có, ví dụ như: XueTangX, Coursera,...
+\end{itemize}
