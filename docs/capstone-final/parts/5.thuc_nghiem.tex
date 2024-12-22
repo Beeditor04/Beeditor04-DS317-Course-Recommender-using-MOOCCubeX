@@ -380,4 +380,26 @@ Kết quả:
 
 \subsection{Độ đo đánh giá}
 \subsection{Kịch bản thực nghiệm}
+Nhóm sẽ chia bộ dữ liệu thành 3 phần train, val, test. Với test chứa khóa học gần nhất mà người dùng đang ký, val chứa khóa học kế cuối, train chứa các khóa học còn lại. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
+\subsubsection{Thông số chi tiết của các phương pháp}
+\paragraph{5.4.1.1  Content-based filtering}
+\textbf{}\\
+\textbf{Feature 1:} 
+\begin{itemize}
+    \item Sử dụng trường name, about, field của khóa học.
+    \item TFIDF để chuyển thông tin thành vector
+    \item Tính độ tương đồng giữa khóa học và người dùng bằng cosine
+\end{itemize}
+\textbf{Feature 2:}
+\begin{itemize}
+    \item Sử dụng school, concept của khóa học
+    \item TFIDF để chuyển thông tin thành vector
+    \item Tính độ tương đồng giữa khóa học và người dùng bằng cosine
+\end{itemize}
+\textbf{Feature 3:} 
+\begin{itemize}
+    \item Sử dụng school, concept của khóa học
+    \item Multi-hot encoding để chuyển thông tin thành vector
+    \item Tính độ tương đồng giữa khóa học và người dùng bằng cosine
+\end{itemize}
 \subsection{Đánh giá kết quả thực nghiệm}
