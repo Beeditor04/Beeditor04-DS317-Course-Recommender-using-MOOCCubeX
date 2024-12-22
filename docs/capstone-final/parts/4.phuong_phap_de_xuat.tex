@@ -4,7 +4,7 @@ Sau khi chạy thực nghiệm và đánh giá các phương pháp gợi ý trê
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\textwidth]{}
+    \includegraphics[width=0.9\textwidth]{figures/69.png}
     \caption{Hình minh họa quy trình thực nghiệm bài toán với cách tiếp cận sử dụng mô hình KGAT.}
     \label{fig:hinh4_1}
 \end{figure}
@@ -33,63 +33,9 @@ Giai đoạn hậu xử lý (Hình \ref{}) thực hiện các bước sau:
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\textwidth]{}
+    \includegraphics[width=0.9\textwidth]{figures/70.png}
     \caption{Hình minh họa giai đoạn hậu xử lý để lọc ra top-k khóa học được đề xuất.}
     \label{fig:hinh4_2}
 \end{figure}
 
-\subsection{Kiến trúc dữ liệu lớn}
-\textbf{Microsoft Azure} là nền tảng điện toán đám mây được nhóm sử dụng để lưu trữ và xử lý dữ liệu lớn, trong khi quá trình xây dựng và huấn luyện mô hình được thực hiện trên Kaggle. Hình \ref{fig:hinh4_3} minh họa kiến trúc tổng quan.
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\textwidth]{}
-    \caption{Hình minh họa kiến trúc lưu trữ và xử lý dữ liệu lớn của đề tài.}
-    \label{fig:hinh4_3}
-\end{figure}
-
-\subsubsection{Ingest}
-\begin{itemize}
-    \item \textbf{Azure Blob Storage}: Lưu trữ các tệp dữ liệu thô từ nguồn MOOCCubeX.
-    \item \textbf{Azure Data Lake Gen2}: Lưu trữ dữ liệu đã qua xử lý, hỗ trợ phân tích và huấn luyện mô hình.
-    \item \textbf{Azure Data Factory}: Thiết kế pipeline để kiểm tra và cập nhật dữ liệu từ Azure Blob Storage vào Azure Data Lake Gen2, đảm bảo dữ liệu luôn sẵn sàng cho các bước tiếp theo.
-\end{itemize}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\textwidth]{}
-    \caption{Hình minh họa pipeline ingest dữ liệu.}
-    \label{fig:hinh4_6}
-\end{figure}
-
-\subsubsection{Process}
-\textbf{Azure Databricks} là dịch vụ được sử dụng để xử lý dữ liệu lớn và huấn luyện mô hình học máy. Các mã nguồn Python được phát triển trên Google Colab, sau đó refactor để phù hợp với môi trường Azure Databricks.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\textwidth]{}
-    \caption{Hình minh họa xử lý dữ liệu trên Azure Databricks.}
-    \label{fig:hinh4_8}
-\end{figure}
-
-\subsubsection{Model Training and Evaluation}
-Mô hình Content-based Filtering được xây dựng và huấn luyện trên Azure Databricks. Các mô hình khác, bao gồm KGAT, được thực nghiệm trên nền tảng Kaggle. Hình \ref{fig:hinh4_13} minh họa quy trình huấn luyện và đánh giá mô hình.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\textwidth]{}
-    \caption{Hình minh họa huấn luyện và đánh giá mô hình trên Azure Databricks.}
-    \label{fig:hinh4_13}
-\end{figure}
-
-\subsection{Ứng dụng web}
-Nhóm đã xây dựng ứng dụng web tích hợp hệ thống gợi ý, sử dụng NextJS cho frontend, FastAPI làm API backend, và MySQL làm cơ sở dữ liệu. KGAT model được tích hợp vào hệ thống để cung cấp gợi ý.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.9\textwidth]{}
-    \caption{Hình minh họa quy trình xây dựng ứng dụng web.}
-    \label{fig:hinh4_15}
-\end{figure}
-
-Framework ứng dụng bao gồm các thành phần chính như giao diện tìm kiếm (Hình \ref{}) và cơ sở dữ liệu được thiết kế để lưu trữ thông tin cần thiết từ MOOCCubeX (Hình \ref{}).
