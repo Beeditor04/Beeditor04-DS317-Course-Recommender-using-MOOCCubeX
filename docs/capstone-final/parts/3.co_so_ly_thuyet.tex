@@ -161,3 +161,46 @@ Mỗi hidden layer sẽ có một non-linear activation function như tanh, sigm
 \textbf{Prediction layer:} Cuối cùng, vector đầu ra của hidden layer cuối sẽ được chuyển đổi thành prediction score:
 $$f(\mathbf{x}) = \mathbf{h}^T \mathbf{z}_L$$
 Trong đó, $\mathbf{h}$ là weight của prediction layer, $\mathbf{z}_L$ là output vector của hidden layer cuối.
+
+\subsection{Phương pháp tiếp cận cổ điển}
+\subsubsection{Content-based filtering (Utility Matrix)}
+\textbf{Giới thiệu sơ thuật toán}\\
+Ở đề tài này, ta sử dụng mô hình \textbf{Content-based Filtering} dựa trên các đặc điểm của khóa học để đề xuất những khóa học có nội dung tương tự cho người dùng, dựa trên sở thích và lịch sử học tập của họ. Ví dụ, nếu người dùng đã tham gia các khóa học thuộc một chủ đề nhất định, hệ thống sẽ đề xuất các khóa học có chủ đề tương tự.\\
+\\
+Để hiểu rõ hơn về khái niệm của mô hình này, ta sẽ đồng thời tìm hiểu về mô hình \textbf{Collaborative Filtering} để đối chiếu và đưa ra các điểm khác biệt giữa chúng.\\
+\\
+Trước hết,  \textbf{Content-based Filtering} và \textbf{Collaborative Filtering} là hai phương pháp khuyến nghị phổ biến, và điểm khác nhau giữa chúng là cách sử dụng dữ liệu và cách xây dựng đề xuất. Dưới đây là các điểm khác biệt chính:\\
+\textbf{a. Cơ sở dữ liệu sử dụng}
+\begin{itemize}
+    \item \textbf{Content-based Filtering:} Dựa trên các đặc điểm và nội dung của mục tiêu cần khuyến nghị (items), chẳng hạn như mô tả khóa học, chủ đề, hay lĩnh vực học tập. Hệ thống đề xuất những khóa học có nội dung tương tự với các khóa học mà người dùng đã tham gia trước đó. Các thuộc tính của khóa học hoặc mục tiêu sẽ được mã hóa dưới dạng vector đặc trưng, và hệ thống sử dụng các vector này để tìm ra các khóa học tương tự.
+    \item \textbf{Collaborative Filtering:} Dựa trên sở thích và hành vi của người dùng như xếp hạng, đánh giá, hoặc lượt xem. Thay vì dựa vào nội dung của các mục tiêu, Collaborative Filtering sử dụng thông tin về cách người dùng tương tác với các mục tiêu, và dựa vào đó để đưa ra các gợi ý dựa trên sự tương đồng giữa người dùng hoặc giữa các khóa học.
+\end{itemize}
+\textbf{b. Phương pháp tiếp cận}
+\begin{itemize}
+    \item \textbf{Content-based Filtering:} Dựa vào hồ sơ sở thích của từng người dùng để cá nhân hóa đề xuất. Nếu một người dùng đã xem nhiều khóa học thuộc lĩnh vực A, hệ thống sẽ đề xuất các khóa học khác trong cùng lĩnh vực, dựa trên các đặc điểm giống nhau.
+    \item \textbf{Collaborative Filtering:} Có hai hướng tiếp cận chính:
+\end{itemize}
+\begin{itemize}
+    \begin{itemize}
+        \item User-based Collaborative Filtering: Đề xuất dựa trên những người dùng có sở thích tương tự. Ví dụ, nếu người dùng A và B có cùng sở thích trong một số khóa học, hệ thống có thể gợi ý cho A các khóa học mà B đã tham gia, và ngược lại.
+        \item Item-based Collaborative Filtering: Đề xuất dựa trên các khóa học tương tự mà nhiều người dùng cùng yêu thích. Ví dụ, nếu nhiều người dùng học cả khóa X và Y, hệ thống sẽ đề xuất khóa Y cho những người dùng chỉ mới học khóa X.
+    \end{itemize}
+\end{itemize}
+\textbf{c. Yêu cầu về dữ liệu}
+\begin{itemize}
+    \item \textbf{Content-based Filtering:} Cần có thông tin chi tiết và mô tả về từng mục tiêu (khóa học, phim, sản phẩm), chẳng hạn như từ khóa, chủ đề, hoặc bất kỳ đặc điểm nào liên quan đến nội dung của mục tiêu. Cách tiếp cận này ít phụ thuộc vào dữ liệu người dùng nhưng yêu cầu dữ liệu chất lượng về nội dung.
+    \item \textbf{Collaborative Filtering:} Phụ thuộc vào dữ liệu về tương tác của người dùng, nên yêu cầu lượng người dùng lớn và tương tác phong phú. Phương pháp này có thể gặp khó khăn khi dữ liệu thưa (khi người dùng mới hoặc khóa học mới chưa có nhiều tương tác), dẫn đến vấn đề cold-start.
+\end{itemize}
+\textbf{d. Ưu và nhược điểm}
+\begin{itemize}
+    \item \textbf{Content-based Filtering:}
+    \begin{itemize}
+        \item Ưu điểm: Có thể gợi ý khóa học ngay cả khi người dùng không có nhiều tương tác; phù hợp cho trường hợp cold-start ở mức độ nhất định.
+        \item Nhược điểm: Dễ dẫn đến sự lặp lại và thiếu đa dạng vì chỉ đề xuất nội dung tương tự; không dễ phát hiện những sở thích tiềm ẩn ngoài những gì người dùng đã học.
+    \end{itemize}
+    \item \textbf{Collaborative Filtering:}
+    \begin{itemize}
+        \item Ưu điểm: Khả năng khám phá các khóa học ngoài sở thích hiện tại của người dùng; thường đưa ra các gợi ý đa dạng hơn vì dựa trên hành vi tập thể.
+        \item Nhược điểm: Không hoạt động hiệu quả trong tình huống cold-start; cần lượng dữ liệu lớn về tương tác giữa người dùng và mục tiêu để có hiệu quả cao.
+    \end{itemize}
+\end{itemize}
