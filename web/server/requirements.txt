@@ -1,0 +1,7 @@
+pandas
+flask
+torch
+psycopg2
+ipykernel
+tqdm
+scikit-learn

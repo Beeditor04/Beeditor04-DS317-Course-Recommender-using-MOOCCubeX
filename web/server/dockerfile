@@ -1,0 +1,12 @@
+FROM postgres:16-bookworm
+
+ENV POSTGRES_USER docker
+ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB recommender
+
+EXPOSE 5432
+
+COPY static/sql/*.sql /docker-entrypoint-initdb.d/
+COPY static/csv/*.csv /docker-entrypoint-initdb.d/
+
+CMD [ "postgres" ]
