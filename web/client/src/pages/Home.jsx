@@ -33,7 +33,7 @@ const Home = () => {
       localStorage.setItem('user', JSON.stringify(location.state));
     }
   }, [location.state]);
-  
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -85,6 +85,7 @@ useEffect(() => {
       const response = await axios.get("/all_course");
       console.log("Courses data SUCCESSED!!!:", response.data);
       setCoursesData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+      setSuccess(true);
     } catch (err) {
       console.error("Error fetching all courses:", err);
     }
@@ -106,8 +107,8 @@ useEffect(() => {
         !success ? (<div>Waiting</div>) : ( 
           <div className="recommend-course w-full">
           <div className="cards grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-3 xl:gap-y-10 px-10 justify-center items-center">
-            {recommend_data
-              .slice(0, showAll ? recommend_data.length : 4)
+            {detailedCourses
+              .slice(0, showAll ? detailedCourses.length : 4)
               .map((recommend) => (
                 <Link
                   to={{ pathname: `/details/${recommend.id}` }}
