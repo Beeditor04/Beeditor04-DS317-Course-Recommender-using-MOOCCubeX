@@ -14,18 +14,26 @@ import recommend_data_sample from "../sample/recommend.json";
 
 const Home = () => {
   const location = useLocation();
-  const user = location.state || { id:"U_1", name: "Guest", course: [ "C_584339", "C_584340", "C_584341", "C_584342", "C_584343", "C_584344", "C_584345", "C_584346", "C_584347", "C_584348", "C_584349", "C_584350", "C_584351", "C_584352", "C_584353", "C_584354", "C_584355", "C_584356", "C_584357", "C_584358" ] }; // Default to "Guest" if no user is passed
   const [showAll, setShowAll] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [courses_data, setCoursesData] = useState([]);
   const [recommend_data, setRecommendData] = useState([]);
   const [detailedCourses, setDetailedCourses] = useState([]);
   const [success, setSuccess] = useState(false);
+
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const user = location.state || storedUser || { id: "U_1", name: "Guest", course: [] };
   console.log(user);
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
 
+  useEffect(() => {
+    if (location.state) {
+      localStorage.setItem('user', JSON.stringify(location.state));
+    }
+  }, [location.state]);
+  
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
