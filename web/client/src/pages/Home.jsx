@@ -65,7 +65,9 @@ useEffect(() => {
     for (const id of recommend_data) {
       try {
         const response = await axios.get(`/course/${id}`);
-        tempCourses.push(response.data);
+        if (response.data) {
+          tempCourses.push(response.data);
+        }
         console.log("Recommend data-details SUCCESSED!!!:", response.data);
       } catch (err) {
         console.error(`Error fetching course ${id}:`, err);
