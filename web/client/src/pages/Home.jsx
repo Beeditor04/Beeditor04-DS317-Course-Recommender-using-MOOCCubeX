@@ -31,9 +31,12 @@ const Home = () => {
     course.prerequisites.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // request api
+  
   return (
     <div className="wrapper flex flex-row h-screen">
-      <Sidebar />
+      {/*---Sidebar---*/}
+      <Sidebar id={user}/>
       {/*---Recommend---*/}
       <div className="wrapper-container w-full overflow-y-auto h-screen">
       <div className="recommend-container w-full overflow-y-auto h-auto mb-10">
@@ -71,6 +74,7 @@ const Home = () => {
           </a>
         </div>
       </div>
+      {/*---All available Courses---*/}
       <div className="courses-container w-full overflow-y-auto h-auto p-10">
         <div className="table-wrapper w-auto h-auto overflow-y-hidden">
           <div className="courses-header flex flex-row gap-5 p-5">
@@ -85,6 +89,7 @@ const Home = () => {
               />
             </div>
           </div>
+          
           <CourseTable courses_data={filteredCourses} />
         </div>
       </div>

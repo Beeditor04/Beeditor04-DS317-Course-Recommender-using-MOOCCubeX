@@ -1,5 +1,5 @@
 import json
-from models.update_user_course import *
+# from models.update_user_course import *
 
 from flask import Flask, g
 from flask_cors import CORS

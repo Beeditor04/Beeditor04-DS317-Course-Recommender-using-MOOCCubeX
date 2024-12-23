@@ -20,11 +20,20 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("User: ", user);
-    if (validUser) {
-      setSuccess(true);
-      navigate("/home", { state: { user } });
+    try {
+      const res = await axios.get(`/user/${user}`, {
+        headers: {"Access-Control-Allow-Origin": "*"}
+      }
+      );
+      console.log("Response: ", res);
+      if (validUser) {
+        setSuccess(true);
+        navigate("/home", { state: { user } });
+      }
+      console.log("Success?: ", success);
+    } catch (error) {
+      console.log("Error: ", error);
     }
-    console.log("Success?: ", success);
   };
 
   // const [userFocus, setUserFocus] = useState(false);
