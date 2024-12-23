@@ -1,5 +1,440 @@
 \section{Thực nghiệm}
 \subsection{Miêu tả bộ dữ liệu}
+\subsubsection{Giới thiệu bộ dữ liệu sử dụng}
+
+MOOCCubeX là một trong những bộ dữ liệu lớn nhất và chi tiết nhất về MOOCs (Massive Open Online Courses), hỗ trợ các nghiên cứu về hành vi học tập trực tuyến và cá nhân hóa học tập. Bộ dữ liệu được xây dựng bởi Nhóm Kỹ thuật Tri thức (Knowledge Engineering Group) tại Đại học Thanh Hoa (Tsinghua University), Trung Quốc, với sự hợp tác của XuetangX, một nền tảng MOOC lớn tại Trung Quốc. Đây là bộ dữ liệu đa dạng, phục vụ cho nghiên cứu trong các lĩnh vực như học máy, hệ thống học tập thích ứng, phân tích giáo dục, và trí tuệ nhân tạo.
+
+MOOCCubeX bao gồm nhiều loại dữ liệu khác nhau, tập trung vào các khóa học và hành vi học tập của học viên. Các thành phần chính của bộ dữ liệu bao gồm:
+
+\begin{itemize}
+    \item \textbf{Courses:}
+    \begin{itemize}
+        \item Số lượng khóa học: 4,216.
+        \item Nội dung: Mỗi khóa học bao gồm các video giảng dạy, bài tập, và bài kiểm tra. Thông tin về mỗi khóa học bao gồm tiêu đề, mô tả, người hướng dẫn, ngày bắt đầu và ngày kết thúc, ngôn ngữ giảng dạy và lĩnh vực học tập.
+    \end{itemize}
+
+    \item \textbf{Video:}
+    \begin{itemize}
+        \item Số lượng: 230,263.
+        \item Thông tin: Các video giảng dạy được thu thập từ các khóa học trên nền tảng MOOC. Mỗi video có các thuộc tính như tiêu đề, thời lượng, nội dung được giảng dạy, và số lần xem của học viên.
+    \end{itemize}
+
+    \item \textbf{Exercise:}
+    \begin{itemize}
+        \item Số lượng: 258,265.
+        \item Thông tin: Bao gồm các bài tập tự luyện và kiểm tra đánh giá. Các bài tập này được thiết kế để giúp học viên ôn luyện kiến thức và kiểm tra khả năng tiếp thu sau mỗi phần học.
+    \end{itemize}
+
+    \item \textbf{Problem:}
+    \begin{itemize}
+        \item Số lượng: 2,454,397 vấn đề.
+        \item Thông tin: Thường là các vấn đề hoặc câu hỏi phức tạp yêu cầu học viên giải quyết bằng cách áp dụng kiến thức học được từ khóa học.
+    \end{itemize}
+
+    \item \textbf{Student Profile:}
+    \begin{itemize}
+        \item Số lượng: 3,330,294 hồ sơ.
+        \item Thông tin: Hồ sơ học viên lưu trữ các thông tin về hành vi học tập, tiến trình học tập và các hoạt động của họ trên nền tảng.
+    \end{itemize}
+
+    \item \textbf{Video Watching Behavior:}
+    \begin{itemize}
+        \item Số lượng: 154,332,174 dữ liệu.
+        \item Thông tin: Dữ liệu hành vi xem video cung cấp thông tin chi tiết về cách học viên tương tác với video giảng dạy. Dữ liệu này giúp nghiên cứu thói quen học tập của học viên.
+    \end{itemize}
+
+    \item \textbf{Comment and Reply:}
+    \begin{itemize}
+        \item Số lượng: 8,422,134 bản ghi phản hồi bình luận.
+        \item Thông tin: Bình luận và phản hồi là phần quan trọng trong việc đánh giá mức độ tương tác của học viên với khóa học. Là cơ sở để phân tích cảm xúc của học viên, đánh giá mức độ hài lòng và tìm kiếm những khó khăn mà học viên gặp phải trong quá trình học.
+    \end{itemize}
+\end{itemize}
+
+Bộ dữ liệu MOOCCubeX được cung cấp dưới dạng các tệp tin JSON và CSV, cho phép người dùng dễ dàng tải xuống và sử dụng. Đây là một bộ dữ liệu quý giá cho nghiên cứu về giáo dục trực tuyến và học tập thích ứng. Với khối lượng dữ liệu lớn và đa dạng, bộ dữ liệu này mở ra nhiều cơ hội cho các nhà nghiên cứu trong việc hiểu sâu hơn về hành vi học tập và xây dựng các hệ thống học tập tiên tiến, giúp cải thiện hiệu quả giáo dục trên các nền tảng trực tuyến.
+
+\subsubsection{Mô tả về tập dữ liệu}
+
+\textbf{I. Courses}
+
+Phần này mô tả về khóa học (course) và các tài nguyên liên quan, bao gồm các file: \texttt{course.json}, \texttt{video.json}, \texttt{problem.json}, \texttt{school.json}, \texttt{teacher.json}, \texttt{course-field.json}, \texttt{course-school.txt}, \texttt{course-teacher.txt}, \texttt{exercise-problem.txt}, và \texttt{video\_id-ccid.txt}.
+
+Dưới đây là bảng sơ lược về các file:
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|p{7cm}|l|}
+\hline
+\textbf{Tên} & \textbf{Loại} & \textbf{Mô tả} & \textbf{Kích thước} \\ \hline
+\texttt{course.json} & entities & Tổ chức video và bài tập của khóa học. & 43MB \\ \hline
+\texttt{video.json} & entities & Tên video và phụ đề. & 580MB \\ \hline
+\texttt{exercise-problem.txt} & relations & Một nhóm các bài tập của khóa học. & 129MB \\ \hline
+\texttt{problem.json} & entities & Các bài tập thực hành trong một nhóm bài tập. & 1.2GB \\ \hline
+\texttt{school.json} & entities & Thông tin về trường học. & 613KB \\ \hline
+\texttt{teacher.json} & entities & Thông tin về giáo viên. & 8.7MB \\ \hline
+\texttt{course-field.json} & relations & Lĩnh vực mà khóa học thuộc về, được chú thích bởi con người. & 62KB \\ \hline
+\end{tabular}%
+}
+\caption{Bảng mô tả các file trong tập dữ liệu Courses}
+\end{table}
+
+\textbf{Bảng \texttt{course.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+about & Giới thiệu khóa học & string & \\ \hline
+id & ID của khóa học & string & Bắt đầu bằng \texttt{"C\_"} \\ \hline
+field & Danh sách các lĩnh vực của khóa học & list<string> & \\ \hline
+name & Tên trường & string & \\ \hline
+prerequisites & Nội dung về kiến thức tiên quyết & string & \\ \hline
+resource & Danh sách các tài nguyên & list<Resource> & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{course.json}}
+\end{table}
+
+\textbf{Bảng Resource}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+resource\_id & ID của tài nguyên & string & Bắt đầu bằng \texttt{"V\_"} nếu là video, \texttt{"Ex\_"} nếu là bài tập. \\ \hline
+chapter & Số chương & list<string> & \\ \hline
+titles & Danh sách các tiêu đề (chương, video, ...) & list<string> & Có tối đa 3 cấp tiêu đề \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng Resource}
+\end{table}
+
+\textbf{Bảng \texttt{video.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+ccid & ID duy nhất của video & string & \\ \hline
+name & Tên của video & string & \\ \hline
+start & Thời gian bắt đầu của từng câu trong phụ đề video & list<float> & \\ \hline
+end & Thời gian kết thúc của từng câu trong phụ đề video & list<float> & \\ \hline
+text & Phụ đề của từng câu trong video & list<string> & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{video.json}}
+\end{table}
+
+\textbf{Các bảng khác:}
+
+\begin{itemize}
+    \item \textbf{\texttt{exercise-problem.json}}: Dữ liệu bài tập, định dạng: \texttt{exercise ID\tquestion ID}, kích thước: 129MB.
+    \item \textbf{\texttt{problem.json}}:
+    \begin{itemize}
+        \item \textbf{Thuộc tính:} ID, exercise\_id, language, title, content, option, answer, score, type, typetext, location, context\_id.
+        \item \textbf{Kích thước:} 1.2GB.
+    \end{itemize}
+    \item \textbf{\texttt{school.json}}: Thông tin trường học.
+    \item \textbf{\texttt{teacher.json}}: Thông tin giáo viên.
+    \item \textbf{\texttt{course-field.json}}: Liên kết lĩnh vực với khóa học.
+\end{itemize}
+\textbf{II. User}
+
+Phần này mô tả hành vi người học (\textit{user}), bao gồm các file: \texttt{user.json}, \texttt{comment.json}, \texttt{reply.json}, \texttt{course-comment.txt}, \texttt{user-comment.txt}, \texttt{user-reply.txt}, \texttt{comment-reply.txt}, \texttt{user-problem.json}, \texttt{user-video.json}, và \texttt{user-xiaomu.json}.
+
+\textbf{Bảng sơ lược về các file:}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|p{7cm}|l|}
+\hline
+\textbf{Tên} & \textbf{Loại} & \textbf{Mô tả} & \textbf{Kích thước} \\ \hline
+\texttt{user.json} & entities & Thông tin của học sinh (user) & 770MB \\ \hline
+\texttt{comment.json} & entities & Thông tin bình luận của user lên từng tài nguyên của course & 2.1GB \\ \hline
+\texttt{reply.json} & entities & Thông tin của phần trả lời bình luận (\textit{reply}) của user trên từng tài nguyên của course & 50MB \\ \hline
+\texttt{user-problem.json} & relations & Thông tin về bài tập mà user làm & 50MB \\ \hline
+\texttt{user-video.json} & relations & Quá trình của user xem video: số lần tua, giây bắt đầu, giây kết thúc, ... & 3.0GB \\ \hline
+\texttt{user-xiaomu.json} & relations & Tương tác của người dùng với Xiaomu (bot QA của XuetangX) & 50MB \\ \hline
+\end{tabular}%
+}
+\caption{Bảng mô tả các file trong tập dữ liệu User}
+\end{table}
+
+\textbf{Bảng \texttt{user.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+id & ID người dùng & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+name & Tên người dùng & string & \\ \hline
+gender & Giới tính & int & 0, 1, hoặc 2 \\ \hline
+school & Tên trường & string & \\ \hline
+year\_of\_birth & Năm sinh & list<int> & \\ \hline
+course\_order & Các mã khóa học đã chọn & list<string> & \\ \hline
+enroll\_time & Thời gian đăng kí tương ứng với từng khóa học & list<DateTime> & Định dạng: \texttt{"YYYY-MM-DD HH:MM:SS"} \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{user.json}}
+\end{table}
+
+\textbf{Bảng \texttt{comment.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+id & Comment ID & string & Bắt đầu bằng \texttt{"Cm\_"} \\ \hline
+user\_id & ID của người dùng đã bình luận & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+text & Nội dung bình luận & string & \\ \hline
+create\_time & Thời gian bình luận & DateTime & Định dạng: \texttt{"YYYY-MM-DD HH:MM:SS"} \\ \hline
+resource\_id & ID của tài nguyên mà user bình luận & string & Có thể nhận giá trị null \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{comment.json}}
+\end{table}
+
+\textbf{Bảng \texttt{reply.json}}
+
+\begin{table}[H]
+\resizebox{\textwidth}{!}{%
+\centering
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+id & Reply ID & string & Bắt đầu bằng \texttt{"Rp\_"} \\ \hline
+user\_id & ID của người dùng đã bình luận & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+text & Nội dung phản hồi & string & \\ \hline
+create\_time & Thời gian phản hồi & DateTime & Định dạng: \texttt{"YYYY-MM-DD HH:MM:SS"} \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{reply.json}}
+\end{table}
+
+\textbf{Bảng \texttt{user-problem.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+log\_id & ID của bản ghi câu hỏi của người dùng & string & Kết hợp với khóa duy nhất của \texttt{user\_id} và \texttt{problem\_id} \\ \hline
+user\_id & ID người dùng & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+problem\_id & ID vấn đề & string & Bắt đầu bằng \texttt{"Pm\_"} \\ \hline
+is\_correct & Câu hỏi có đúng không & bool & 0 hoặc 1 \\ \hline
+attempts & Số lượng câu hỏi đã thử & int & \\ \hline
+score & Điểm của người dùng & float & \\ \hline
+submit\_time & Thời gian làm câu hỏi & DateTime & Định dạng: \texttt{"YYYY-MM-DD HH:MM:SS"} \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{user-problem.json}}
+\end{table}
+
+\textbf{Bảng \texttt{user-video.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+user\_id & ID của user & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+seq & Mảng chứa quá trình người dùng xem video & list<object> & Bao gồm \texttt{video\_id}, \texttt{segment} (gồm: \texttt{start\_point}, \texttt{end\_point}, \texttt{speed}, \texttt{local\_start\_time}) \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{user-video.json}}
+\end{table}
+
+\textbf{Bảng \texttt{user-xiaomu.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+user\_id & ID của user & string & Bắt đầu bằng \texttt{"U\_"} \\ \hline
+question\_type & Loại câu hỏi & string & \\ \hline
+question & Câu hỏi hỏi bởi user & string & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{user-xiaomu.json}}
+\end{table}
+
+\textbf{III. Concept}
+
+Phần này mô tả về khái niệm khóa học (\textit{course concept}) và các file liên quan, bao gồm: \texttt{concept.json}, \texttt{other.json}, \texttt{paper.json}, \texttt{concept-other.txt}, \texttt{concept-paper.txt}, \texttt{concept-problem.txt}, \texttt{concept-video.txt}, và \texttt{concept-comment.txt}.
+
+\textbf{Bảng sơ lược về các file:}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|p{7cm}|l|}
+\hline
+\textbf{Tên} & \textbf{Loại} & \textbf{Mô tả} & \textbf{Kích thước} \\ \hline
+\texttt{concept.json} & entities & Thông tin về khái niệm khóa học & 43MB \\ \hline
+\texttt{other.json} & entities & Các tài liệu liên quan được thu thập bên ngoài những khóa học & 580MB \\ \hline
+\texttt{paper.json} & entities & Những bài báo khoa học liên quan & 129MB \\ \hline
+\texttt{concept-other.txt} & relations & Khái niệm liên quan tới các nguồn ngoài khóa học & 1.2MB \\ \hline
+\texttt{concept-paper.txt} & relations & Khái niệm liên quan đến luận án & 613KB \\ \hline
+\texttt{concept-problem.txt} & relations & Khái niệm liên quan đến vấn đề & 8.7MB \\ \hline
+\texttt{concept-video.txt} & relations & Khái niệm liên quan đến video & 8.7MB \\ \hline
+\texttt{concept-comment.txt} & relations & Khái niệm liên quan đến phần bình luận & 62KB \\ \hline
+\end{tabular}%
+}
+\caption{Bảng mô tả các file trong tập dữ liệu Concept}
+\end{table}
+
+\textbf{Bảng \texttt{concept.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+id & ID của khái niệm & string & Định dạng là \texttt{"K\_concept"} \\ \hline
+name\_field & Tên của khái niệm & string & \\ \hline
+name & Tên của khái niệm, giống với tên xuất hiện trong \texttt{id} & string & \\ \hline
+context & Ngữ cảnh mà khái niệm đó xuất hiện & string & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{concept.json}}
+\end{table}
+
+\textbf{Bảng \texttt{other.json}}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+id & Mã dữ liệu, không có ý nghĩa cụ thể & string & \\ \hline
+concept & Khái niệm mà thông tin này liên quan đến hoặc được thu thập dựa trên & string & \\ \hline
+type & Nguồn dữ liệu & string & Miền giá trị: [\texttt{"zhihu"}, \texttt{"baike"}, \texttt{"wiki"}] \\ \hline
+content & Nội dung của dữ liệu, có thể là văn bản hoặc thông tin thu thập từ các nguồn đã nêu & string & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{other.json}}
+\end{table}
+
+\textbf{Các mối quan hệ khác:}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Tên} & \textbf{Mô tả} & \textbf{Định dạng} & \textbf{Kích thước} \\ \hline
+\texttt{concept-other.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các tài liệu, tài nguyên ngoại khóa được thu thập từ các nguồn bên ngoài khóa học & \texttt{concept ID\tresource ID} & 1.2MB \\ \hline
+\texttt{concept-paper.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bài báo khoa học có liên quan & \texttt{concept ID\tpaper ID} & 613KB \\ \hline
+\texttt{concept-problem.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các câu hỏi hoặc bài tập liên quan & \texttt{concept ID\tquestion ID} & 8.7MB \\ \hline
+\texttt{concept-video.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các video liên quan & \texttt{concept ID\tccid} & 8.7MB \\ \hline
+\texttt{concept-comment.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bình luận của người dùng có liên quan & \texttt{concept ID\treview ID} & 62KB \\ \hline
+\end{tabular}%
+}
+\caption{Các mối quan hệ trong tập dữ liệu Concept}
+\end{table}
+
+\textbf{IV. Prerequisites}
+
+Phần này mô tả các điều kiện tiên quyết của các khái niệm thuộc các lĩnh vực khác nhau. Tập dữ liệu bao gồm các file \texttt{cs.json}, \texttt{math.json}, và \texttt{psy.json}.
+
+\textbf{Bảng \texttt{prerequisites/cs.json}}
+
+\begin{itemize}
+    \item \textbf{Nội dung:} Chú thích và dự đoán về các điều kiện tiên quyết của môn Khoa học máy tính.
+    \item \textbf{Số lượng mẫu:} 492,102 mẫu.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|p{7cm}|l|l|}
+\hline
+\textbf{Thuộc tính} & \textbf{Nội dung} & \textbf{Kiểu dữ liệu} & \textbf{Miền giá trị} \\ \hline
+c1 & Khái niệm điều kiện tiên quyết & string & \\ \hline
+c2 & Khái niệm điều kiện sau sửa chữa & string & \\ \hline
+ground\_truth & Chỉ ra có mối quan hệ sửa chữa tuần tự hay không & int & Miền giá trị: 0 hoặc 1 \\ \hline
+text\_predict & Cung cấp kết quả dự đoán sử dụng đặc điểm văn bản & list<float> & \\ \hline
+graph\_predict & Mức độ tin cậy của dự đoán đạt được bằng các đặc điểm đồ thị & list<float> & \\ \hline
+\end{tabular}%
+}
+\caption{Cấu trúc bảng \texttt{prerequisites/cs.json}}
+\end{table}
+
+\textbf{Bảng \texttt{prerequisites/math.json}}
+
+\begin{itemize}
+    \item \textbf{Nội dung:} Chú thích và dự đoán các khái niệm trong lĩnh vực Toán học, theo định dạng giống \texttt{cs.json}.
+    \item \textbf{Số lượng mẫu:} 331,202 mẫu.
+\end{itemize}
+
+\textbf{Bảng \texttt{prerequisites/psy.json}}
+
+\begin{itemize}
+    \item \textbf{Nội dung:} Chú thích và dự đoán các khái niệm trong lĩnh vực Tâm lý học, theo định dạng giống \texttt{cs.json}.
+    \item \textbf{Số lượng mẫu:} 757,771 mẫu.
+\end{itemize}
+
+\subsubsection{Nhận xét}
+
+Sau khi khảo sát bộ dữ liệu MOOCCubeX, chúng em đã rút ra một số nhận xét như sau:
+
+\begin{itemize}
+    \item \textbf{Tính đa dạng và phong phú:} Bộ dữ liệu MOOCCubeX chứa đựng nhiều loại thông tin khác nhau liên quan đến giáo dục trực tuyến, bao gồm các khóa học, bài giảng video, bài tập, hồ sơ học sinh, cũng như hành vi tương tác của học sinh với các tài nguyên học tập. Đây là một bộ dữ liệu có mức độ đa dạng cao, giúp cung cấp cái nhìn toàn diện về nhiều khía cạnh trong quá trình học tập trực tuyến.
+    
+    \item \textbf{Quy mô lớn:} Bộ dữ liệu có kích thước lớn và chứa đựng hàng triệu điểm dữ liệu, từ đó tạo cơ sở vững chắc cho các bài toán khai thác dữ liệu, học máy, học sâu. Nhờ quy mô này, người nghiên cứu có thể khám phá và áp dụng các phương pháp tiên tiến trong lĩnh vực phân tích dữ liệu giáo dục.
+    
+    \item \textbf{Tính chi tiết và tổ chức linh hoạt:} Mặc dù không đồng nhất về loại dữ liệu, bộ dữ liệu MOOCCubeX được tổ chức bài bản với cấu trúc rõ ràng và chi tiết. Điều này giúp người dùng dễ dàng tìm kiếm và trích xuất các thông tin quan trọng, đồng thời cung cấp sự linh hoạt trong việc áp dụng bộ dữ liệu vào nhiều mục tiêu khác nhau. Các yếu tố như hành vi học tập, bình luận của học sinh, và các tài liệu khóa học đều được ghi nhận chi tiết, tạo nền tảng tốt cho việc xây dựng các hệ thống hỗ trợ học tập thông minh.
+\end{itemize}
+
+\subsubsection{Mục tiêu sử dụng bộ dữ liệu}
+
+Với các đặc điểm nêu trên, chúng em định khai thác bộ dữ liệu MOOCCubeX để giải quyết các bài toán thuộc lĩnh vực Cố vấn học tập thông minh. Cụ thể, nhóm đã đưa ra bài toán sau:
+
+\textbf{Bài toán: Hệ khuyến nghị khóa học}
+
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xây dựng hệ thống khuyến nghị giúp sinh viên chọn lựa môn học hoặc khóa học phù hợp với định hướng chuyên ngành dựa trên hành vi học tập của họ. Điều này bao gồm các yếu tố như:
+    \begin{itemize}
+        \item Các khóa học mà sinh viên đã hoàn thành.
+        \item Kết quả học tập.
+        \item Thời gian dành cho mỗi môn học.
+        \item Sự tương tác của sinh viên với tài nguyên học tập (video, bài tập, bài kiểm tra, v.v.).
+    \end{itemize}
+
+    \item \textbf{Ứng dụng:} Hệ thống sẽ hỗ trợ sinh viên đưa ra các quyết định học tập thông minh hơn, giúp họ lựa chọn các môn học phù hợp với năng lực và định hướng cá nhân. Điều này không chỉ giúp tối ưu hóa quá trình học tập mà còn tăng khả năng hoàn thành các chương trình học, đặc biệt trong các môi trường giáo dục trực tuyến hoặc bán trực tuyến.
+
+    \item \textbf{Khả năng áp dụng:} Bài toán này hoàn toàn có thể được áp dụng trong bối cảnh giáo dục đại học, đặc biệt là ở Việt Nam. Hệ thống có thể giúp:
+    \begin{itemize}
+        \item Định hướng chuyên ngành.
+        \item Chọn lựa các môn học phù hợp.
+        \item Điều chỉnh lộ trình học tập dựa trên kết quả học tập và hành vi của sinh viên.
+    \end{itemize}
+\end{itemize}
+
+Nhìn chung, việc ứng dụng bộ dữ liệu MOOCCubeX vào các bài toán như vậy có tiềm năng lớn trong việc hỗ trợ sinh viên và nâng cao trải nghiệm học tập trong môi trường giáo dục trực tuyến.
+
+
+
+
+
+
 \subsection{Phương pháp tổ chức dữ liệu thực nghiệm}
 \label{sec:chuanbidulieu}
 \newpage
