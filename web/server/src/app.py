@@ -1,14 +1,14 @@
 import json
-# from models.update_user_course import *
 
 from flask import Flask, g
 from flask_cors import CORS
+
 
 import psycopg2
 from psycopg2 import pool, extras
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 pool = psycopg2.pool.SimpleConnectionPool(
     minconn=1,
@@ -82,9 +82,9 @@ def get_recommendation(id: str):
     ]'''
 
 
-@app.route("/add/<user_id>/<course_id>", methods=['POST'])
-def add_course(user_id, course_id):
-    update_course_for_user('../../../data/', user_id, course_id)
+# @app.route("/add/<user_id>/<course_id>", methods=['POST'])
+# def add_course(user_id, course_id):
+#     update_course_for_user('../../../data/', user_id, course_id)
 
 
 @app.route("/all_course", methods=['GET'])
