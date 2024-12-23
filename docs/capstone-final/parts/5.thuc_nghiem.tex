@@ -134,7 +134,7 @@ text & Phụ đề của từng câu trong video & list<string> & \\ \hline
 \textbf{Các bảng khác:}
 
 \begin{itemize}
-    \item \textbf{\texttt{exercise-problem.json}}: Dữ liệu bài tập, định dạng: \texttt{exercise ID\tquestion ID}, kích thước: 129MB.
+    \item \textbf{\texttt{exercise-problem.json}}: Dữ liệu bài tập, định dạng: \texttt{exercise ID\t question ID}, kích thước: 129MB.
     \item \textbf{\texttt{problem.json}}:
     \begin{itemize}
         \item \textbf{Thuộc tính:} ID, exercise\_id, language, title, content, option, answer, score, type, typetext, location, context\_id.
@@ -336,15 +336,16 @@ content & Nội dung của dữ liệu, có thể là văn bản hoặc thông t
 
 \begin{table}[H]
 \centering
-\resizebox{\textwidth}{!}{%
+\resizebox{\textwidth}{!}
+{%
 \begin{tabular}{|l|p{7cm}|l|l|}
 \hline
 \textbf{Tên} & \textbf{Mô tả} & \textbf{Định dạng} & \textbf{Kích thước} \\ \hline
-\texttt{concept-other.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các tài liệu, tài nguyên ngoại khóa được thu thập từ các nguồn bên ngoài khóa học & \texttt{concept ID\tresource ID} & 1.2MB \\ \hline
-\texttt{concept-paper.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bài báo khoa học có liên quan & \texttt{concept ID\tpaper ID} & 613KB \\ \hline
-\texttt{concept-problem.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các câu hỏi hoặc bài tập liên quan & \texttt{concept ID\tquestion ID} & 8.7MB \\ \hline
-\texttt{concept-video.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các video liên quan & \texttt{concept ID\tccid} & 8.7MB \\ \hline
-\texttt{concept-comment.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bình luận của người dùng có liên quan & \texttt{concept ID\treview ID} & 62KB \\ \hline
+\texttt{concept-other.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các tài liệu, tài nguyên ngoại khóa được thu thập từ các nguồn bên ngoài khóa học & \texttt{concept ID\textbackslash tresource ID} & 1.2MB \\ \hline
+\texttt{concept-paper.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bài báo khoa học có liên quan & \texttt{concept ID\textbackslash tpaper ID} & 613KB \\ \hline
+\texttt{concept-problem.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các câu hỏi hoặc bài tập liên quan & \texttt{concept ID\textbackslash tquestion ID} & 8.7MB \\ \hline
+\texttt{concept-video.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các video liên quan & \texttt{concept ID\textbackslash tccid} & 8.7MB \\ \hline
+\texttt{concept-comment.txt} & Lưu trữ mối quan hệ giữa các khái niệm và các bình luận của người dùng có liên quan & \texttt{concept ID\textbackslash treview ID} & 62KB \\ \hline
 \end{tabular}%
 }
 \caption{Các mối quan hệ trong tập dữ liệu Concept}
@@ -820,7 +821,7 @@ Kết quả:
 Về độ đo đánh giá, chúng tôi sử dụng 2 độ đo đánh giá phổ biến: \textit{Recall} và \textit{NDCG}.
 
 \textbf{Recall:} \\
-textbf{Khái niệm:} Recall đo lường mức độ mà hệ thống khuyến nghị có thể đề xuất các khóa học liên quan đến người dùng trong tất cả các khóa học phù hợp mà họ quan tâm. \\
+\textbf{Khái niệm:} Recall đo lường mức độ mà hệ thống khuyến nghị có thể đề xuất các khóa học liên quan đến người dùng trong tất cả các khóa học phù hợp mà họ quan tâm. \\
 \textbf{Ý nghĩa:} Giá trị Recall cao nghĩa là hệ thống khuyến nghị không bỏ sót quá nhiều khóa học phù hợp với người dùng. Ví dụ, nếu hệ thống đề xuất được tất cả các khóa học mà người dùng có thể quan tâm, Recall sẽ đạt giá trị tối đa là 1 (100\%). \\
 
 \textbf{Công thức:}
