@@ -88,7 +88,7 @@ def get_recommendation(id: str):
         " 2> /dev/null | tail | awk '{ print $3 }'",
 
         shell=True,
-        text=True
+        universal_newlines=True
     )
     remapped_course = list(map(
         lambda id: remapped_to_course_id[int(id)],

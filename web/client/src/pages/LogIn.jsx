@@ -28,7 +28,7 @@ const LogIn = () => {
       console.log("Response: ", res);
       if (validUser) {
         setSuccess(true);
-        navigate("/home", { state: { user } });
+        navigate("/home", { state:  res.data  });
       }
       console.log("Success?: ", success);
     } catch (error) {

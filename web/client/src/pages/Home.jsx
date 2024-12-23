@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useInsertionEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // Components, pages
 import Sidebar from "../components/Sidebar";
 import Card from "../components/Card";
 import CourseTable from "../components/CourseTable";
+import axios from "../api/axios";
 import "./Home.css";
 
 // Sample data
-import recommend_data from "../sample/recommend.json";
-import courses_data from "../sample/courses.json";
+import recommend_data_sample from "../sample/recommend.json";
+// import courses_data from "../sample/courses.json";
 
 const Home = () => {
   const location = useLocation();
-  const { user } = location.state || { user: "Guest" }; // Default to "Guest" if no user is passed
+  const user = location.state || { id:"U_1", name: "Guest", course: [ "C_584339", "C_584340", "C_584341", "C_584342", "C_584343", "C_584344", "C_584345", "C_584346", "C_584347", "C_584348", "C_584349", "C_584350", "C_584351", "C_584352", "C_584353", "C_584354", "C_584355", "C_584356", "C_584357", "C_584358" ] }; // Default to "Guest" if no user is passed
   const [showAll, setShowAll] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [courses_data, setCoursesData] = useState([]);
+  const [recommend_data, setRecommendData] = useState([]);
+  const [detailedCourses, setDetailedCourses] = useState([]);
+  const [success, setSuccess] = useState(false);
+  console.log(user);
   const handleShowAll = () => {
     setShowAll(!showAll);
   };
@@ -26,24 +31,72 @@ const Home = () => {
   };
   
   const filteredCourses = courses_data.filter(course =>
-    course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.prerequisites.toLowerCase().includes(searchQuery.toLowerCase())
+    // course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // course.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    // course.prerequisites.toLowerCase().includes(searchQuery.toLowerCase())
+    course.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // request api
-  
+  useEffect(() => {
+  const fetchAllRecommend = async () => {
+    try {
+      const response = await axios.get("/rec/" + user.id);
+      console.log("Recommend data SUCCESSED!!!:", response.data);
+      setRecommendData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+    } catch (err) {
+      console.error("Error fetching all recommend:", err);
+    }
+  };
+  fetchAllRecommend();
+}, []);
+
+useEffect(() => {
+  const fetchCourseDetails = async () => {
+    const tempCourses = [];
+    for (const id of recommend_data) {
+      try {
+        const response = await axios.get(`/course/${id}`);
+        tempCourses.push(response.data);
+        console.log("Recommend data-details SUCCESSED!!!:", response.data);
+      } catch (err) {
+        console.error(`Error fetching course ${id}:`, err);
+      }
+    }
+    setDetailedCourses(tempCourses);
+  };
+
+  if (recommend_data.length > 0) {
+    fetchCourseDetails();
+  }
+}, [recommend_data]);
+
+useEffect(() => {
+  const fetchAllCourses = async () => {
+    try {
+      const response = await axios.get("/all_course");
+      console.log("Courses data SUCCESSED!!!:", response.data);
+      setCoursesData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+    } catch (err) {
+      console.error("Error fetching all courses:", err);
+    }
+  };
+  fetchAllCourses();
+}, []);
+
   return (
     <div className="wrapper flex flex-row h-screen">
       {/*---Sidebar---*/}
-      <Sidebar id={user}/>
+      <Sidebar users_data={user}/>
       {/*---Recommend---*/}
       <div className="wrapper-container w-full overflow-y-auto h-screen">
       <div className="recommend-container w-full overflow-y-auto h-auto mb-10">
         <h2 className="text-3xl text-left m-10">
-          Hello {user}, wanna try something spicy?
+          Hello {user.name}, wanna try something spicy?
         </h2>
-        <div className="recommend-course w-full">
+        { 
+        !success ? (<div>Waiting</div>) : ( 
+          <div className="recommend-course w-full">
           <div className="cards grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-3 xl:gap-y-10 px-10 justify-center items-center">
             {recommend_data
               .slice(0, showAll ? recommend_data.length : 4)
@@ -73,6 +126,7 @@ const Home = () => {
             {showAll ? "Show less" : "Show all"}
           </a>
         </div>
+        )}
       </div>
       {/*---All available Courses---*/}
       <div className="courses-container w-full overflow-y-auto h-auto p-10">
