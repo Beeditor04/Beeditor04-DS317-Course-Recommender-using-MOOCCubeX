@@ -2,11 +2,13 @@ import json
 from models.update_user_course import *
 
 from flask import Flask, g
+from flask_cors import CORS
 
 import psycopg2
 from psycopg2 import pool, extras
 
 app = Flask(__name__)
+CORS(app)
 
 pool = psycopg2.pool.SimpleConnectionPool(
     minconn=1,
@@ -89,14 +91,6 @@ def add_course(user_id, course_id):
 def all_course():
     with g.db_conn.cursor() as cursor:
         cursor.execute('SELECT id FROM course;')
-        courses = cursor.fetchall()
-
-    return json.dumps([c[0] for c in courses])
-
-@app.route("/all_course/<user_id>", methods=['GET'])
-def all_users_course(user_id):
-    with g.db_conn.cursor() as cursor:
-        cursor.execute('SELECT course_id FROM user_course WHERE user_id = %s;', (user_id,))
         courses = cursor.fetchall()
 
     return json.dumps([c[0] for c in courses])
