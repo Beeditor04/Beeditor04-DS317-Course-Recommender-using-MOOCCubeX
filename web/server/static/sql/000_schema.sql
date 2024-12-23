@@ -1,7 +1,6 @@
 CREATE TABLE users (
     id VARCHAR(64) PRIMARY KEY,
-    name VARCHAR(256),
-    course JSON
+    name VARCHAR(256)
 );
 
 CREATE TABLE course (
@@ -26,6 +25,14 @@ CREATE TABLE school (
 CREATE TABLE concept (
     id VARCHAR(64) PRIMARY KEY,
     name TEXT
+);
+
+CREATE TABLE user_course (
+    user_id VARCHAR(64),
+    course_id VARCHAR(64),
+    PRIMARY KEY (course_id, user_id),
+    FOREIGN KEY (course_id) REFERENCES course (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE course_teacher (

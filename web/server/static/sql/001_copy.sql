@@ -1,4 +1,4 @@
-COPY users (id, name, course)
+COPY users (id, name)
 FROM '/docker-entrypoint-initdb.d/user.csv'
 WITH (FORMAT csv);
 
@@ -16,6 +16,10 @@ WITH (FORMAT csv);
 
 COPY concept (id, name)
 FROM '/docker-entrypoint-initdb.d/concept.csv'
+WITH (FORMAT csv);
+
+COPY user_course (user_id, course_id)
+FROM '/docker-entrypoint-initdb.d/user-course.csv'
 WITH (FORMAT csv);
 
 COPY course_teacher (course_id, teacher_id)

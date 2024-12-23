@@ -1,11 +1,12 @@
 import json
+import subprocess
 
 from flask import Flask, g
 from flask_cors import CORS
-
-
 import psycopg2
 from psycopg2 import pool, extras
+
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -20,9 +21,17 @@ pool = psycopg2.pool.SimpleConnectionPool(
     port="5432"
 )
 
+user_id_to_remapped = pd.read_csv('static/map/user_list.txt', sep=' ') \
+    .set_index('org_id')['remap_id'].to_dict()
+remapped_to_course_id = pd.read_csv('static/map/item_list.txt', sep=' ') \
+    .set_index('remap_id')['org_id'].to_dict()
+
+
 @app.before_request
 def get_db_connection():
     g.db_conn = pool.getconn()
+    g.db_conn.autocommit = True
+
 
 @app.teardown_request
 def release_db_connection(exception=None):
@@ -35,6 +44,10 @@ def get_user(id: str):
     with g.db_conn.cursor(cursor_factory = extras.RealDictCursor) as cursor:
         cursor.execute('SELECT * FROM users WHERE id = %s;', (id, ))
         user = cursor.fetchone()
+
+    with g.db_conn.cursor() as cursor:
+        cursor.execute('SELECT course_id FROM user_course WHERE user_id = %s;', (id, ))
+        user['course'] = [c for course in cursor.fetchall() for c in course]
 
     return json.dumps(user)
 
@@ -49,14 +62,14 @@ def get_course(id: str):
                 school.name AS school_name
             FROM course
 
-            JOIN course_teacher
+            LEFT JOIN course_teacher
             ON course.id = course_teacher.course_id
-            JOIN teacher
+            LEFT JOIN teacher
             ON teacher.id = course_teacher.teacher_id
 
-            JOIN course_school
+            LEFT JOIN course_school
             ON course.id = course_school.course_id
-            JOIN school
+            LEFT JOIN school
             ON school.id = course_school.school_id
 
             WHERE course.id = %s;
@@ -68,24 +81,21 @@ def get_course(id: str):
 
 @app.route("/rec/<id>", methods=['GET'])
 def get_recommendation(id: str):
-    return '''[
-        "C_584313",
-        "C_584314",
-        "C_584315",
-        "C_584316",
-        "C_584317",
-        "C_584318",
-        "C_584319",
-        "C_584320",
-        "C_584321",
-        "C_584322"
-    ]'''
+    remapped = user_id_to_remapped[id]
+    output = subprocess.check_output(
+        "./src/models/run.sh " +
+        str(remapped) +
+        " 2> /dev/null | tail | awk '{ print $3 }'",
 
+        shell=True,
+        text=True
+    )
+    remapped_course = list(map(
+        lambda id: remapped_to_course_id[int(id)],
+        output.splitlines()
+    ))
 
-# @app.route("/add/<user_id>/<course_id>", methods=['POST'])
-# def add_course(user_id, course_id):
-#     update_course_for_user('../../../data/', user_id, course_id)
-
+    return json.dumps(remapped_course)
 
 @app.route("/all_course", methods=['GET'])
 def all_course():

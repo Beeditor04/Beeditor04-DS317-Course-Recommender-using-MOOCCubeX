@@ -4,7 +4,7 @@ python src/models/predict_kgat.py \
     --data_dir "../../data/" \
     --data_name "" \
     --use_pretrain 2 \
-    --pretrain_model_path "best_weight/model_epoch80.pth" \
+    --pretrain_model_path "src/models/best_weight/model_epoch80.pth" \
     --n_epoch 6 \
     --cf_batch_size 1024 \
     --kg_batch_size 2048 \
