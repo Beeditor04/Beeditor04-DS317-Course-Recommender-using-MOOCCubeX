@@ -870,7 +870,7 @@ Giá trị 0.92 cho thấy hệ thống xếp hạng gần như lý tưởng nh�
 
 
 \subsection{Kịch bản thực nghiệm}
-Nhóm sẽ chia bộ dữ liệu thành 2 phần train, test. Với test chứa khóa học gần nhất mà người dùng đang ký, val chứa khóa học kế cuối, train chứa các khóa học còn lại. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
+Nhóm sẽ chia bộ dữ liệu thành 4 loại Dataset, mỗi Dataset được chia theo phương pháp leave-one-out như đề cập ở trên. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
 \paragraph{Thông số chi tiết của các phương pháp}
 \subsubsection{Content-based filtering}
 \textbf{}\\
@@ -913,11 +913,6 @@ Nhóm sẽ chia bộ dữ liệu thành 2 phần train, test. Với test chứa 
     \item Số epoch = 1000
     \item Evaluate every 5 epochs Early stopping steps = 10 với Recall@10
 \end{itemize}
-Thực hiện 2 thí nghiệm: 
-\begin{itemize}
-    \item Sử dụng giới tính người dùng → Dừng tại epoch 130.
-    \item Không sử dụng giới tính người dùng → Dừng tại epoch 190.
-\end{itemize}
 \subsubsection{Neural Factorization Machine}
 \begin{itemize}
     \item Course embedding dimension = User embedding dimension = 64
@@ -929,11 +924,6 @@ Thực hiện 2 thí nghiệm:
     \item Số epoch = 1000
     \item Evaluate every 5 epochs
     \item Early stopping steps = 5 với Recall@10
-\end{itemize}
-Thực hiện 2 thí nghiệm: 
-\begin{itemize}
-    \item Sử dụng giới tính người dùng → Dừng tại epoch 90
-    \item Không sử dụng giới tính người dùng → Dừng tại epoch 60
 \end{itemize}
 \subsubsection{Knowledge Graph Attention Network (KGAT)}
 \begin{itemize}
@@ -954,11 +944,6 @@ Thực hiện 2 thí nghiệm:
     \item Số epoch = 1000
     \item Evaluate every 5 epochs Early stopping steps = 10 với Recall@10
 \end{itemize}
-Thực hiện 2 thí nghiệm: 
-\begin{itemize}
-    \item Train từ đầu: Trong lần thực nghiệm đầu tiên, do thời gian huấn luyện vượt quá mức cho phép của Kaggle nên chỉ lưu được epoch 98. Sau đó, nhóm chạy thực nghiệm tiếp với parameters đã có. Trong lần thực nghiệm này, early stopping tại epoch 55 . Như vậy, tổng số epoch là 153 epoch.
-    \item Train từ pretrained của MF: early stopping tại epoch 65
-\end{itemize}
 \subsection{Đánh giá kết quả thực nghiệm}
 \textbf{}\\
 \label{sec:ketqua}
@@ -966,4 +951,22 @@ Thực hiện 2 thí nghiệm:
     \centering
     \includegraphics[width=0.8\textwidth]{figures/71.png}
     \caption{Bảng kết quả thực nghiệm}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/recall.png}
+    \caption{Reall@K của 5 thực nghiệm}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/ndcg.png}
+    \caption{NDCG@K của 5 thực nghiệm}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/recall_epoch.png}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/ndcg_epoch.png}
 \end{figure}
