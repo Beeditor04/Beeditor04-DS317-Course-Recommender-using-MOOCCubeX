@@ -1,0 +1,19 @@
+2024-05-01 17:50:06,684 - root - INFO - Namespace(seed=2019, model_type='fm', data_name='data-mooc-for-test-final', data_dir='./', use_user_info=1, use_pretrain=0, pretrain_embedding_dir='datasets/pretrain/', pretrain_model_path='trained_model/model.pth', embed_dim=64, hidden_dim_list='[64, 32, 16]', mess_dropout='[0.1, 0.1, 0.1]', l2loss_lambda=1e-05, train_batch_size=1024, test_batch_size=1024, test_cores=0, lr=0.0001, n_epoch=1000, stopping_steps=5, print_every=50, evaluate_every=5, Ks='[1, 5, 10]', save_dir='cf_scores.np')
+2024-05-01 17:50:08,073 - root - INFO - n_users:              99969
+2024-05-01 17:50:08,073 - root - INFO - n_items:              2831
+2024-05-01 17:50:08,074 - root - INFO - n_entities:           10218
+2024-05-01 17:50:08,076 - root - INFO - n_user_attr:           99972
+2024-05-01 17:50:08,076 - root - INFO - n_users_entities:     110190
+2024-05-01 17:50:08,076 - root - INFO - n_cf_train:           1792212
+2024-05-01 17:50:08,077 - root - INFO - n_cf_test:            99969
+2024-05-01 17:50:08,077 - root - INFO - shape of user_matrix: (99969, 99972)
+2024-05-01 17:50:08,077 - root - INFO - shape of feat_matrix: (2831, 10218)
+2024-05-01 17:50:08,105 - root - INFO - NFM(
+  (linear): Linear(in_features=110190, out_features=1, bias=True)
+  (h): Linear(in_features=64, out_features=1, bias=False)
+)
+2024-05-01 17:50:08,982 - root - INFO - CF Training: Epoch 0001 Total Iter 1751 | Total Time 0.0s | Iter Mean Loss 0.0000
+2024-05-01 17:50:08,983 - root - INFO - CF Training: Epoch 0002 Total Iter 1751 | Total Time 0.0s | Iter Mean Loss 0.0000
+2024-05-01 17:50:08,983 - root - INFO - CF Training: Epoch 0003 Total Iter 1751 | Total Time 0.0s | Iter Mean Loss 0.0000
+2024-05-01 17:50:08,984 - root - INFO - CF Training: Epoch 0004 Total Iter 1751 | Total Time 0.0s | Iter Mean Loss 0.0000
+2024-05-01 17:50:08,984 - root - INFO - CF Training: Epoch 0005 Total Iter 1751 | Total Time 0.0s | Iter Mean Loss 0.0000

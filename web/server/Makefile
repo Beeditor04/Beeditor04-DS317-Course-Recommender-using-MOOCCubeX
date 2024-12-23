@@ -13,4 +13,4 @@ flask:
 	FLASK_APP=src/app.py flask run
 
 predict:
-	../../models/run.sh
+	./src/models/run.sh
