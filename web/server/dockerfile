@@ -1,0 +1,18 @@
+FROM ubuntu:latest AS builder
+RUN apt-get update && apt-get install -y unzip
+WORKDIR /app
+COPY static/csv/*.zip ./
+RUN unzip '*.zip' -d ./unzipped
+
+FROM postgres:16-bookworm
+
+ENV POSTGRES_USER docker
+ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB recommender
+
+EXPOSE 5432
+
+COPY --from=builder /app/unzipped/*.csv /docker-entrypoint-initdb.d/
+COPY static/sql/*.sql /docker-entrypoint-initdb.d/
+
+CMD [ "postgres" ]

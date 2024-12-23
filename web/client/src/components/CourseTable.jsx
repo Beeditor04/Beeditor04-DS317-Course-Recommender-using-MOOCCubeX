@@ -18,8 +18,8 @@ const CourseTable = ({courses_data}) => {
         <thead>
           <tr>
             <th className="text-purple-300">Id</th>
-            <th className="text-purple-300">Name</th>
-            <th className="text-purple-300">Prerequisites</th>
+            {/* <th className="text-purple-300">Name</th>
+            <th className="text-purple-300">Prerequisites</th> */}
             <th className="text-purple-300">Action</th>
           </tr>
         </thead>

@@ -1,0 +1,6 @@
+entities
+relations
+to_csv.ipynb
+src/__pycache__
+static/csv/*.csv
+.direnv/
