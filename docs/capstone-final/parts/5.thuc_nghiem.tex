@@ -380,8 +380,61 @@ Kết quả:
 \end{itemize}
 
 \subsection{Độ đo đánh giá}
+Để đánh giá performance của mô hình, nhóm sử dụng cách đánh giá \textit{leave-one-out}. Các mô hình được đánh giá theo chiến lược “randomly sampling negative item”, nghĩa là bắt cặp khóa học ground truth trong tập test với 100 khóa học mà người dùng chưa đăng ký được lấy mẫu ngẫu nhiên.
+
+Về độ đo đánh giá, chúng tôi sử dụng 2 độ đo đánh giá phổ biến: \textit{Recall} và \textit{NDCG}.
+
+\textbf{Recall:} \\
+textbf{Khái niệm:} Recall đo lường mức độ mà hệ thống khuyến nghị có thể đề xuất các khóa học liên quan đến người dùng trong tất cả các khóa học phù hợp mà họ quan tâm. \\
+\textbf{Ý nghĩa:} Giá trị Recall cao nghĩa là hệ thống khuyến nghị không bỏ sót quá nhiều khóa học phù hợp với người dùng. Ví dụ, nếu hệ thống đề xuất được tất cả các khóa học mà người dùng có thể quan tâm, Recall sẽ đạt giá trị tối đa là 1 (100\%). \\
+
+\textbf{Công thức:}
+\[
+\text{Recall@K} = \frac{\text{Số lượng khóa học phù hợp trong top K}}{\text{Tổng số khóa học phù hợp có trong hệ thống}}
+\]
+
+\textbf{Ví dụ:} Giả sử một người dùng có 20 khóa học trong hệ thống mà họ thực sự quan tâm, và hệ thống đề xuất 10 khóa học, trong đó có 5 khóa học phù hợp. Khi đó:
+\[
+\text{Recall@10} = \frac{5}{20} = 0.25
+\]
+Điều này có nghĩa là hệ thống đã thu hút được 25\% các khóa học liên quan cho người dùng trong số những gì họ có thể quan tâm. Tỷ lệ này càng cao, khả năng đáp ứng nhu cầu của hệ thống càng tốt.
+
+\textbf{NDCG (Normalized Discounted Cumulative Gain):} \\
+\textbf{Khái niệm:} NDCG đánh giá chất lượng của xếp hạng các khóa học được đề xuất, nhấn mạnh sự ưu tiên của các khóa học ở các vị trí đầu tiên trong danh sách. \\
+\textbf{Ý nghĩa:} Một xếp hạng lý tưởng (perfect ranking) là khi các khóa học phù hợp nhất nằm ở đầu danh sách. NDCG giúp đánh giá mức độ chính xác của hệ thống khi xếp hạng những khóa học này. Giá trị NDCG nằm trong khoảng từ 0 đến 1, với 1 là lý tưởng nhất, nghĩa là thứ tự của các khóa học được hệ thống xếp đúng như thứ tự mà người dùng mong muốn. \\
+
+\textbf{Công thức:}
+\[
+\text{NDCG@K} = \frac{\text{DCG@K}}{\text{IDCG@K}}
+\]
+\textbf{DCG@K (Discounted Cumulative Gain):} Đánh giá mức độ liên quan của các khóa học theo thứ tự xếp hạng nhưng giảm dần theo logarit của vị trí:
+\[
+\text{DCG@K} = \sum_{i=1}^{K} \frac{\text{rel}_i}{\log_2(i+1)}
+\]
+Trong đó $\text{rel}_i$ là độ liên quan (relevance score) của khóa học ở vị trí $i$. Giá trị $\text{rel}_i$ thường được cho là 1 nếu khóa học phù hợp, và 0 nếu không. \\
+
+\textbf{IDCG@K (Ideal DCG):} Là giá trị DCG trong trường hợp xếp hạng lý tưởng nhất, tức là khi các khóa học liên quan nhất được xếp lên đầu tiên.
+
+\textbf{Ví dụ:} Giả sử hệ thống đề xuất 3 khóa học và người dùng quan tâm nhiều nhất đến khóa học thứ nhất và thứ ba: \\
+Nếu thứ tự thực tế của hệ thống là [khóa học 1, khóa học 2, khóa học 3], DCG sẽ là:
+\[
+\text{DCG@3} = 1 + 0 + \frac{1}{\log_2(3+1)} = 1 + 0 + 0.5 = 1.5
+\]
+Nếu thứ tự lý tưởng là [khóa học 1, khóa học 3, khóa học 2], IDCG sẽ là:
+\[
+\text{IDCG@3} = 1 + \frac{1}{\log_2(2+1)} + 0 = 1 + 0.63 + 0 = 1.63
+\]
+Khi đó:
+\[
+\text{NDCG@3} = \frac{\text{DCG@3}}{\text{IDCG@3}} = \frac{1.5}{1.63} \approx 0.92
+\]
+Giá trị 0.92 cho thấy hệ thống xếp hạng gần như lý tưởng nhưng vẫn có một sai lệch nhỏ.
+
+
+
+
 \subsection{Kịch bản thực nghiệm}
-Nhóm sẽ chia bộ dữ liệu thành 3 phần train, val, test. Với test chứa khóa học gần nhất mà người dùng đang ký, val chứa khóa học kế cuối, train chứa các khóa học còn lại. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
+Nhóm sẽ chia bộ dữ liệu thành 2 phần train, test. Với test chứa khóa học gần nhất mà người dùng đang ký, val chứa khóa học kế cuối, train chứa các khóa học còn lại. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
 \subsubsection{Thông số chi tiết của các phương pháp}
 \paragraph{5.4.1.1  Content-based filtering}
 \textbf{}\\
@@ -408,5 +461,5 @@ Nhóm sẽ chia bộ dữ liệu thành 3 phần train, val, test. Với test ch
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/71.png}
-    \caption{Bảng kết quả thực nghiệmnghiệm}
+    \caption{Bảng kết quả thực nghiệm}
 \end{figure}
