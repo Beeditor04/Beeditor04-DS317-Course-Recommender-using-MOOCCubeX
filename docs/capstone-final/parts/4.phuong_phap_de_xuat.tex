@@ -1,42 +1,55 @@
 \section{Phương pháp đề xuất}
-\subsection{Mô hình}
-Sau khi chạy thực nghiệm và đánh giá các phương pháp gợi ý trên dữ liệu MOOCCubeX, nhóm đã chọn ra được phương pháp tốt nhất là mô hình KGAT (chi tiết kết quả trong Mục \ref{sec:ketqua}). Vì vậy, trong phần này, nhóm sẽ trình bày cách chuyển đổi từ input sang output của mô hình KGAT, còn phương pháp chuẩn bị dữ liệu sẽ được trình bày ở phần \ref{sec:chuanbidulieu}.
+\subsection{Kiến trúc dữ liệu lớn}
+\subsection{Ứng dụng web}
+\subsubsection{Công nghệ được sử dụng }
+\subsubsection{Flask}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/69.png}
-    \caption{Hình minh họa quy trình thực nghiệm bài toán với cách tiếp cận sử dụng mô hình KGAT.}
-    \label{fig:hinh4_1}
-\end{figure}
-
-Input của mô hình là collaborative knowledge graph chứa hai đồ thị thành phần như Hình \ref{}: user-item bipartite graph và knowledge graph. 
+Flask là một framework phát triển web nhẹ, đơn giản và dễ sử dụng trong Python.
+Được tạo ra bởi Armin Ronacher, Flask thuộc dạng "micro-framework", nghĩa là nó
+không đi kèm với quá nhiều tính năng mặc định, cho phép lập trình viên tự do lựa
+chọn và tích hợp các thành phần mà họ cần. Đặc điểm chính của Flask:
 \begin{itemize}
-    \item \textbf{User-item bipartite graph}: Biểu diễn mối quan hệ giữa người dùng và các khóa học đã đăng ký. 
-    \item \textbf{Knowledge graph}: Biểu diễn mối quan hệ giữa khóa học và các thuộc tính của nó. Với node xuất phát là khóa học, đồ thị này bao gồm 4 loại quan hệ chính:
-    \begin{itemize}
-        \item Khóa học có khái niệm (concept) nào.
-        \item Khóa học thuộc lĩnh vực (field) nào.
-        \item Khóa học được dạy bởi giáo viên (teacher) nào.
-        \item Khóa học được tổ chức bởi trường (school) nào.
-        \item Khóa học có phần mô tả tương đồng với (course) nào.
-    \end{itemize}
-    Tính cả chiều ngược lại, tổng cộng có 8 loại quan hệ giữa khóa học và các thuộc tính.
+    \item Nhẹ nhàng và dễ mở rộng: Flask chỉ cung cấp những tính năng cơ bản như
+        định tuyến URL, quản lý yêu cầu và phản hồi HTTP. Các tính năng nâng cao như cơ sở dữ liệu, xác thực hay quản lý phiên người dùng có thể được thêm qua các thư viện mở rộng.
+    \item Dễ học và sử dụng: Flask được thiết kế với cú pháp đơn giản, dễ đọc,
+        phù hợp cho cả người mới học lập trình web và các chuyên gia phát triển.
+    \item Không gò bó: Không giống như các framework lớn như Django, Flask không
+        ép buộc bạn phải tuân theo một kiến trúc cụ thể. Bạn có thể tự do tổ chức dự án theo cách riêng của mình.
 \end{itemize}
 
-Khi nhận được input, mô hình trả về một ma trận collaborative scores $cf\_scores \in \mathbb{R}^{n_{users} \times n_{courses}}$, với mỗi phần tử $cf\_scores_{i,j} \in \mathbb{R}$ ($i,j \in \mathbb{N}; 0 \leq i < n_{users}; 0 \leq j < n_{courses}$) cho biết mức độ phù hợp giữa user $i$ và khóa học $j$. Giá trị càng lớn thì user $i$ càng phù hợp với khóa học $j$.
+\subsubsection{PostgreSQL}
 
-Giai đoạn hậu xử lý (Hình \ref{}) thực hiện các bước sau:
+PostgreSQL (thường được gọi là Postgres) là một hệ quản trị cơ sở dữ liệu quan
+hệ mã nguồn mở mạnh mẽ và linh hoạt. Được phát triển từ năm 1986 tại Đại học
+California, Berkeley, Postgres đã trở thành một trong những hệ thống cơ sở dữ
+liệu phổ biến và được tin cậy nhất hiện nay. Đặc điểm nổi bật của PostgreSQL:
 \begin{itemize}
-    \item Gán giá trị âm vô cùng cho $cf\_scores[i,j]$ nếu user $i$ đã đăng ký khóa học $j$.
-    \item Thực hiện \texttt{argsort} giảm dần theo chiều axis=1 để loại bỏ các khóa học đã được đăng ký.
-    \item Lấy top-10 khóa học có điểm cao nhất ứng với mỗi user để làm output.
+    \item Hệ quản trị cơ sở dữ liệu quan hệ đối tượng (ORDBMS): PostgreSQL hỗ
+        trợ không chỉ dữ liệu quan hệ truyền thống mà còn có khả năng lưu trữ và xử lý dữ liệu dạng đối tượng, JSON, XML, và các loại dữ liệu không gian (spatial data).
+
+    \item Mã nguồn mở và miễn phí: PostgreSQL là một dự án mã nguồn mở, nghĩa
+        là bạn có thể sử dụng, chỉnh sửa và phân phối mà không mất phí. Nhiều công ty lớn sử dụng Postgres làm nền tảng cơ sở dữ liệu của họ.
+
+    \item Hiệu suất cao: PostgreSQL được tối ưu hóa để xử lý khối lượng lớn dữ
+        liệu và thực hiện các truy vấn phức tạp một cách hiệu quả.
+
+    \item Hỗ trợ đa nền tảng: PostgreSQL có thể chạy trên nhiều hệ điều hành
+        như Linux, Windows, macOS, và các hệ thống UNIX khác.
+
+    \item Cộng đồng lớn: PostgreSQL có một cộng đồng phát triển và người dùng
+        đông đảo, cung cấp tài liệu, hỗ trợ kỹ thuật và nhiều tiện ích mở rộng.
 \end{itemize}
 
-\begin{figure}[H]
+\subsubsection{Thiết kế cơ sở dữ liệu}
+
+Dữ liệu của MOOCCubeX được lưu trữ dưới các file json và txt, vì vậy nhóm cần
+phải chuyển các file này vào cơ sở dữ liệu của PostgreSQL. Trước hết, nhóm cần phải
+thiết kế một lược đồ cơ sở dữ liệu để lưu trữ các thông tin cần thiết cho việc demo:
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/70.png}
-    \caption{Hình minh họa giai đoạn hậu xử lý để lọc ra top-k khóa học được đề xuất.}
-    \label{fig:hinh4_2}
+    \includegraphics[width=0.8\textwidth]{figures/72.png}
+    \caption{Cơ sở dữ liệu}
 \end{figure}
 
-
+\subsubsection{Thiết kế giao diện}
