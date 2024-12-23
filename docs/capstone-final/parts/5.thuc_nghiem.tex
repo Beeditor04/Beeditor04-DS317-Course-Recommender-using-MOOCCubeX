@@ -435,8 +435,8 @@ Giá trị 0.92 cho thấy hệ thống xếp hạng gần như lý tưởng nh�
 
 \subsection{Kịch bản thực nghiệm}
 Nhóm sẽ chia bộ dữ liệu thành 2 phần train, test. Với test chứa khóa học gần nhất mà người dùng đang ký, val chứa khóa học kế cuối, train chứa các khóa học còn lại. Đây cũng chính là kich bản thực nghiệm theo thời gian trên kiến trúc dữ liệu lớn. Sau khi huấn luyện các mô hình, nhóm sẽ đánh giá trên tập test.
-\subsubsection{Thông số chi tiết của các phương pháp}
-\paragraph{5.4.1.1  Content-based filtering}
+\paragraph{Thông số chi tiết của các phương pháp}
+\subsubsection{Content-based filtering}
 \textbf{}\\
 \textbf{Feature 1:} 
 \begin{itemize}
@@ -456,7 +456,75 @@ Nhóm sẽ chia bộ dữ liệu thành 2 phần train, test. Với test chứa 
     \item Multi-hot encoding để chuyển thông tin thành vector
     \item Tính độ tương đồng giữa khóa học và người dùng bằng cosine
 \end{itemize}
+\subsubsection{Matrix factorization (MF)}
+\begin{itemize}
+    \item Course embedding dimension = User embedding dimension = 64
+    \item Lambda của l2 regularization = 10$^{-5}$
+    \item Train batch size =  1024
+    \item Test batch size = 10000
+    \item Optimizer: Adam
+    \item Learning rate = 0.0001
+    \item Số epoch = 300
+    \item Evaluate every 5 epochs Early stopping steps = 5 với Recall@10→ Thực nghiệm dừng tại epoch 140
+\end{itemize}
+\subsubsection{Factorization machine}
+\begin{itemize}
+    \item Course embedding dimension = User embedding dimension = 64
+    \item Lambda của l2 regularization = 10$^{-5}$
+    \item Train batch size = Test batch size = 1024
+    \item Optimizer: Adam
+    \item Learning rate = 0.0001
+    \item Số epoch = 1000
+    \item Evaluate every 5 epochs Early stopping steps = 10 với Recall@10
+\end{itemize}
+Thực hiện 2 thí nghiệm: 
+\begin{itemize}
+    \item Sử dụng giới tính người dùng → Dừng tại epoch 130.
+    \item Không sử dụng giới tính người dùng → Dừng tại epoch 190.
+\end{itemize}
+\subsubsection{Neural Factorization Machine}
+\begin{itemize}
+    \item Course embedding dimension = User embedding dimension = 64
+    \item Gồm 3 hidden layers nối tiếp nhau, mỗi hidden layer là một linear layer với activation là ReLU, được theo sau bởi 1 lớp dropout với dropout rate là 0.1.
+    \item Ba hidden layers có output dimension lần lượt là 64, 32, 16.
+    \item Lambda của l2 regularization = 10$^{-5}$
+    \item Train batch size = Test batch size = 1024
+    \item Optimizer: Adam Learning rate = 0.0001
+    \item Số epoch = 1000
+    \item Evaluate every 5 epochs
+    \item Early stopping steps = 5 với Recall@10
+\end{itemize}
+Thực hiện 2 thí nghiệm: 
+\begin{itemize}
+    \item Sử dụng giới tính người dùng → Dừng tại epoch 90
+    \item Không sử dụng giới tính người dùng → Dừng tại epoch 60
+\end{itemize}
+\subsubsection{Knowledge Graph Attention Network (KGAT)}
+\begin{itemize}
+    \item Course embedding dimension = User embedding dimension = Relation embedding dimension = 64
+    \item Train batch size:
+    \begin{itemize}
+        \item Collaborative batch size = 1024
+        \item Knowledge graph batch size = 2048
+    \end{itemize}
+    \item Test batch size = 256
+    \item Laplacian type: random walk
+    \item Aggregation type: bi-interaction
+    \item Độ sâu là 3 với hidden dimension là 64, 32, 16.
+    \item Lambda của knowledge graph’s l2 regularization = 10$^{-5}$
+    \item Lambda của collaborative’s l2 regularization = 10$^{-5}$
+    \item Optimizer: Adam
+    \item Learning rate = 0.0001
+    \item Số epoch = 1000
+    \item Evaluate every 5 epochs Early stopping steps = 10 với Recall@10
+\end{itemize}
+Thực hiện 2 thí nghiệm: 
+\begin{itemize}
+    \item Train từ đầu: Trong lần thực nghiệm đầu tiên, do thời gian huấn luyện vượt quá mức cho phép của Kaggle nên chỉ lưu được epoch 98. Sau đó, nhóm chạy thực nghiệm tiếp với parameters đã có. Trong lần thực nghiệm này, early stopping tại epoch 55 . Như vậy, tổng số epoch là 153 epoch.
+    \item Train từ pretrained của MF: early stopping tại epoch 65
+\end{itemize}
 \subsection{Đánh giá kết quả thực nghiệm}
+\textbf{}\\
 \label{sec:ketqua}
 \begin{figure}[h]
     \centering
