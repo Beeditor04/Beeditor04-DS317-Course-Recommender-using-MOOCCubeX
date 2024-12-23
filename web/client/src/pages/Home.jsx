@@ -69,6 +69,7 @@ useEffect(() => {
           tempCourses.push(response.data);
         }
         console.log("Recommend data-details SUCCESSED!!!:", response.data);
+        setSuccess(true);
       } catch (err) {
         console.error(`Error fetching course ${id}:`, err);
       }
@@ -87,7 +88,6 @@ useEffect(() => {
       const response = await axios.get("/all_course");
       console.log("Courses data SUCCESSED!!!:", response.data);
       setCoursesData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
-      setSuccess(true);
     } catch (err) {
       console.error("Error fetching all courses:", err);
     }
@@ -128,6 +128,7 @@ useEffect(() => {
                     <p className="text-center">{recommend.name}</p>
                   </Card>
                 </Link>
+              
               ))}
           </div>
           <a
