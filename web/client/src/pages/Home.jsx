@@ -18,8 +18,8 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [courses_data, setCoursesData] = useState([]);
   const [recommend_data, setRecommendData] = useState([]);
-  const [detailedCourses, setDetailedCourses] = useState([]);
-  const [success, setSuccess] = useState(false);
+  const [detailedCourses, setDetailedCourses] = useState(recommend_data_sample);
+  const [success, setSuccess] = useState(true);
 
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const user = location.state || storedUser || { id: "U_1", name: "Guest", course: [] };
@@ -45,42 +45,42 @@ const Home = () => {
     course.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // request api
-  useEffect(() => {
-  const fetchAllRecommend = async () => {
-    try {
-      const response = await axios.get("/rec/" + user.id);
-      console.log("Recommend data SUCCESSED!!!:", response.data);
-      setRecommendData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
-    } catch (err) {
-      console.error("Error fetching all recommend:", err);
-    }
-  };
-  fetchAllRecommend();
-}, []);
+//   // request api
+//   useEffect(() => {
+//   const fetchAllRecommend = async () => {
+//     try {
+//       const response = await axios.get("/rec/" + user.id);
+//       console.log("Recommend data SUCCESSED!!!:", response.data);
+//       setRecommendData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+//     } catch (err) {
+//       console.error("Error fetching all recommend:", err);
+//     }
+//   };
+//   fetchAllRecommend();
+// }, []);
 
-useEffect(() => {
-  const fetchCourseDetails = async () => {
-    const tempCourses = [];
-    for (const id of recommend_data) {
-      try {
-        const response = await axios.get(`/course/${id}`);
-        if (response.data) {
-          tempCourses.push(response.data);
-        }
-        console.log("Recommend data-details SUCCESSED!!!:", response.data);
-        setSuccess(true);
-      } catch (err) {
-        console.error(`Error fetching course ${id}:`, err);
-      }
-    }
-    setDetailedCourses(tempCourses);
-  };
+// useEffect(() => {
+//   const fetchCourseDetails = async () => {
+//     const tempCourses = [];
+//     for (const id of recommend_data) {
+//       try {
+//         const response = await axios.get(`/course/${id}`);
+//         if (response.data) {
+//           tempCourses.push(response.data);
+//         }
+//         console.log("Recommend data-details SUCCESSED!!!:", response.data);
+//         setSuccess(true);
+//       } catch (err) {
+//         console.error(`Error fetching course ${id}:`, err);
+//       }
+//     }
+//     setDetailedCourses(tempCourses);
+//   };
 
-  if (recommend_data.length > 0) {
-    fetchCourseDetails();
-  }
-}, [recommend_data]);
+//   if (recommend_data.length > 0) {
+//     fetchCourseDetails();
+//   }
+// }, [recommend_data]);
 
 useEffect(() => {
   const fetchAllCourses = async () => {
@@ -103,7 +103,7 @@ useEffect(() => {
       <div className="wrapper-container w-full overflow-y-auto h-screen">
       <div className="recommend-container w-full overflow-y-auto h-auto mb-10">
         <h2 className="text-3xl text-left m-10">
-          Hello {user.name}, wanna try something spicy?
+          Hello {user.name}, wanna try something new?
         </h2>
         { 
         !success ? (<div>Waiting</div>) : ( 
