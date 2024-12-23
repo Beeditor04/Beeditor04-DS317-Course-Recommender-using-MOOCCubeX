@@ -79,6 +79,24 @@ def get_recommendation(id: str):
         "C_584322"
     ]'''
 
+
 @app.route("/add/<user_id>/<course_id>", methods=['POST'])
 def add_course(user_id, course_id):
     update_course_for_user('../../../data/', user_id, course_id)
+
+
+@app.route("/all_course", methods=['GET'])
+def all_course():
+    with g.db_conn.cursor() as cursor:
+        cursor.execute('SELECT id FROM course;')
+        courses = cursor.fetchall()
+
+    return json.dumps([c[0] for c in courses])
+
+@app.route("/all_course/<user_id>", methods=['GET'])
+def all_users_course(user_id):
+    with g.db_conn.cursor() as cursor:
+        cursor.execute('SELECT course_id FROM user_course WHERE user_id = %s;', (user_id,))
+        courses = cursor.fetchall()
+
+    return json.dumps([c[0] for c in courses])

@@ -3,5 +3,5 @@ relations
 to_csv.ipynb
 src/models
 src/__pycache__
-# static/csv
+static/csv/*.csv
 .direnv/
