@@ -970,3 +970,20 @@ Nhóm sẽ chia bộ dữ liệu thành 4 loại Dataset, mỗi Dataset được
     \centering
     \includegraphics[width=1\linewidth]{figures/ndcg_epoch.png}
 \end{figure}
+\newpage
+Dựa trên các kết quả đã biểu diễn, ta có thể nhận xét về ảnh hưởng của chất lượng dữ liệu đến hiệu quả của các model như sau:\\
+\textbf{Sự cải thiện từ 10\% Raw sang 10\% Data:}
+\begin{itemize}
+    \item Với tất cả các model, việc sử dụng dữ liệu đã được xử lý (10\% Data) thay vì dữ liệu thô (10\% Raw) đều dẫn đến sự cải thiện đáng kể cả về Recall@10 và NDCG@10.
+    \item Các model phức tạp như KGAT và NFM có mức tăng lớn hơn, do chúng có khả năng tận dụng tốt hơn các đặc trưng ẩn trong dữ liệu đã được xử lý. Điều này cho thấy rằng dữ liệu thô không đủ thông tin để các model này phát huy hiệu quả.
+\end{itemize}
+\textbf{Sự cải thiện từ 10\% Data lên 100\% Data:}
+\begin{itemize}
+    \item Khi tăng dung lượng và chất lượng dữ liệu từ 10\% lên 100\%, các model đều cho thấy sự cải thiện tiếp theo, nhưng mức tăng không đồng đều.
+    \item Đặc biệt, các model như MF và KGAT đạt được hiệu quả tối ưu hơn nhờ khả năng xử lý lượng lớn dữ liệu và khai thác các mối quan hệ sâu sắc. Trong khi đó, các model đơn giản hơn như CBF có sự cải thiện ít hơn, do hạn chế về khả năng học đặc trưng phức tạp.
+\end{itemize}
+\textbf{Tương quan giữa chất lượng dữ liệu và phức tạp của model:}
+\begin{itemize}
+    \item Các model phức tạp hơn (như KGAT, NFM) phụ thuộc nhiều vào chất lượng dữ liệu. Khi dữ liệu được làm sạch và tăng dung lượng, hiệu quả của chúng cải thiện vượt trội hơn so với các model đơn giản (CBF).
+    \item Điều này cho thấy rằng dữ liệu chất lượng cao không chỉ cải thiện hiệu quả tổng thể mà còn giúp khai thác tối đa tiềm năng của các model tiên tiến.
+\end{itemize}
