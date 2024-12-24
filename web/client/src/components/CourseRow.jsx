@@ -32,7 +32,7 @@ const CourseRow = ({ course, onAdd, onDelete, type, isRegistered }) => {
         {!isRegistered ? (
           <button className="status-yes mr-1 mb-1" onClick={() => onAdd(course.id)}>Add</button>
         ) : (
-          <button className="status-no" onClick={() => onDelete(course.id)}>Delete</button>
+          <></>
         )}
       </td>
     </tr>
