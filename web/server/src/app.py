@@ -8,6 +8,8 @@ from psycopg2 import pool, extras
 
 import pandas as pd
 
+from models.update_user_course import update_course_for_user
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
@@ -22,6 +24,8 @@ pool = psycopg2.pool.SimpleConnectionPool(
 )
 
 user_id_to_remapped = pd.read_csv('static/map/user_list.txt', sep=' ') \
+    .set_index('org_id')['remap_id'].to_dict()
+course_id_to_remapped = pd.read_csv('static/map/user_list.txt', sep=' ') \
     .set_index('org_id')['remap_id'].to_dict()
 remapped_to_course_id = pd.read_csv('static/map/item_list.txt', sep=' ') \
     .set_index('remap_id')['org_id'].to_dict()
@@ -96,6 +100,22 @@ def get_recommendation(id: str):
     ))
 
     return json.dumps(remapped_course)
+
+@app.route("/add/<user_id>/<course_id>", methods=['GET'])
+def add_course(user_id, course_id):
+    with g.db_conn.cursor() as cursor:
+        cursor.execute(
+            'INSERT INTO user_course (user_id, course_id) VALUES (%s, %s)',
+            (user_id, course_id)
+        )
+    update_course_for_user(
+        '../../data/test/train.txt',
+        user_id_to_remapped[user_id],
+        course_id_to_remapped[course_id],
+    )
+
+    return ""@app.route("/all_course", methods=['GET'])
+
 
 @app.route("/all_course", methods=['GET'])
 def all_course():
