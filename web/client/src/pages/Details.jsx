@@ -3,9 +3,9 @@ import { useLocation, useParams, Link } from "react-router-dom";
 import axios from "../api/axios";
 
 const Details = () => {
-  const location = useLocation();
+  const { id_course } = useParams();
   const [course, setCourse] = useState({
-    id: "C_1017355",
+    id_course: "C_1017355",
     name: "Not Found",
     prerequisites: "Prerequisites",
     field: ["Field1", "Field2"],
@@ -16,18 +16,16 @@ const Details = () => {
   }
   );
 
-  console.log("Detail location:", location.state);
-  const id = location.state.course || "U_3179";
   useEffect(() => {
     const fetchAllCourses = async () => {
       try {
-        const response = await axios.get(`/course/${id}`, {
+        const response = await axios.get(`/course/${id_course}`, {
           headers: {"Access-Control-Allow-Origin": "*"}
         });
-        console.log("useEffect called with id:", id);
+        console.log("useEffect called with id_course:", id_course);
         console.log("Courses data SUCCESSED!!!:", response.data);
         if (response.data.length === 0) {
-          console.log("No course found with id:", id);
+          console.log("No course found with id_course:", id_course);
           return;
         }
         setCourse(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
@@ -41,7 +39,7 @@ const Details = () => {
   console.log(course);
   return (
     <>
-    <h1 className="text-4xl text-center m-10">{course.id}: {course.name}</h1>
+    <h1 className="text-4xl text-center m-10">{id_course}: {course.name}</h1>
     <div className="details-container flex flex-col items-center justify-center w-2/3 mx-auto gap-5">
     <div className="card container mx-auto p-5">
       <p className="flex flex-row gap-1"><t className="text-purple-300 font-bold">Field:</t> {course.field.map((f) => (
@@ -56,7 +54,7 @@ const Details = () => {
       ))}
       </p>
     </div>
-    <Link class="btn-secondary px-3 py-2" to="/home">
+    <Link class="btn-secondary px-3 py-2" to="/home" >
         Back to Home
       </Link>
     </div>

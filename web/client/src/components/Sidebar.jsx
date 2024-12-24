@@ -46,7 +46,7 @@ const Sidebar = ({ users_data }) => {
               <li><b className="text-purple-300">Id:</b> {users_data.id}</li>
               <li className="flex list-disc flex-row gap-2 flex-wrap max-w-full"><b className="text-purple-300">Registerd:</b> 
               {users_data.course.map((c) => (
-                <Link to={`/details/${c}`} state={ {course: c} }><p className="status-yes">{c}</p></Link>
+                <Link to={`/details/${c}`} state={ {course: c} } ><p className="status-yes">{c}</p></Link>
               ))}
               </li>
             </ul>

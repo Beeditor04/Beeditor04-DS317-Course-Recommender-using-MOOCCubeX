@@ -1,9 +1,7 @@
 pandas
 flask
 torch
-psycopg2
 ipykernel
 tqdm
 scikit-learn
 flask-cors
-psycopg2-binary

@@ -20,7 +20,7 @@ def evaluate_for_user(model, user_id, dataloader, device, top_k=10):
     """
     Evaluate the model for a single user and return the top_k predictions.
     """
-    model.eval()
+    # model.eval()
 
     # Convert user_id and item_ids to tensors
     user_tensor = torch.LongTensor([user_id]).to(device)
@@ -58,6 +58,7 @@ def predict_for_user(args, user_id):
 
     # Load model
     model = KGAT(args, data.n_users, data.n_entities, data.n_relations)
+    print("Im here!", args.pretrain_model_path)
     model = load_model(model, args.pretrain_model_path)
     model.to(device)
 

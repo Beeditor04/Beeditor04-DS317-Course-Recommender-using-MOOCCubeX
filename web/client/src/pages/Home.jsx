@@ -14,18 +14,29 @@ import recommend_data_sample from "../sample/recommend.json";
 
 const Home = () => {
   const location = useLocation();
-  const [showAll, setShowAll] = useState(false);
+  const [showAllRec, setShowAllRec] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [courses_data, setCoursesData] = useState([]);
   const [recommend_data, setRecommendData] = useState([]);
   const [detailedCourses, setDetailedCourses] = useState(recommend_data_sample);
+
+  const [courses_data, setCoursesData] = useState([]);
+  const [courses_data_full, setCoursesDataFull] = useState([]);
   const [success, setSuccess] = useState(true);
+ 
+  const num_of_rows = 10;
+  const [showMore, setShowMore] = useState(num_of_rows);
+  
+  const handleShowMore = () => {
+    setShowMore(showMore + 20);
+  };
+  const handleShowLess = () => {
+    setShowMore(showMore - 20);
+  }
 
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const user = location.state || storedUser || { id: "U_1", name: "Guest", course: [] };
-  console.log(user);
-  const handleShowAll = () => {
-    setShowAll(!showAll);
+  const handleShowAllRec = () => {
+    setShowAllRec(!showAllRec);
   };
 
   useEffect(() => {
@@ -38,55 +49,59 @@ const Home = () => {
     setSearchQuery(event.target.value);
   };
   
-  const filteredCourses = courses_data.filter(course =>
-    // course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // course.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    // course.prerequisites.toLowerCase().includes(searchQuery.toLowerCase())
-    course.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCourses = courses_data_full.filter((course) => {
+    const name = course.name || "";
+    const id = course.id || "";
+    const prerequisites = course.prerequisites || "";
+    const query = searchQuery.toLowerCase();
+    return (
+      name.toLowerCase().includes(query) ||
+      id.toLowerCase().includes(query) ||
+      prerequisites.toLowerCase().includes(query)
+    );
+  });
+  // request api
+  useEffect(() => {
+  const fetchAllRecommend = async () => {
+    try {
+      const response = await axios.get("/rec/" + user.id);
+      console.log("Recommend data SUCCESSED!!!:", response.data);
+      setRecommendData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+    } catch (err) {
+      console.error("Error fetching all recommend:", err);
+    }
+  };
+  fetchAllRecommend();
+}, [user.id]);
 
-//   // request api
-//   useEffect(() => {
-//   const fetchAllRecommend = async () => {
-//     try {
-//       const response = await axios.get("/rec/" + user.id);
-//       console.log("Recommend data SUCCESSED!!!:", response.data);
-//       setRecommendData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
-//     } catch (err) {
-//       console.error("Error fetching all recommend:", err);
-//     }
-//   };
-//   fetchAllRecommend();
-// }, []);
+useEffect(() => {
+  const fetchCourseDetails = async () => {
+    const tempCourses = [];
+    for (const id of recommend_data) {
+      try {
+        const response = await axios.get(`/course/${id}`);
+        if (response.data) {
+          tempCourses.push(response.data);
+        }
+        console.log("Recommend data-details SUCCESSED!!!:", response.data);
+        setSuccess(true);
+      } catch (err) {
+        console.error(`Error fetching course ${id}:`, err);
+      }
+    }
+    setDetailedCourses(tempCourses);
+  };
 
-// useEffect(() => {
-//   const fetchCourseDetails = async () => {
-//     const tempCourses = [];
-//     for (const id of recommend_data) {
-//       try {
-//         const response = await axios.get(`/course/${id}`);
-//         if (response.data) {
-//           tempCourses.push(response.data);
-//         }
-//         console.log("Recommend data-details SUCCESSED!!!:", response.data);
-//         setSuccess(true);
-//       } catch (err) {
-//         console.error(`Error fetching course ${id}:`, err);
-//       }
-//     }
-//     setDetailedCourses(tempCourses);
-//   };
+  if (recommend_data.length > 0) {
+    fetchCourseDetails();
+  }
+}, [recommend_data]);
 
-//   if (recommend_data.length > 0) {
-//     fetchCourseDetails();
-//   }
-// }, [recommend_data]);
-
+// list of courses
 useEffect(() => {
   const fetchAllCourses = async () => {
     try {
       const response = await axios.get("/all_course");
-      console.log("Courses data SUCCESSED!!!:", response.data);
       setCoursesData(response.data); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
     } catch (err) {
       console.error("Error fetching all courses:", err);
@@ -94,6 +109,23 @@ useEffect(() => {
   };
   fetchAllCourses();
 }, []);
+
+useEffect(() => {
+  const fetchAllCoursesFull = async () => {
+    const tempCourses = [];
+    try {
+      for (const id of courses_data.slice(0, showMore)) {
+        const response = await axios.get(`/course/${id}`);
+        tempCourses.push(response.data);
+        console.log("Courses data SUCCESSED!!!:", response.data);
+      }
+      setCoursesDataFull(tempCourses); // e.g., ["C_1017355", "C_1017419", "C_1025064"]
+    } catch (err) {
+      console.error("Error fetching all courses:", err);
+    }
+  };
+  fetchAllCoursesFull();
+}, [courses_data, showMore]);
 
   return (
     <div className="wrapper flex flex-row h-screen">
@@ -110,13 +142,14 @@ useEffect(() => {
           <div className="recommend-course w-full">
           <div className="cards grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-3 xl:gap-y-10 px-10 justify-center items-center">
             {detailedCourses
-              .slice(0, showAll ? detailedCourses.length : 4)
+              .slice(0, showAllRec ? detailedCourses.length : 4)
               .map((recommend) => (
-                <Link
-                  to={{ pathname: `/details/${recommend.id}` }}
+                <Link 
+                  to={`/details/${recommend.id}`} 
                   state={{ course: recommend }}
                   key={recommend.id}
                   className="w-full h-28 xl:h-40"
+                  
                 >
                   <Card
                     radius={"20rem"}
@@ -132,10 +165,10 @@ useEffect(() => {
               ))}
           </div>
           <a
-            onClick={handleShowAll}
+            onClick={handleShowAllRec}
             className="btn-text text-right w-full block pr-10"
           >
-            {showAll ? "Show less" : "Show all"}
+            {showAllRec ? "Show less" : "Show all"}
           </a>
         </div>
         )}
@@ -156,8 +189,24 @@ useEffect(() => {
             </div>
           </div>
           
-          <CourseTable courses_data={filteredCourses} />
+          <CourseTable courses_data={filteredCourses} length={showMore} user_course={user.course} user_id={user.id}/>
         </div>
+        <div className="show-more flex flex-row justify-end">
+        {showMore > num_of_rows && (
+          <a
+            onClick={handleShowLess}
+            className="btn-text text-right block pr-10"
+          >
+            Show Less
+          </a>
+        )}
+        <a
+            onClick={handleShowMore}
+            className="btn-text text-right block pr-10"
+          >
+            Show more
+          </a>
+      </div>
       </div>
       </div>
 
