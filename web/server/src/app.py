@@ -25,7 +25,7 @@ pool = psycopg2.pool.SimpleConnectionPool(
 
 user_id_to_remapped = pd.read_csv('static/map/user_list.txt', sep=' ') \
     .set_index('org_id')['remap_id'].to_dict()
-course_id_to_remapped = pd.read_csv('static/map/user_list.txt', sep=' ') \
+course_id_to_remapped = pd.read_csv('static/map/item_list.txt', sep=' ') \
     .set_index('org_id')['remap_id'].to_dict()
 remapped_to_course_id = pd.read_csv('static/map/item_list.txt', sep=' ') \
     .set_index('remap_id')['org_id'].to_dict()
@@ -101,7 +101,7 @@ def get_recommendation(id: str):
 
     return json.dumps(remapped_course)
 
-@app.route("/add/<user_id>/<course_id>", methods=['GET'])
+@app.route("/add/<user_id>/<course_id>", methods=['POST'])
 def add_course(user_id, course_id):
     with g.db_conn.cursor() as cursor:
         cursor.execute(
