@@ -12,6 +12,7 @@ const CourseTable = ({courses_data, length, user_course, user_id}) => {
           try {
             const response = await axios.post("/add/" + user_id + "/" + id);
             console.log(`Course ${id} added for user ${user_id}`);
+            window.location.reload();
           } catch (err) {
             console.error("Error adding course:", err);
           }

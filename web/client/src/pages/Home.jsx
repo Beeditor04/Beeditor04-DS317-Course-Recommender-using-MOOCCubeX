@@ -19,6 +19,7 @@ const Home = () => {
   const [recommend_data, setRecommendData] = useState([]);
   const [detailedCourses, setDetailedCourses] = useState(recommend_data_sample);
 
+  const [user, setUser] = useState({ id: "U_24", name: "Guest", course: [] });
   const [courses_data, setCoursesData] = useState([]);
   const [courses_data_full, setCoursesDataFull] = useState([]);
   const [success, setSuccess] = useState(true);
@@ -34,16 +35,23 @@ const Home = () => {
   }
 
   const storedUser = JSON.parse(localStorage.getItem('user'));
-  const user = location.state || storedUser || { id: "U_1", name: "Guest", course: [] };
   const handleShowAllRec = () => {
     setShowAllRec(!showAllRec);
   };
 
+  // update user info
   useEffect(() => {
-    if (location.state) {
-      localStorage.setItem('user', JSON.stringify(location.state));
+    const requestUser = async () => {
+      try {
+        const response = await axios.get(`/user/${storedUser.id || location.state.id}`);
+        setUser(response.data);
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
     }
-  }, [location.state]);
+    requestUser();
+  }, []);
+
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);

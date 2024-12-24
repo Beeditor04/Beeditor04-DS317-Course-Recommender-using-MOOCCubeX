@@ -28,6 +28,7 @@ const LogIn = () => {
       console.log("Response: ", res);
       if (validUser) {
         setSuccess(true);
+        localStorage.setItem('user', JSON.stringify(res.data));
         navigate("/home", { state:  res.data  });
       }
       console.log("Success?: ", success);
