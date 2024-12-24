@@ -29,7 +29,7 @@ RUN npm run build
 
 # RUN npm install -g vite
 
-EXPOSE 5173
+EXPOSE 8000
 
 # Define the command to run the app
 CMD ["npm", "run", "preview"]
