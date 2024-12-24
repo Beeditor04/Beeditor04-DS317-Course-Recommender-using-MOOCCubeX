@@ -1,6 +1,6 @@
 fe:
 	docker build -t frontend-ds317:latest ../client/
-	docker run -p 5173:5173 frontend-ds317:latest
+	docker run -p 8000:8000 frontend-ds317:latest
 
 db:
 	docker build -t database-ds317:latest .
