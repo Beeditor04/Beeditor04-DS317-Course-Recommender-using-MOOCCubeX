@@ -1,14 +1,14 @@
 # Course Recommender using MOOCCubeX dataset (report)
-> this repo 
+> this repos contains code to build a recommendation system on [MOOCCubeX](https://github.com/THU-KEG/MOOCCubeX) dataset
 
 ## Team Members
 | Name                | Roles  |
 |---------------------|--------|
 | Nguyễn Hữu Nam      | Leader |
-| Vo Dinh Khanh    | Member |
-| Nguyen Khanh  | Member |
-| Nguyen Minh Son | Member |
-| Bui Hong Son | Member |
+| Võ Đình Khánh    | Member |
+| Nguyễn Khánh  | Member |
+| Nguyễn Minh Sơn | Member |
+| Bùi Hồng Sơn | Member |
 
 ## Demo
 <div align="center">
